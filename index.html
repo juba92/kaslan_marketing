@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>كسلان — تنزيل وتحليل فواتير المنظومة الضريبية المصرية</title>
+<meta name="description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك الإلكترونية من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF، JSON، Excel) وتحلّلها في لوحة «كسلان premium» — بدون خادم وبدون حساب جديد.">
+<link rel="icon" href="icons/icon128.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Cairo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#eef1f6;
+  --panel:#ffffff;
+  --panel-2:#f7f8fb;
+  --ink:#142032;
+  --muted:#5b6474;
+  --line:#d7dce4;
+  --accent:#a63d2f;
+  --accent-dark:#7e2c21;
+  --accent-ink:#fff8f2;
+  --accent-soft:#f4e3de;
+  --navy:#0d1830;
+  --navy-2:#16233f;
+  --good:#1a7f37;
+  --warn:#b54708;
+  --err:#b42318;
+  --shadow: 0 1px 2px rgba(20,32,50,.06), 0 10px 30px -12px rgba(20,32,50,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f1420;
+    --panel:#171e2c;
+    --panel-2:#1c2436;
+    --ink:#e9ecf3;
+    --muted:#93a0b4;
+    --line:#2a3345;
+    --accent:#e2795f;
+    --accent-dark:#f19a83;
+    --accent-ink:#1a0e0b;
+    --accent-soft:#3a231b;
+    --navy:#0a1120;
+    --navy-2:#0f1a30;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 20px 40px -16px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f1420;
+  --panel:#171e2c;
+  --panel-2:#1c2436;
+  --ink:#e9ecf3;
+  --muted:#93a0b4;
+  --line:#2a3345;
+  --accent:#e2795f;
+  --accent-dark:#f19a83;
+  --accent-ink:#1a0e0b;
+  --accent-soft:#3a231b;
+  --navy:#0a1120;
+  --navy-2:#0f1a30;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 20px 40px -16px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box}
+html{direction:rtl}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Cairo","Segoe UI Arabic",Tahoma,Arial,sans-serif;
+  font-size:17px;
+  line-height:1.7;
+  text-align:right;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:"El Messiri","Cairo",sans-serif;
+  font-weight:700;
+  margin:0;
+  text-wrap:balance;
+  color:var(--ink);
+}
+p{margin:0}
+a{color:inherit}
+.ltr-num{direction:ltr;unicode-bidi:plaintext;font-variant-numeric:tabular-nums}
+.mono{font-family:"JetBrains Mono",Consolas,monospace}
+img,svg{max-width:100%}
+.icon{width:22px;height:22px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:clamp(56px,8vw,108px) 0}
+
+.site-header{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.site-header .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:10px;font-family:"El Messiri";font-weight:700;font-size:22px}
+.brand .mark{width:34px;height:34px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:14px;font-weight:700;transform:rotate(-8deg)}
+.nav-links{display:flex;gap:26px;font-size:15px;color:var(--muted)}
+.nav-links a:hover{color:var(--ink)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);color:var(--accent-ink);
+  border:1px solid var(--accent);
+  padding:10px 20px;border-radius:8px;
+  font-weight:700;font-size:15px;cursor:pointer;
+  text-decoration:none;white-space:nowrap;
+}
+.btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn.sm{padding:7px 14px;font-size:13px}
+@media (max-width:760px){.nav-links{display:none}}
+
+.hero{padding:clamp(48px,8vw,88px) 0 clamp(40px,6vw,64px)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;font-size:13.5px;letter-spacing:.03em;background:var(--accent-soft);padding:6px 12px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:clamp(2.1rem,1.5rem+2.6vw,3.4rem);line-height:1.22}
+.hero h1 span{color:var(--accent)}
+.hero .lede{margin-top:20px;font-size:clamp(1.05rem,1rem+.3vw,1.2rem);color:var(--muted);max-width:52ch}
+.hero .ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.hero .trust{margin-top:22px;display:flex;gap:10px;align-items:center;color:var(--muted);font-size:14px}
+.hero .trust .icon{color:var(--good)}
+
+.stamp-wrap{display:flex;justify-content:center}
+.stamp{
+  width:min(300px,80vw);aspect-ratio:1;border-radius:50%;
+  position:relative;transform:rotate(-7deg);
+  color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+}
+.stamp::before,.stamp::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:2.5px dashed currentColor;opacity:.55;
+}
+.stamp::after{inset:16px;border-style:solid;border-width:1.5px;opacity:.9}
+.stamp .inner{text-align:center}
+.stamp .inner .word{font-family:"El Messiri";font-weight:700;font-size:44px;display:block}
+.stamp .inner .sub{display:block;font-size:12px;letter-spacing:.18em;margin-top:6px;font-family:"JetBrains Mono";direction:ltr}
+.stamp .inner .rule{width:64px;height:2px;background:currentColor;margin:10px auto;opacity:.8}
+
+.receipt{
+  border:1px solid var(--line);background:var(--panel);
+  border-radius:4px;box-shadow:var(--shadow);
+  padding:26px 10px;position:relative;
+}
+.receipt::before,.receipt::after{
+  content:"";position:absolute;left:0;right:0;height:14px;
+  background:
+    radial-gradient(circle at 10px 0, transparent 8px, var(--paper) 8.5px) repeat-x;
+  background-size:20px 16px;
+}
+.receipt::before{top:-1px}
+.receipt::after{bottom:-1px;transform:scaleY(-1)}
+.receipt-row{display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
+.receipt-row .cell{padding:6px 10px;border-inline-start:1px dashed var(--line)}
+.receipt-row .cell:first-child{border-inline-start:none}
+.receipt-row .cell .v{font-family:"JetBrains Mono";font-weight:700;font-size:clamp(1.4rem,1.1rem+1vw,2rem);color:var(--accent);direction:ltr}
+.receipt-row .cell .k{font-size:12.5px;color:var(--muted);margin-top:4px}
+@media (max-width:640px){.receipt-row{grid-template-columns:repeat(2,1fr);row-gap:16px}.receipt-row .cell:nth-child(3){border-inline-start:none}}
+
+.section-head{max-width:640px;margin-bottom:44px}
+.section-head .eyebrow{margin-bottom:14px}
+.section-head h2{font-size:clamp(1.6rem,1.3rem+1.2vw,2.3rem)}
+.section-head p{margin-top:14px;color:var(--muted);font-size:1.05rem}
+.section-head.center{margin-inline:auto;text-align:center}
+.section-head.center .eyebrow{margin-inline:auto}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:step;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+.step{padding:28px 24px;position:relative;border-inline-start:1px solid var(--line)}
+.step:first-child{border-inline-start:none}
+.step .n{font-family:"JetBrains Mono";font-weight:700;color:var(--accent);font-size:13px;direction:ltr}
+.step h3{font-size:1.05rem;margin-top:10px}
+.step p{color:var(--muted);font-size:14px;margin-top:8px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}.step:nth-child(3){border-inline-start:none}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}.step{border-inline-start:none!important;border-top:1px solid var(--line)}.step:first-child{border-top:none}}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media (max-width:900px){.split{grid-template-columns:1fr;gap:36px}}
+.split.rev .device-col{order:2}
+@media (max-width:900px){.split.rev .device-col{order:0}}
+
+.outputs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+@media (max-width:640px){.outputs{grid-template-columns:1fr 1fr}}
+.output{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.output .icon{color:var(--accent)}
+.output .t{font-weight:700;font-size:14.5px}
+.output .d{color:var(--muted);font-size:12.5px;line-height:1.5}
+
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{border:1px solid var(--line);background:var(--panel-2);color:var(--ink);font-size:13px;padding:6px 12px;border-radius:999px}
+
+.device{
+  border-radius:12px;overflow:hidden;background:var(--panel);
+  border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.device-scroll{overflow-x:auto}
+.device-chrome{
+  background:#e4e7ed;padding:10px 14px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid #d3d7de;direction:ltr;
+}
+.device-chrome .dots{display:flex;gap:6px}
+.device-chrome .dots span{width:10px;height:10px;border-radius:50%;background:#c7cbd3}
+.device-chrome .addr{
+  flex:1;background:#fff;border:1px solid #d3d7de;border-radius:6px;
+  padding:5px 10px;font-family:"JetBrains Mono";font-size:11.5px;color:#5b6474;
+  display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.device-chrome .addr .icon{width:12px;height:12px;color:var(--good)}
+.device-cap{padding:10px 4px 0;color:var(--muted);font-size:12.5px;text-align:center}
+
+.eta-panel{
+  --p-accent:#0b6e4f;
+  min-width:560px;background:#fbfbf8;color:#20291f;padding:18px 20px;direction:rtl;
+  font-family:"Cairo",sans-serif;font-size:13px;
+}
+.eta-panel .ph{font-weight:800;font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.eta-panel .ph .icon{width:18px;height:18px;color:var(--p-accent)}
+.eta-panel fieldset{border:1px solid #dfe3da;border-radius:8px;margin:0 0 10px;padding:10px 12px}
+.eta-panel legend{font-size:11.5px;font-weight:700;color:#4b5346;padding:0 6px}
+.eta-panel label{display:block;padding:3px 0;color:#33392e;font-size:12.5px}
+.eta-panel label.inline{display:inline-block;width:48%}
+.eta-panel input[type=radio],.eta-panel input[type=checkbox]{margin-inline-end:6px}
+.eta-panel .go{margin-top:6px;background:var(--p-accent);color:#fff;border:none;border-radius:7px;padding:9px 16px;font-weight:700;font-size:13px}
+
+.premium-app{
+  min-width:760px;display:grid;grid-template-columns:200px 1fr;
+  font-family:"Cairo",sans-serif;font-size:13px;
+}
+.premium-side{background:var(--navy);color:#cdd8e6;padding:16px 10px;display:flex;flex-direction:column;gap:2px}
+.premium-side .b{color:#fff;font-weight:700;padding:6px 10px 14px;font-size:14px}
+.premium-side a{color:#cdd8e6;padding:7px 10px;border-radius:6px;font-size:12.5px;display:block}
+.premium-side a.on{background:#1d3a63;color:#fff}
+.premium-main{padding:18px 22px;background:#f4f6f8;color:#1b2430}
+.premium-main .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.premium-main .top h4{font-size:15px;font-family:"Cairo";font-weight:700}
+.pcards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pcard{background:#fff;border:1px solid #e2e6ea;border-radius:8px;padding:12px}
+.pcard .k{color:#667085;font-size:11px}
+.pcard .v{font-size:18px;font-weight:700;margin-top:5px;direction:ltr;font-family:"JetBrains Mono"}
+.pcard .s{color:#667085;font-size:11px;margin-top:2px}
+.ptable{margin-top:14px;background:#fff;border:1px solid #e2e6ea;border-radius:8px;padding:12px}
+.ptable table{width:100%;border-collapse:collapse;font-size:11.5px}
+.ptable th,.ptable td{border-bottom:1px solid #eef0f2;padding:6px 8px;text-align:right}
+.ptable th{color:#667085;font-weight:600}
+.ptable td.num{direction:ltr;text-align:left;font-family:"JetBrains Mono"}
+.pbadge{padding:2px 8px;border-radius:999px;font-size:10.5px;border:1px solid #e2e6ea}
+.pbadge.sales{color:#1a7f37;border-color:#b7e0c2;background:#eafaef}
+.pbadge.purchase{color:#2c5aa0;border-color:#c3d4ee;background:#eef3fb}
+.pbadge.warn{color:#b54708;border-color:#f3d4b8;background:#fff5ea}
+
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+@media (max-width:900px){.feature-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.feature-grid{grid-template-columns:1fr}}
+.feature{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.feature .icon-badge{width:40px;height:40px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.feature h3{font-size:16px}
+.feature p{color:var(--muted);font-size:13.5px;line-height:1.6}
+.feature.highlight{border-color:var(--accent);position:relative}
+.feature .tag{position:absolute;top:14px;left:14px;background:var(--accent);color:var(--accent-ink);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px}
+
+.privacy-band{background:var(--navy);color:#dfe6f2;border-radius:16px;padding:clamp(28px,5vw,52px)}
+.privacy-band .section-head h2,.privacy-band .section-head p{color:#dfe6f2}
+.privacy-band .section-head p{color:#9fb0c8}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}
+@media (max-width:820px){.pgrid{grid-template-columns:1fr}}
+.pitem{display:flex;gap:14px}
+.pitem .icon{color:#8fb3ff;flex:none;margin-top:2px}
+.pitem h4{color:#fff;font-size:15px}
+.pitem p{color:#9fb0c8;font-size:13.5px;margin-top:6px;line-height:1.6}
+
+.faq{max-width:760px}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{color:var(--accent);font-size:22px;font-weight:400;flex:none;transition:transform .15s}
+.faq details[open] summary .plus{transform:rotate(45deg)}
+.faq .a{color:var(--muted);margin-top:12px;font-size:14.5px;line-height:1.7;max-width:64ch}
+
+.cta-band{background:var(--accent);color:var(--accent-ink);border-radius:16px;padding:clamp(32px,6vw,56px);text-align:center}
+.cta-band h2{color:var(--accent-ink);font-size:clamp(1.5rem,1.2rem+1.2vw,2.1rem)}
+.cta-band p{color:var(--accent-ink);opacity:.92;margin-top:12px;max-width:52ch;margin-inline:auto}
+.cta-band .ctas{display:flex;gap:14px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.cta-band .btn{background:var(--accent-ink);color:var(--accent);border-color:var(--accent-ink)}
+.cta-band .btn:hover{opacity:.9;background:var(--accent-ink)}
+.cta-band .btn.ghost{background:transparent;color:var(--accent-ink);border-color:color-mix(in srgb, var(--accent-ink) 40%, transparent)}
+
+footer{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:13px}
+footer .fgrid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{text-decoration:underline;text-underline-offset:3px}
+footer .fine{margin-top:18px;color:var(--muted);opacity:.8;font-size:12px;max-width:70ch;line-height:1.6}
+</style>
+</head>
+<body>
+
+<svg style="display:none" aria-hidden="true">
+<defs>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+<symbol id="i-server-off" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/><path d="M3 3l18 18"/></symbol>
+<symbol id="i-file-pdf" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 17v-4h1a1.5 1.5 0 010 3h-1M13 17v-4h1.5M18 13v4M18 15h1"/></symbol>
+<symbol id="i-file-json" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9 12c-1 0-1 1-1 2s0 2-1 2c1 0 1 1 1 2s0 2 1 2"/><path d="M15 12c1 0 1 1 1 2s0 2 1 2c-1 0-1 1-1 2s0 2-1 2" transform="translate(0 -2)"/></symbol>
+<symbol id="i-file-xls" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 13l4 6M13.5 13l-4 6"/></symbol>
+<symbol id="i-file-csv" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M8.5 17c0-3 3-3 3 0M13 14v6M15.5 14l1 3 1-3M15.5 20l1-3 1 3" stroke-width="1.3"/></symbol>
+<symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V4h12v5"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><rect x="7" y="14" width="10" height="6"/></symbol>
+<symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 001 1h12a1 1 0 001-1V8"/><path d="M10 12h4"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></symbol>
+<symbol id="i-trend-up" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></symbol>
+<symbol id="i-trend-down" viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 9"/><path d="M15 18h6v-6"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10"/><path d="M4 8h6M14 8h6"/><path d="M7 8l-3 6a3 3 0 006 0zM17 8l-3 6a3 3 0 006 0z"/></symbol>
+<symbol id="i-percent" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M18 6 6 18"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="10" height="18"/><path d="M14 8h6v13h-6M7 7h.01M11 7h.01M7 11h.01M11 11h.01M7 15h.01M11 15h.01"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17.5" cy="9" r="2.6"/><path d="M15.5 14.2c2.6.4 4.5 2.5 4.5 5.8"/></symbol>
+<symbol id="i-cal-check" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8.5 15l2 2 4-4"/></symbol>
+<symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 17v-5M12.5 17v-8M16 17v-3"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></symbol>
+<symbol id="i-plug-off" viewBox="0 0 24 24"><path d="M9 3v4M15 3v4M6 7h12l-1 5a5 5 0 01-5 4h0a5 5 0 01-5-4z"/><path d="M12 16v5M3 3l18 18"/></symbol>
+</defs>
+</svg>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <div class="brand"><span class="mark">ك</span> كسلان</div>
+    <nav class="nav-links">
+      <a href="#free">التنزيل بالجملة</a>
+      <a href="#premium">كسلان premium</a>
+      <a href="#privacy">الخصوصية</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+    </nav>
+    <a class="btn sm" href="mailto:khaled.m.adel1992@gmail.com?subject=الاشتراك%20في%20كسلان">تواصل للاشتراك</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><svg class="icon" style="width:16px;height:16px"><use href="#i-shield"/></svg> إضافة كروم واحدة، بلا خادم وبلا حساب</span>
+      <h1>سيب <span>كسلان</span> يجيب فواتيرك من المنظومة… وانت كسلان</h1>
+      <p class="lede">إضافة كروم تنزّل فواتيرك وإيصالاتك الإلكترونية من منظومة الفاتورة الإلكترونية المصرية بالجملة — PDF وJSON وExcel — ثم تحلّلها في لوحة داخلية كاملة، من غير ما تسيب المتصفح ولا تركّب حاجة على جهازك.</p>
+      <div class="ctas">
+        <a class="btn" href="mailto:khaled.m.adel1992@gmail.com?subject=الاشتراك%20في%20كسلان">اطلب اشتراكك الآن</a>
+        <a class="btn ghost" href="#premium">شوف كسلان premium</a>
+      </div>
+      <div class="trust"><svg class="icon" style="width:18px;height:18px"><use href="#i-lock"/></svg> فواتيرك تتخزّن جوّه متصفحك فقط — مفيش خادم بيشوفها</div>
+    </div>
+    <div class="stamp-wrap">
+      <div class="stamp">
+        <div class="inner">
+          <span class="word">كسلان</span>
+          <span class="rule"></span>
+          <span class="sub">ETA · e-INVOICE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="receipt">
+      <div class="receipt-row">
+        <div class="cell"><span class="v ltr-num">6</span><div class="k">صيغ تنزيل فورية</div></div>
+        <div class="cell"><span class="v ltr-num">6</span><div class="k">تقارير Excel رسمية</div></div>
+        <div class="cell"><span class="v ltr-num">11</span><div class="k">أداة تحليل في premium</div></div>
+        <div class="cell"><span class="v ltr-num">0</span><div class="k">خوادم خارجية لبياناتك</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">إزاي بيشتغل</span>
+      <h2>أربع خطوات، ومفيش تسجيل جديد</h2>
+      <p>كسلان بيستخدم جلستك اللي أنت داخل بيها فعلاً على المنظومة — من غير حساب منفصل ولا كلمة سر تانية.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="n ltr-num">01</div>
+        <h3>سجّل دخولك للمنظومة</h3>
+        <p>افتح invoicing.eta.gov.eg وسجّل دخولك زي العادة.</p>
+      </div>
+      <div class="step">
+        <div class="n ltr-num">02</div>
+        <h3>افتح زر «كسلان»</h3>
+        <p>هيظهر تلقائياً فوق صفحة الفواتير أو الإيصالات.</p>
+      </div>
+      <div class="step">
+        <div class="n ltr-num">03</div>
+        <h3>اختار المصدر والمخرجات</h3>
+        <p>المعروض حالياً، نطاق تاريخ، أو قائمة أرقام UUID — واختار الصيغ اللي محتاجها.</p>
+      </div>
+      <div class="step">
+        <div class="n ltr-num">04</div>
+        <h3>اضغط «ابدأ»</h3>
+        <p>تنزيل فوري لجهازك، مع فتح لوحة «كسلان premium» تلقائياً لو حابب.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="free">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <span class="eyebrow">التنزيل بالجملة — مجاني ضمن الاشتراك</span>
+        <h2>كل فواتيرك، بكل صيغة محتاجها، من ضغطة واحدة</h2>
+        <p style="margin-top:16px;color:var(--muted);font-size:1.02rem">مفيش نسخ ولصق ولا فتح كل فاتورة لوحدها. كسلان بيسحب المستندات المطابقة كلها ويطلعهالك جاهزة.</p>
+        <div class="outputs">
+          <div class="output"><svg class="icon"><use href="#i-file-pdf"/></svg><div class="t">PDF الرسمي</div><div class="d">نفس ملف المنظومة، مضغوط في ZIP واحد</div></div>
+          <div class="output"><svg class="icon"><use href="#i-file-json"/></svg><div class="t">JSON الخام</div><div class="d">المستند كما قُدّم فعلياً للمنظومة</div></div>
+          <div class="output"><svg class="icon"><use href="#i-file-xls"/></svg><div class="t">ملخص Excel</div><div class="d">كل الحقول الأساسية في جدول واحد</div></div>
+          <div class="output"><svg class="icon"><use href="#i-file-csv"/></svg><div class="t">ملخص CSV</div><div class="d">لاستيراده في أي برنامج حسابات</div></div>
+          <div class="output"><svg class="icon"><use href="#i-printer"/></svg><div class="t">PDF منسّق للطباعة</div><div class="d">تصميم مرتب مع رمز QR للتحقق</div></div>
+          <div class="output"><svg class="icon"><use href="#i-archive"/></svg><div class="t">حزمة HTML</div><div class="d">للحفظ والفتح دون اتصال بالإنترنت</div></div>
+        </div>
+        <p style="margin-top:24px;font-weight:700;font-size:14.5px">+ 6 تقارير Excel رسمية جاهزة:</p>
+        <div class="chiprow">
+          <span class="chip">تقرير شامل</span>
+          <span class="chip">بيان تعاملات</span>
+          <span class="chip">مبيعات قيمة مضافة</span>
+          <span class="chip">مشتريات قيمة مضافة</span>
+          <span class="chip">نموذج 41</span>
+          <span class="chip">كشف حساب / شهادة تعاملات</span>
+        </div>
+      </div>
+      <div class="device-col">
+        <div class="device device-scroll">
+          <div class="device-chrome">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="addr"><svg class="icon"><use href="#i-lock"/></svg>invoicing.eta.gov.eg/documents</div>
+          </div>
+          <div class="eta-panel">
+            <div class="ph"><svg class="icon"><use href="#i-file-pdf"/></svg> لوحة كسلان</div>
+            <fieldset>
+              <legend>المصدر</legend>
+              <label><input type="radio" checked> المعروض حالياً (كما تعرضه المنظومة)</label>
+              <label><input type="radio"> بحث بنطاق تاريخ</label>
+              <label><input type="radio"> لصق قائمة أرقام UUID</label>
+              <label><input type="checkbox" checked> تحميل كل الصفحات المطابقة</label>
+            </fieldset>
+            <fieldset>
+              <legend>المخرجات</legend>
+              <label class="inline"><input type="checkbox" checked> PDF الرسمي (ZIP)</label>
+              <label class="inline"><input type="checkbox" checked> ملخص Excel</label>
+              <label class="inline"><input type="checkbox"> JSON الأصلي (ZIP)</label>
+              <label class="inline"><input type="checkbox"> PDF منسّق (طباعة)</label>
+            </fieldset>
+            <fieldset>
+              <legend>كسلان premium</legend>
+              <label><input type="checkbox" checked> افتح «كسلان premium» واحفظ الفواتير فيها</label>
+            </fieldset>
+            <button class="go">ابدأ</button>
+          </div>
+        </div>
+        <div class="device-cap">معاينة توضيحية للوحة كسلان كما تظهر داخل منظومة الفاتورة الإلكترونية</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="premium">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">كسلان premium</span>
+      <h2>لوحة تحليل كاملة، جوّه الإضافة نفسها</h2>
+      <p>كل فاتورة بتنزّلها تتخزّن في قاعدة بيانات محلية جوّه متصفحك، تشغّل لوحة تحكم فيها كل حاجة محاسبك محتاجها — بدون أي اتصال بأي خادم.</p>
+    </div>
+
+    <div class="device device-scroll">
+      <div class="device-chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="addr"><svg class="icon"><use href="#i-lock"/></svg>chrome-extension://kaslan/premium/dashboard</div>
+      </div>
+      <div class="premium-app">
+        <div class="premium-side">
+          <div class="b">كسلان premium</div>
+          <a class="on">لوحة التحكم</a>
+          <a>الفواتير</a>
+          <a>المبيعات</a>
+          <a>المشتريات</a>
+          <a>المطابقة</a>
+          <a>ضريبة القيمة المضافة</a>
+          <a>التكرارات</a>
+          <a>الموردون</a>
+          <a>العملاء</a>
+          <a>الإقفال الشهري</a>
+          <a>التقارير</a>
+        </div>
+        <div class="premium-main">
+          <div class="top"><h4>لوحة التحكم — سبتمبر 2026</h4><span class="pbadge sales">متصل بالمنظومة</span></div>
+          <div class="pcards">
+            <div class="pcard"><div class="k">إجمالي الفواتير</div><div class="v ltr-num">4,812</div><div class="s">منذ بداية المزامنة</div></div>
+            <div class="pcard"><div class="k">صافي المبيعات</div><div class="v ltr-num">2,340,600</div><div class="s">جنيه هذا الشهر</div></div>
+            <div class="pcard"><div class="k">صافي المشتريات</div><div class="v ltr-num">915,220</div><div class="s">جنيه هذا الشهر</div></div>
+            <div class="pcard"><div class="k">صافي ض.ق.م</div><div class="v ltr-num">205,404</div><div class="s">مبيعات − مشتريات</div></div>
+          </div>
+          <div class="ptable">
+            <table>
+              <thead><tr><th>التاريخ</th><th>الطرف</th><th>الاتجاه</th><th>القيمة</th><th>الحالة</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">2026-09-08</td><td>شركة النور للتجارة</td><td><span class="pbadge sales">مبيعات</span></td><td class="num">48,200</td><td><span class="pbadge sales">مطابقة</span></td></tr>
+                <tr><td class="mono">2026-09-07</td><td>مصنع الدلتا للبلاستيك</td><td><span class="pbadge purchase">مشتريات</span></td><td class="num">112,050</td><td><span class="pbadge warn">فرق بسيط</span></td></tr>
+                <tr><td class="mono">2026-09-05</td><td>مؤسسة الفجر</td><td><span class="pbadge sales">مبيعات</span></td><td class="num">9,940</td><td><span class="pbadge sales">مطابقة</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="device-cap">معاينة توضيحية للوحة «كسلان premium» ببيانات افتراضية</div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-search"/></svg></div>
+        <h3>الفواتير</h3>
+        <p>كل فواتيرك المُزامَنة في جدول واحد قابل للبحث والفلترة والتصدير، مع تفاصيل كل فاتورة وبنودها.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-trend-up"/></svg></div>
+        <h3>المبيعات والمشتريات</h3>
+        <p>صفحتان مستقلتان لكل اتجاه، بنفس أدوات الفلترة والتصدير — من غير لخبطة الطرفين مع بعض.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-scale"/></svg></div>
+        <h3>المطابقة</h3>
+        <p>ارفع ملف حساباتك (Excel/CSV) وكسلان يطابقه مع فواتير المنظومة، ويوريك المطابق والمختلف والناقص.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-percent"/></svg></div>
+        <h3>ضريبة القيمة المضافة</h3>
+        <p>ملخص شهري لضريبة المخرجات والمدخلات من واقع المنظومة، بالمقارنة مع دفاترك.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-copy"/></svg></div>
+        <h3>التكرارات</h3>
+        <p>كشف تلقائي للفواتير المكررة أو المحتمل تكرارها، مع سبب واضح لكل حالة قبل ما تراجعها.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-building"/></svg></div>
+        <h3>الموردون</h3>
+        <p>ترتيب كل مورد بإجمالي التعاملات والضريبة والاتجاه الشهري، بدون أي تجميع يدوي.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-users"/></svg></div>
+        <h3>العملاء</h3>
+        <p>نفس تحليل الموردين لكن على جانب البيع — مين بيشتري أكتر، وإمتى.</p>
+      </div>
+      <div class="feature">
+        <div class="icon-badge"><svg class="icon"><use href="#i-cal-check"/></svg></div>
+        <h3>الإقفال الشهري</h3>
+        <p>حزمة واحدة (Excel لكل تقرير + ملخص قابل للطباعة) تجمّع شهرك كله في مكان واحد.</p>
+      </div>
+      <div class="feature highlight">
+        <span class="tag">مميز</span>
+        <div class="icon-badge"><svg class="icon"><use href="#i-report"/></svg></div>
+        <h3>مركز التقارير</h3>
+        <p>تصدير سريع لكل تقرير من مكان واحد، بالإضافة لتقارير مبيعات/مشتريات مطابقة تماماً لقالب رفع المنظومة الرسمي — جاهزة للرفع مباشرة.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="privacy-band">
+      <div class="section-head">
+        <span class="eyebrow" style="background:rgba(143,179,255,.15);color:#8fb3ff">الخصوصية والأمان</span>
+        <h2>بياناتك متسيبهاش المتصفح خالص</h2>
+        <p>مفيش خادم لكسلان أصلاً — يبقى مفيش حد يقدر يشوف فواتيرك غيرك.</p>
+      </div>
+      <div class="pgrid">
+        <div class="pitem">
+          <svg class="icon" style="width:26px;height:26px"><use href="#i-server-off"/></svg>
+          <div><h4>بدون خادم</h4><p>كل حاجة بتتخزّن وتتحلّل جوّه قاعدة بيانات محلية في متصفحك — مفيش نسخة على أي خادم خارجي.</p></div>
+        </div>
+        <div class="pitem">
+          <svg class="icon" style="width:26px;height:26px"><use href="#i-plug-off"/></svg>
+          <div><h4>بدون حساب جديد</h4><p>بيستخدم جلستك الموثّقة على المنظومة زي ما هي — من غير تسجيل ولا كلمة سر إضافية.</p></div>
+        </div>
+        <div class="pitem">
+          <svg class="icon" style="width:26px;height:26px"><use href="#i-shield"/></svg>
+          <div><h4>اتصالات محدودة وواضحة</h4><p>الوحيد اللي كسلان بيتواصل معاه هو منظومة الفاتورة الإلكترونية نفسها (بجلستك أنت)، وقراءة قائمة اشتراكات للتحقق فقط — بدون إرسال أي بيانات منك.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">الأسئلة الشائعة</span>
+      <h2>محتاج تعرف كام حاجة قبل ما تبدأ</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>محتاج أركّب برنامج على جهازي؟ <span class="plus">+</span></summary>
+        <p class="a">لأ. كسلان إضافة كروم بس، بتتفعّل مباشرة من متصفحك — مفيش تطبيق منفصل ولا خادم بتتواصل معاه.</p>
+      </details>
+      <details>
+        <summary>فواتيري وبياناتي الضريبية آمنة؟ <span class="plus">+</span></summary>
+        <p class="a">آمنة داخل متصفحك بس — بتتخزّن في قاعدة بيانات محلية (IndexedDB) ومفيش نسخة منها بترسل لأي مكان تاني.</p>
+      </details>
+      <details>
+        <summary>محتاج حساب أو كلمة سر جديدة؟ <span class="plus">+</span></summary>
+        <p class="a">لأ، بيستخدم نفس تسجيل دخولك الحالي على منظومة الفاتورة الإلكترونية.</p>
+      </details>
+      <details>
+        <summary>إزاي أحصل على النسخة وأشترك؟ <span class="plus">+</span></summary>
+        <p class="a">تواصل معانا من الزرار فوق. بعد الاشتراك، بنضيف رقمك الضريبي لقائمة المشتركين وتتفعّل الإضافة تلقائياً في أول تحديث للصفحة.</p>
+      </details>
+      <details>
+        <summary>كسلان premium منفصلة عن التنزيل الأساسي؟ <span class="plus">+</span></summary>
+        <p class="a">التنزيل بالجملة والتقارير الستة متاحين لكل مشترك. لوحة «كسلان premium» بالتحليل والمطابقة والإقفال الشهري خاصية إضافية ضمن الاشتراك.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>خلّي كسلان يجيب الشغل، وانت ركّز في شغلك</h2>
+      <p>اشتراك واحد، فوايد كتير — من غير أي تعقيد تقني أو تركيب برامج.</p>
+      <div class="ctas">
+        <a class="btn" href="mailto:khaled.m.adel1992@gmail.com?subject=الاشتراك%20في%20كسلان">تواصل للاشتراك الآن</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="brand" style="font-size:17px"><span class="mark" style="width:26px;height:26px;font-size:11px">ك</span> كسلان</div>
+      <div style="display:flex;gap:22px;flex-wrap:wrap">
+        <a href="privacy.html">سياسة الخصوصية</a>
+        <a href="mailto:khaled.m.adel1992@gmail.com">تواصل معنا</a>
+      </div>
+    </div>
+    <p class="fine">كسلان أداة مستقلة لتسهيل تنزيل وتحليل فواتيرك الخاصة من منظومة الفاتورة الإلكترونية المصرية باستخدام جلستك الموثّقة، وغير تابعة رسمياً لمصلحة الضرائب المصرية. جميع الشاشات المعروضة أعلاه معاينات توضيحية ببيانات افتراضية وليست بيانات فعلية.</p>
+  </div>
+</footer>
+
+</body>
+</html>

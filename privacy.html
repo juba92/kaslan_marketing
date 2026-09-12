@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سياسة الخصوصية — كسلان</title>
+<meta name="description" content="سياسة خصوصية إضافة كسلان لمتصفح كروم — أداة تنزيل وتحليل فواتير وإيصالات منظومة الفاتورة الإلكترونية المصرية.">
+<link rel="icon" href="icons/icon128.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --paper: #f6f3ea;
+    --paper-raised: #ffffff;
+    --ink: #201c14;
+    --muted: #756e5c;
+    --line: #e2d9c4;
+    --accent: #2c5aa0;
+    --accent-deep: #16294a;
+    --accent-tint: #eaf0fa;
+    --ok: #1a7f4a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #11161d;
+      --paper-raised: #1a212b;
+      --ink: #e9e4d6;
+      --muted: #9aa2ad;
+      --line: #2b3442;
+      --accent: #7fa8e6;
+      --accent-deep: #a9c6f2;
+      --accent-tint: #1c2938;
+      --ok: #5cc98c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #11161d;
+    --paper-raised: #1a212b;
+    --ink: #e9e4d6;
+    --muted: #9aa2ad;
+    --line: #2b3442;
+    --accent: #7fa8e6;
+    --accent-deep: #a9c6f2;
+    --accent-tint: #1c2938;
+    --ok: #5cc98c;
+  }
+
+  * { box-sizing: border-box; }
+  html { direction: rtl; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Cairo", Tahoma, "Segoe UI Arabic", Arial, sans-serif;
+    line-height: 1.75;
+  }
+
+  .masthead {
+    background: var(--accent-deep);
+    color: #fff;
+    padding: 28px 24px;
+  }
+  .masthead-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .masthead .brand {
+    font-family: "Amiri", Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .masthead .brand .en {
+    font-family: "Cairo", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .04em;
+    color: #cfdcf2;
+    display: block;
+    direction: ltr;
+    text-align: right;
+    margin-top: 2px;
+  }
+  .masthead .meta {
+    font-size: 13px;
+    color: #cfdcf2;
+    text-align: left;
+    direction: ltr;
+  }
+  .masthead a { color: #cfdcf2; }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .tldr {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-inline-start: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 44px;
+    direction: ltr;
+    text-align: left;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .tldr .label {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .tldr a { color: var(--accent); }
+
+  h1.doc-title {
+    font-family: "Amiri", Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    text-wrap: balance;
+  }
+  .doc-sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 40px;
+  }
+
+  section { margin-bottom: 36px; }
+  h2 {
+    font-family: "Amiri", Georgia, serif;
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0 0 14px;
+    padding-inline-start: 14px;
+    border-inline-start: 3px solid var(--accent);
+    text-wrap: balance;
+  }
+  p { margin: 0 0 14px; max-width: 62ch; }
+  ul { margin: 0 0 14px; padding-inline-start: 22px; }
+  li { margin-bottom: 8px; max-width: 60ch; }
+  strong { font-weight: 600; }
+  code {
+    font-family: Consolas, "SF Mono", monospace;
+    font-size: 12.5px;
+    background: var(--accent-tint);
+    color: var(--accent-deep);
+    padding: 1px 6px;
+    border-radius: 4px;
+    direction: ltr;
+    unicode-bidi: plaintext;
+  }
+
+  table.glance {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 13.5px;
+    margin: 0 0 14px;
+  }
+  table.glance th, table.glance td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    text-align: right;
+    vertical-align: top;
+  }
+  table.glance th {
+    background: var(--accent-tint);
+    color: var(--accent-deep);
+    font-weight: 600;
+    font-size: 12.5px;
+  }
+  table.glance tr:last-child td { border-bottom: 0; }
+  .yes { color: var(--muted); }
+  .no { color: var(--ok); font-weight: 600; }
+
+  .wrap-table { overflow-x: auto; }
+
+  footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <a href="index.html" style="color:inherit;text-decoration:none">كسلان</a>
+      <span class="en">KASLAN — ETA E-INVOICE TOOLKIT</span>
+    </div>
+    <div class="meta">Privacy Policy · Effective 2026-08-28</div>
+  </div>
+</div>
+
+<main>
+  <div class="tldr">
+    <span class="label">In short (for reviewers)</span>
+    Kaslan reads your own e-invoices from Egypt's ETA portal using your existing logged-in session, and stores
+    them only inside your browser (<code>chrome.storage</code> / IndexedDB). Nothing is uploaded to any server we
+    operate. The only outside request beyond the ETA portal itself is a read-only fetch of a public Google Sheet,
+    used solely to check whether your tax registration number is on our list of paid users — your data is never
+    included in that request.
+  </div>
+
+  <h1 class="doc-title">سياسة الخصوصية</h1>
+  <p class="doc-sub">إضافة «كسلان» لمتصفح كروم — أداة تنزيل وتحليل فواتير وإيصالات منظومة الفاتورة الإلكترونية المصرية.</p>
+
+  <section>
+    <h2>نظرة سريعة</h2>
+    <div class="wrap-table">
+      <table class="glance">
+        <thead>
+          <tr><th>البيانات</th><th>أين تُحفظ</th><th>هل تُرسَل لخوادمنا؟</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>فواتير وإيصالات ETA (بياناتك أنت)</td><td>داخل متصفحك فقط (IndexedDB)</td><td class="no">لا</td></tr>
+          <tr><td>الرقم الضريبي وحالة الاشتراك</td><td>يُقرأ من الصفحة، لا يُخزَّن خارج المتصفح</td><td class="no">لا</td></tr>
+          <tr><td>إعدادات الإضافة (اسم الشركة، آخر مزامنة)</td><td>داخل متصفحك فقط</td><td class="no">لا</td></tr>
+          <tr><td>سجل تصفحك أو نشاطك خارج ETA</td><td>لا نطّلع عليه أصلاً</td><td class="yes">غير منطبق</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>ما الذي تصل إليه الإضافة</h2>
+    <p>
+      عند تسجيل دخولك إلى <code>invoicing.eta.gov.eg</code>، تقرأ الإضافة قائمة فواتيرك وإيصالاتك الإلكترونية
+      باستخدام نفس الجلسة الموثّقة التي يستخدمها الموقع نفسه — لا تُستخدم أي بيانات دخول أو رمز وصول خاص بنا،
+      ولا تُنشئ الإضافة أي حساب مستخدم. كل ما تراه الإضافة هو ما تراه أنت أصلاً عند تصفّح حسابك.
+    </p>
+    <p>عند استخدام «كسلان premium»، تُحفظ نسخة من هذه الفواتير (الحقول الأساسية + البنود) داخل قاعدة بيانات المتصفح المحلية (IndexedDB) لتشغيل البحث والتقارير والمطابقة دون إعادة الاتصال بالمنظومة في كل مرة.</p>
+  </section>
+
+  <section>
+    <h2>أين تُحفظ بياناتك</h2>
+    <p>
+      كل شيء يبقى على جهازك، داخل ملف تعريف المتصفح الذي ثبّتّ عليه الإضافة:
+    </p>
+    <ul>
+      <li><strong>IndexedDB</strong> — الفواتير والإيصالات المُزامَنة، بنودها، وإعدادات «كسلان premium».</li>
+      <li><strong>chrome.storage.local</strong> — تفضيلات الإضافة، وحالة التحقق من الاشتراك (مدفوع / غير مدفوع).</li>
+    </ul>
+    <p>
+      لا نُشغّل خادماً يستقبل هذه البيانات، ولا نحتفظ بنسخة منها في أي مكان آخر. حذف الإضافة من كروم يحذف هذه
+      البيانات معها بالكامل.
+    </p>
+  </section>
+
+  <section>
+    <h2>الاتصالات الخارجية التي تجريها الإضافة</h2>
+    <p>الإضافة تتواصل مع جهتين فقط، ولغرض محدد لكل منهما:</p>
+    <ul>
+      <li>
+        <strong>منظومة الفاتورة الإلكترونية</strong>
+        (<code>invoicing.eta.gov.eg</code>، <code>api-portal.invoicing.eta.gov.eg</code>،
+        <code>api.invoicing.eta.gov.eg</code>) — لجلب فواتيرك وإيصالاتك ومستنداتها الرسمية (PDF/JSON)، نيابة عنك
+        وباستخدام جلستك أنت.
+      </li>
+      <li>
+        <strong>جدول بيانات عام على Google Sheets</strong> (<code>docs.google.com</code>) — طلب قراءة فقط
+        (بدون تسجيل دخول) لجلب قائمة الأرقام الضريبية المشتركة في الخدمة المدفوعة، للمقارنة محلياً داخل متصفحك.
+        <strong>لا يُرسَل رقمك الضريبي أو أي بيانات عنك في هذا الطلب</strong> — يُنزَّل الجدول بالكامل ثم تتم
+        المقارنة على جهازك.
+      </li>
+    </ul>
+    <p>لا توجد أي أدوات تحليلات (analytics) أو تتبّع أو إعلانات داخل الإضافة.</p>
+  </section>
+
+  <section>
+    <h2>لماذا تطلب الإضافة هذه الصلاحيات</h2>
+    <ul>
+      <li><code>storage</code> / <code>unlimitedStorage</code> — لحفظ الفواتير المُزامَنة وإعداداتك داخل متصفحك دون حدّ يمنع تخزين أرشيف كامل من الفواتير.</li>
+      <li><code>tabs</code> — لفتح لوحة «كسلان premium» في تبويب جديد، أو التبديل إليها إن كانت مفتوحة بالفعل بدلاً من تكرارها.</li>
+      <li>الوصول لنطاقات <code>invoicing.eta.gov.eg</code> — لتشغيل الأداة داخل صفحة المنظومة وقراءة رمز جلستك لجلب فواتيرك مباشرة دون وسيط.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>المشاركة مع أطراف أخرى</h2>
+    <p>
+      لا نبيع بياناتك، ولا نشاركها مع أي طرف ثالث، ولا نستخدمها لأي غرض غير تشغيل الميزات الموصوفة أعلاه. بما أن
+      البيانات لا تُغادر متصفحك أصلاً، لا توجد جهة أخرى تصل إليها من خلالنا.
+    </p>
+  </section>
+
+  <section>
+    <h2>التحكم في بياناتك وحذفها</h2>
+    <p>
+      بياناتك تحت تصرفك الكامل داخل متصفحك. لحذفها بالكامل: أزل الإضافة من <code>chrome://extensions</code>، أو
+      امسح بيانات الموقع الخاصة بها من إعدادات كروم. لا تبقى أي نسخة لدينا بعد ذلك لأننا لم نحتفظ بواحدة أصلاً.
+    </p>
+  </section>
+
+  <section>
+    <h2>خصوصية الأطفال</h2>
+    <p>هذه الإضافة أداة محاسبية وضريبية موجّهة للمنشآت والمحاسبين، وليست موجّهة للأطفال، ولا تجمع بيانات عمداً من أي شخص دون السن القانونية.</p>
+  </section>
+
+  <section>
+    <h2>تحديثات هذه السياسة</h2>
+    <p>قد نحدّث هذه الصفحة عند إضافة ميزة تُغيّر طريقة التعامل مع البيانات. تاريخ آخر تحديث موضّح أعلى الصفحة.</p>
+  </section>
+
+  <section>
+    <h2>تواصل معنا</h2>
+    <p>لأي استفسار متعلق بالخصوصية: <a href="mailto:khaled.m.adel1992@gmail.com" style="color:var(--accent)">khaled.m.adel1992@gmail.com</a></p>
+  </section>
+</main>
+
+<footer>
+  كسلان — أداة الفاتورة الإلكترونية · هذه الصفحة موجودة فقط لتوضيح ممارسات الخصوصية ولا تُستخدم لأي غرض تسويقي.
+</footer>
+
+</body>
+</html>
