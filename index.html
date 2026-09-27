@@ -252,7 +252,7 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
 .scr .bd.p{color:var(--gd);border-color:#e6d3ad;background:var(--gf)}
 .scr .bd.w{color:#b54708;border-color:#f3d4b8;background:#fff5ea}
 .scr .bd.e{color:#b42318;border-color:#f0b8b0;background:#fdecea}
-.scr .bars{display:flex;align-items:flex-end;gap:10px;height:170px;border-bottom:1px solid var(--ln);padding-bottom:4px}
+.scr .bars{display:flex;align-items:flex-end;gap:6px;height:170px;border-bottom:1px solid var(--ln);padding-bottom:4px}
 .scr .bars>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
 .scr .bars .pair{display:flex;align-items:flex-end;gap:3px;height:150px}
 .scr .bars .pair i{width:11px;border-radius:4px 4px 0 0;display:block}
@@ -481,7 +481,8 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
         <h3>كسلان + premium</h3>
         <ul>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>كل مزايا كسلان</li>
-          <li><svg width="14" height="14"><use href="#i-check"/></svg>لوحة تحكم، وثائق، مبيعات ومشتريات بفلاتر كاملة</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>لوحة تحكم بفلتر السنة ورسم شهري وأكبر العملاء</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>الوثائق والمبيعات والمشتريات بفلاتر كاملة</li>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>ضريبة القيمة المضافة شهرياً، ومطابقة مع دفاترك</li>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>كشف التكرارات، العملاء والموردين بفلتر السنة</li>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>الإقفال الشهري، ونماذج مبيعات ومشتريات جاهزة للرفع على المنظومة</li>
@@ -608,8 +609,8 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
     <div class="co"><small>الشركة</small>شركة المثال للتجارة</div>
     ${NAV.map(([t,items])=>`<div><div class="gt">${t}</div>${items.map(([k,l])=>`<div class="it${k===on?' on':''}" data-nav="${k}">${l}</div>`).join('')}</div>`).join('')}</nav>`;
   const scr = (on, main, over='') => `<div class="scr">${side(on)}<main class="mn">${main}</main>${over}</div>`;
-  const MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر'];
-  const S = [612,705,580,812,760,905,724,951,840], P = [441,520,493,556,612,580,502,664,603];
+  const MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  const S = [612,705,580,812,760,905,724,951,840,0,0,0], P = [441,520,493,556,612,580,502,664,603,0,0,0];
   const CUST = [['شركة النور للتجارة',96,812400],['مؤسسة الفجر للمقاولات',71,640150],['الدلتا للصناعات الغذائية',58,455000],['مكتب الأمل الهندسي',64,301720],['شركة النيل للتوريدات',22,188300],['مجموعة السلام الطبية',40,152900],['القاهرة للأدوات المكتبية',18,120450]];
   const SUP = [['مصنع الدلتا للبلاستيك',84,691200],['الشرق للخامات',52,512800],['شركة الوادي للنقل',61,402650],['النصر للكرتون والطباعة',33,281900],['مؤسسة البحر للتغليف',27,190400],['العاصمة لقطع الغيار',19,98700]];
 
@@ -620,22 +621,22 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
   const docTable = (rows) => `<div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>التاريخ</th><th>رقم المستند</th><th>الطرف</th><th>الاتجاه</th><th>النوع</th><th class="n">الإجمالي</th><th class="n">الضريبة</th><th></th></tr></thead><tbody>${docRows(rows)}</tbody></table></div>`;
 
   const SCREENS = [
-    {k:'dash', t:'لوحة التحكم', d:'المبيعات والمشتريات وصافي الضريبة في لمحة، مع الاتجاه الشهري وأكبر العملاء.',
+    {k:'dash', t:'لوحة التحكم', d:'المبيعات والمشتريات وصافي الضريبة لأي سنة تختارها، مع الرسم الشهري وأكبر خمسة عملاء.',
      html: () => scr('dash', `
-      <div class="tb"><div style="flex:1"><div class="ey">آخر مزامنة: اليوم 10:42 ص</div><h1>لوحة التحكم</h1></div><span class="sb">السنة: 2026</span><span class="pb">مزامنة الآن</span></div>
+      <div class="tb"><div style="flex:1"><div class="ey">آخر مزامنة: اليوم 10:42 ص</div><h1>لوحة التحكم</h1></div><div class="fl">السنة<span>2026</span></div></div>
       <div class="cds" style="grid-template-columns:repeat(3,1fr)">
         <div class="cd big"><div class="k">المبيعات</div><div class="v">6,889,000.00</div><div class="s">714 فاتورة · 12 إشعار دائن</div></div>
         <div class="cd big"><div class="k">المشتريات</div><div class="v">4,971,000.00</div><div class="s">498 فاتورة · 24 إيصال</div></div>
         <div class="cd big ac"><div class="k">صافي الضريبة</div><div class="v">268,520.00</div><div class="s">مستحقة السداد</div></div>
       </div>
       <div class="cds" style="grid-template-columns:repeat(3,1fr)">
-        <div class="cd"><div class="k">عدد الوثائق</div><div class="v">1,248</div></div>
+        <div class="cd"><div class="k">عدد الوثائق</div><div class="v">1,248</div><div class="s">2026</div></div>
         <div class="cd"><div class="k">ضريبة المخرجات</div><div class="v">964,460.00</div></div>
         <div class="cd"><div class="k">ضريبة المدخلات</div><div class="v">695,940.00</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:12px">
-        <div class="pnl"><h3>المبيعات والمشتريات شهرياً <span class="gb" style="float:left;font-family:var(--body)">ألف جنيه</span></h3>${barsHTML(0.13)}</div>
-        <div class="pnl"><h3>أكبر العملاء</h3>${CUST.slice(0,4).map(([n,,v],i)=>`<div style="padding:4px 0"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">${n}</span><span class="num" style="font-size:11px">${i0(v)}</span></div><div class="meter"><i style="width:${v/8124}%"></i></div></div>`).join('')}</div>
+        <div class="pnl"><h3>المبيعات والمشتريات شهرياً</h3>${barsHTML(0.13)}</div>
+        <div class="pnl"><h3>أكبر العملاء <span style="float:left;font:600 11px var(--body);color:#0e6b66">عرض الكل</span></h3>${CUST.slice(0,5).map(([n,,v],i)=>`<div style="padding:4px 0"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">${n}</span><span class="num" style="font-size:11px">${i0(v)}</span></div><div class="meter"><i style="width:${v/8124}%"></i></div></div>`).join('')}</div>
       </div>`)},
     {k:'docs', t:'الوثائق', d:'كل الوثائق الصحيحة في جدول واحد، ببحث وفلاتر للاتجاه والنوع والتاريخ، وتصدير Excel وCSV.',
      html: () => scr('docs', `
@@ -648,46 +649,47 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
       <div class="tb"><h1>الوثائق (1,248)</h1><span class="sb">تصدير Excel</span></div>${docTable(DOCS.slice(0,9))}`,
       `<div class="shade"></div><div class="drw"><div style="display:flex;justify-content:space-between;align-items:center"><h2>فاتورة INV-2026-0918</h2><span class="gb">إغلاق</span></div>
         <dl class="kv"><dt>التاريخ</dt><dd class="num" style="text-align:right">2026-09-24</dd><dt>البائع</dt><dd>شركة المثال للتجارة</dd><dt>المشتري</dt><dd>شركة النور للتجارة</dd><dt>الحالة</dt><dd><span class="bd s">صحيحة</span></dd><dt>الرقم الإلكتروني</dt><dd class="num" style="text-align:right;font-size:10px">7K2QX…M4PD</dd></dl>
-        <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>الصنف</th><th class="n">الكمية</th><th class="n">السعر</th><th class="n">الضريبة</th><th class="n">الإجمالي</th></tr></thead><tbody>
+        <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>الوصف</th><th class="n">الكمية</th><th class="n">سعر الوحدة</th><th class="n">الضريبة</th><th class="n">الإجمالي</th></tr></thead><tbody>
         <tr><td>كرتون مضلّع 5 طبقات</td><td class="n">1,200</td><td class="n">18.50</td><td class="n">3,108.00</td><td class="n">25,308.00</td></tr>
         <tr><td>شريط لاصق شفاف</td><td class="n">400</td><td class="n">22.00</td><td class="n">1,232.00</td><td class="n">10,032.00</td></tr>
         <tr><td>خدمة نقل وتوصيل</td><td class="n">1</td><td class="n">11,300.00</td><td class="n">1,560.00</td><td class="n">12,860.00</td></tr></tbody></table></div>
-        <div class="sub" style="display:grid;grid-template-columns:1fr auto;gap:2px 10px"><span>الصافي</span><span class="num">42,300.00</span><span>ضريبة القيمة المضافة 14%</span><span class="num">5,900.00</span><b>الإجمالي</b><b class="num">48,200.00</b></div></div>`)},
+        <div class="sub" style="display:grid;grid-template-columns:1fr auto;gap:2px 10px"><span>الصافي</span><span class="num">42,300.00</span><span>الضريبة</span><span class="num">5,900.00</span><b>الإجمالي</b><b class="num">48,200.00</b></div></div>`)},
     {k:'sales', t:'المبيعات والمشتريات', d:'صفحة مستقلة لكل اتجاه، بإجماليات صافية بعد الإشعارات الدائنة والمرتجعات.',
      html: () => scr('sales', `
       <div class="tb"><h1>المبيعات</h1><span class="sb">تصدير Excel</span></div>
-      <div class="cds" style="grid-template-columns:repeat(4,1fr)"><div class="cd"><div class="k">عدد المستندات</div><div class="v">726</div></div><div class="cd"><div class="k">الصافي</div><div class="v">6,042,980.00</div></div><div class="cd"><div class="k">الضريبة</div><div class="v">846,020.00</div></div><div class="cd"><div class="k">الإجمالي</div><div class="v">6,889,000.00</div></div></div>
-      <div style="display:flex;gap:8px;align-items:flex-end"><div class="fl">النوع<span>فاتورة + إشعار دائن</span></div><div class="fl">الشهر<span>سبتمبر 2026</span></div></div>
+      <div class="cds" style="grid-template-columns:repeat(4,1fr)"><div class="cd"><div class="k">عدد المستندات</div><div class="v">726</div></div><div class="cd"><div class="k">الصافي</div><div class="v">6,042,980.00</div></div><div class="cd"><div class="k">الضريبة</div><div class="v">846,020.00</div></div><div class="cd"><div class="k">الإجمالي</div><div class="v">6,889,000.00</div><div class="s">بعد خصم الإشعارات الدائنة والمرتجعات</div></div></div>
+      <div style="display:flex;gap:8px;align-items:flex-end"><div class="fl">بحث<span style="min-width:160px">رقم داخلي أو اسم عميل…</span></div><div class="fl">النوع<span>كل الأنواع</span></div><div class="fl">من تاريخ<span class="num">2026-01-01</span></div><div class="fl">إلى تاريخ<span class="num">2026-09-30</span></div></div>
       ${docTable(DOCS.filter(r=>r[3]==='s').concat(DOCS.filter(r=>r[3]==='s').slice(0,3)))}`)},
     {k:'vat', t:'ضريبة القيمة المضافة', d:'ملخص شهري لضريبة المخرجات والمدخلات من واقع المنظومة، جاهز للتصدير.',
      html: () => scr('vat', `
       <div class="tb"><h1>ضريبة القيمة المضافة</h1><span class="sb">Excel</span><span class="sb">CSV</span><div class="fl">الشهر<span>سبتمبر</span></div><div class="fl">السنة<span>2026</span></div></div>
       <div class="cds" style="grid-template-columns:repeat(3,1fr)"><div class="cd big"><div class="k">ضريبة المخرجات (ETA)</div><div class="v">117,600.00</div><div class="s">84 فاتورة مبيعات</div></div><div class="cd big"><div class="k">ضريبة المدخلات (ETA)</div><div class="v">84,420.00</div><div class="s">67 فاتورة مشتريات</div></div><div class="cd big ac"><div class="k">صافي الضريبة (ETA)</div><div class="v">33,180.00</div><div class="s">مستحقة السداد</div></div></div>
-      <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>البند</th><th class="n">العدد</th><th class="n">الصافي</th><th class="n">الضريبة</th><th class="n">الإجمالي</th></tr></thead><tbody>
-        <tr><td>مبيعات: فواتير</td><td class="n">81</td><td class="n">852,140.00</td><td class="n">119,300.00</td><td class="n">971,440.00</td></tr>
-        <tr><td>مبيعات: إشعارات دائنة</td><td class="n">3</td><td class="n">-12,140.00</td><td class="n">-1,700.00</td><td class="n">-13,840.00</td></tr>
-        <tr><td>مشتريات: فواتير</td><td class="n">58</td><td class="n">596,300.00</td><td class="n">83,480.00</td><td class="n">679,780.00</td></tr>
-        <tr><td>مشتريات: إيصالات</td><td class="n">9</td><td class="n">6,710.00</td><td class="n">940.00</td><td class="n">7,650.00</td></tr>
-        <tr><th>الصافي المستحق</th><th></th><th></th><th class="n">33,180.00</th><th></th></tr></tbody></table></div>
-      <div class="sub" style="color:#5e6670">القيم من واقع المنظومة للمراجعة الداخلية. طابقها مع دفاترك من صفحة «المطابقة».</div>`)},
-    {k:'recon', t:'المطابقة مع دفاترك', d:'ارفع ملف حساباتك وكسلان يطابقه مع المنظومة: المطابق، المختلف، والناقص من كل طرف.',
+      <div class="pnl" style="padding:0;overflow:hidden"><h3 style="padding:12px 14px 0">تفصيل الشهر حسب نوع المستند</h3><table><thead><tr><th>البند</th><th class="n">العدد</th><th class="n">الصافي</th><th class="n">الضريبة</th><th class="n">الإجمالي</th></tr></thead><tbody>
+        <tr><td>مبيعات: فاتورة</td><td class="n">81</td><td class="n">852,140.00</td><td class="n">119,300.00</td><td class="n">971,440.00</td></tr>
+        <tr><td>مبيعات: إشعار دائن</td><td class="n">3</td><td class="n">-12,140.00</td><td class="n">-1,700.00</td><td class="n">-13,840.00</td></tr>
+        <tr><td>مشتريات: فاتورة</td><td class="n">58</td><td class="n">596,300.00</td><td class="n">83,480.00</td><td class="n">679,780.00</td></tr>
+        <tr><td>مشتريات: إيصال بيع</td><td class="n">9</td><td class="n">6,710.00</td><td class="n">940.00</td><td class="n">7,650.00</td></tr>
+        <tr><th>صافي الضريبة المستحقة</th><th></th><th></th><th class="n">33,180.00</th><th></th></tr></tbody></table></div>
+      <div class="sub" style="color:#5e6670">هذا الحساب لأغراض المراجعة الداخلية فقط. ارفع ملف حساباتك في «المطابقة» لتظهر هنا مقارنة ETA مع دفاترك.</div>`)},
+    {k:'recon', t:'المطابقة مع دفاترك', d:'ارفع ملف حساباتك (Excel أو CSV) وكسلان يطابقه مع المنظومة: المطابق، المختلف، والناقص من كل طرف.',
      html: () => scr('recon', `
-      <div class="tb"><h1>المطابقة</h1><span class="sb">رفع ملف جديد</span><span class="pb">تصدير غير المطابق</span></div>
-      <div class="sub" style="display:flex;justify-content:space-between;align-items:center"><span><b>دفتر_المبيعات_سبتمبر.xlsx</b> · 432 سطر · ربط الأعمدة: رقم الفاتورة، التاريخ، الإجمالي</span><span class="bd s">تمت المطابقة</span></div>
-      <div class="cds" style="grid-template-columns:repeat(4,1fr)"><div class="cd"><div class="k">مطابق</div><div class="v" style="color:#1f7a45">412</div></div><div class="cd"><div class="k">فرق في القيمة</div><div class="v" style="color:#b54708">7</div></div><div class="cd"><div class="k">ناقص من الدفاتر</div><div class="v" style="color:#b42318">9</div></div><div class="cd"><div class="k">ناقص من المنظومة</div><div class="v" style="color:#b42318">4</div></div></div>
-      <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>رقم المستند</th><th>الطرف</th><th class="n">المنظومة</th><th class="n">الدفاتر</th><th class="n">الفرق</th><th>الحالة</th></tr></thead><tbody>
-        <tr><td class="n">INV-2026-0918</td><td>شركة النور للتجارة</td><td class="n">48,200.00</td><td class="n">48,200.00</td><td class="n">0.00</td><td><span class="bd s">مطابق</span></td></tr>
+      <div class="tb"><h1>المطابقة</h1><span class="sb">تصدير Excel</span><span class="sb">CSV</span><span class="gb">بدء مطابقة جديدة</span></div>
+      <div class="sub" style="display:flex;justify-content:space-between;align-items:center"><span><b>دفتر_المبيعات_سبتمبر.xlsx</b> · 432 سطر · ربط الأعمدة: رقم الفاتورة، تاريخ الفاتورة، الإجمالي</span><span class="bd s">تمت المطابقة</span></div>
+      <div class="cds" style="grid-template-columns:repeat(5,1fr)"><div class="cd"><div class="k">مطابقة</div><div class="v">408</div><div class="s">مطابقة تماماً</div></div><div class="cd"><div class="k">فرق في القيمة</div><div class="v">7</div></div><div class="cd"><div class="k">مطابقة محتملة</div><div class="v">4</div><div class="s">برقم الفاتورة فقط</div></div><div class="cd"><div class="k">غير موجودة في الحسابات</div><div class="v">9</div></div><div class="cd"><div class="k">غير موجودة في ETA</div><div class="v">4</div></div></div>
+      <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>رقم المستند</th><th>الطرف</th><th class="n">إجمالي ETA</th><th class="n">إجمالي الحسابات</th><th class="n">الفرق</th><th>الحالة</th></tr></thead><tbody>
+        <tr><td class="n">INV-2026-0918</td><td>شركة النور للتجارة</td><td class="n">48,200.00</td><td class="n">48,200.00</td><td class="n">0.00</td><td><span class="bd s">مطابقة</span></td></tr>
         <tr><td class="n">INV-2026-0911</td><td>مؤسسة الفجر للمقاولات</td><td class="n">64,120.00</td><td class="n">64,012.00</td><td class="n">108.00</td><td><span class="bd w">فرق في القيمة</span></td></tr>
-        <tr><td class="n">INV-2026-0903</td><td>الدلتا للصناعات الغذائية</td><td class="n">22,800.00</td><td class="n">—</td><td class="n">—</td><td><span class="bd e">ناقص من الدفاتر</span></td></tr>
-        <tr><td class="n">INV-2026-0899</td><td>مكتب الأمل الهندسي</td><td class="n">—</td><td class="n">11,400.00</td><td class="n">—</td><td><span class="bd e">ناقص من المنظومة</span></td></tr>
-        <tr><td class="n">INV-2026-0897</td><td>شركة النيل للتوريدات</td><td class="n">15,390.00</td><td class="n">15,390.00</td><td class="n">0.00</td><td><span class="bd s">مطابق</span></td></tr>
+        <tr><td class="n">INV-2026-0903</td><td>الدلتا للصناعات الغذائية</td><td class="n">22,800.00</td><td class="n">—</td><td class="n">—</td><td><span class="bd e">غير موجودة في الحسابات</span></td></tr>
+        <tr><td class="n">INV-2026-0899</td><td>مكتب الأمل الهندسي</td><td class="n">—</td><td class="n">11,400.00</td><td class="n">—</td><td><span class="bd e">غير موجودة في ETA</span></td></tr>
+        <tr><td class="n">INV-2026-0897</td><td>شركة النيل للتوريدات</td><td class="n">15,390.00</td><td class="n">15,390.00</td><td class="n">0.00</td><td><span class="bd s">مطابقة</span></td></tr>
         <tr><td class="n">INV-2026-0890</td><td>مجموعة السلام الطبية</td><td class="n">30,780.00</td><td class="n">30,870.00</td><td class="n">-90.00</td><td><span class="bd w">فرق في القيمة</span></td></tr></tbody></table></div>`)},
-    {k:'dups', t:'كشف التكرارات', d:'فواتير مكررة أو محتمل تكرارها، مع سبب واضح لكل حالة وقرار مراجعة يتحفظ.',
+    {k:'dups', t:'كشف التكرارات', d:'فواتير مكررة أو محتمل تكرارها، مع سبب واضح لكل مجموعة، وقرار مراجعة لكل فاتورة يتحفظ.',
      html: () => scr('dups', `
-      <div class="tb"><h1>التكرارات</h1><span class="gb">3 مجموعات للمراجعة</span><span class="sb">تصدير Excel</span></div>
-      ${[['تكرار مؤكد','e','نفس الرقم الداخلي ونفس الطرف ونفس الإجمالي',[['PO-7702','2026-09-04','112,050.00'],['PO-7702','2026-09-04','112,050.00']]],['تكرار محتمل','w','نفس الطرف ونفس الإجمالي خلال 3 أيام',[['R-55180','2026-09-10','4,275.00'],['R-55187','2026-09-12','4,275.00']]],['تكرار محتمل','w','نفس الرقم الداخلي بتاريخين مختلفين',[['INV-2026-0870','2026-08-28','9,120.00'],['INV-2026-0870','2026-09-01','9,120.00']]]].map(([t,c,why,rows])=>`
-        <div class="pnl" style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:8px;align-items:center"><span class="bd ${c}">${t}</span><span style="color:#5e6670;flex:1">${why}</span><span class="sb">ليست تكراراً</span><span class="pb">تأكيد التكرار</span></div>
-        <table><tbody>${rows.map(([id,d,v])=>`<tr><td class="n">${id}</td><td class="n">${d}</td><td>مصنع الدلتا للبلاستيك</td><td class="n">${v}</td></tr>`).join('')}</tbody></table></div>`).join('')}`)},
+      <div class="tb"><h1>التكرارات</h1><span class="sb">تصدير Excel</span><span class="sb">CSV</span></div>
+      <div class="cds" style="grid-template-columns:repeat(2,1fr)"><div class="cd"><div class="k">مطابقة محتملة</div><div class="v">4</div><div class="s">2 مجموعة</div></div><div class="cd"><div class="k">مؤكدة التكرار</div><div class="v">2</div><div class="s">1 مجموعة</div></div></div>
+      ${[['مؤكدة التكرار','e','نفس الرقم الداخلي ونفس الطرف ونفس الإجمالي',[['PO-7702','2026-09-04','112,050.00'],['PO-7702','2026-09-04','112,050.00']]],['مطابقة محتملة','w','نفس الطرف ونفس الإجمالي خلال 3 أيام',[['R-55180','2026-09-10','4,275.00'],['R-55187','2026-09-12','4,275.00']]],['مطابقة محتملة','w','نفس الرقم الداخلي بتاريخين مختلفين',[['INV-2026-0870','2026-08-28','9,120.00'],['INV-2026-0870','2026-09-01','9,120.00']]]].map(([t,c,why,rows])=>`
+        <div class="pnl" style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:8px;align-items:center"><span class="bd ${c}">${t}</span><span style="color:#5e6670;flex:1">${why}</span></div>
+        <table><tbody>${rows.map(([id,d,v],j)=>`<tr><td class="n">${id}</td><td class="n">${d}</td><td>مصنع الدلتا للبلاستيك</td><td class="n">${v}</td><td><span class="${j===0&&c==='e'?'pb':'gb'}" style="padding:2px 8px;font-size:10.5px">مكررة</span> <span class="gb" style="font-size:10.5px">ليست مكررة</span> <span class="gb" style="font-size:10.5px">مراجَع</span></td></tr>`).join('')}</tbody></table></div>`).join('')}`)},
     {k:'cust', t:'العملاء بفلتر السنة', d:'ترتيب العملاء بالمبيعات والضريبة ومتوسط الفاتورة، لأي سنة تختارها.',
      html: () => scr('cust', `
       <div class="tb"><h1>العملاء (142)</h1><div class="fl">السنة<span class="hl">2026</span></div><span class="sb">تصدير Excel</span><span class="sb">CSV</span></div>
@@ -706,9 +708,10 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
        <table><tbody><tr><td class="n">2026-09-23</td><td class="n">PO-7741</td><td class="n">112,050.00</td></tr><tr><td class="n">2026-09-11</td><td class="n">PO-7716</td><td class="n">64,300.00</td></tr><tr><td class="n">2026-09-04</td><td class="n">PO-7702</td><td class="n">112,050.00</td></tr></tbody></table></div>`)},
     {k:'closing', t:'الإقفال الشهري', d:'حزمة شهرك كاملة في ضغطة: Excel لكل تقرير وملخص جاهز للطباعة.',
      html: () => scr('closing', `
-      <div class="tb"><h1>الإقفال الشهري</h1><div class="fl">الشهر<span>سبتمبر</span></div><div class="fl">السنة<span>2026</span></div><span class="pb">تنزيل حزمة September-2026</span></div>
-      <div class="pnl"><h3>محتويات الحزمة</h3>
-      ${[['المبيعات','84 مستند','s'],['المشتريات','67 مستند','s'],['ملخص ضريبة القيمة المضافة','صافي 33,180.00','s'],['الموردون والعملاء','23 مورد · 41 عميل','s'],['التكرارات','مجموعة واحدة بدون قرار','w'],['المطابقة','7 فروق · 13 ناقص','w'],['ملخص قابل للطباعة','صفحة واحدة','s']].map(([n,d,c])=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #efe8db"><span style="width:20px;height:20px;border-radius:6px;background:${c==='s'?'#0e6b66':'#b54708'};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">${c==='s'?'✓':'!'}</span><b style="flex:1">${n}</b><span style="color:#5e6670">${d}</span><span class="bd ${c}">${c==='s'?'جاهز':'راجِع'}</span></div>`).join('')}</div>`)},
+      <div class="tb"><h1>الإقفال الشهري</h1><div class="fl">الشهر<span>سبتمبر</span></div><div class="fl">السنة<span>2026</span></div></div>
+      <div class="cds" style="grid-template-columns:repeat(4,1fr)"><div class="cd"><div class="k">الفواتير المُعالجة</div><div class="v">151</div></div><div class="cd"><div class="k">ضريبة المخرجات</div><div class="v">117,600.00</div></div><div class="cd"><div class="k">ضريبة المدخلات</div><div class="v">84,420.00</div></div><div class="cd"><div class="k">الفروق</div><div class="v">7</div><div class="s">من نتائج المطابقة</div></div></div>
+      <div class="pnl"><h3>حزمة الإقفال — September-2026/</h3>
+      ${[['المبيعات','Sales.xlsx · 84 مستند','s'],['المشتريات','Purchases.xlsx · 67 مستند','s'],['ملخص ضريبة القيمة المضافة','VAT-Summary.xlsx · صافي 33,180.00','s'],['المطابقة','Reconciliation.xlsx · 7 فرق','w'],['الفواتير غير المطابقة','Missing-Invoices.xlsx · 9 فاتورة','w'],['مراجعة التكرارات','Duplicate-Review.xlsx · 1 محتمل','w'],['ملف التعليمات','README.txt','s']].map(([n,d,c])=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #efe8db"><span style="width:20px;height:20px;border-radius:6px;background:${c==='s'?'#0e6b66':'#b54708'};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">${c==='s'?'✓':'!'}</span><b style="flex:1">${n}</b><span style="color:#5e6670">${d}</span><span class="bd ${c}">${c==='s'?'جاهز':'راجِع'}</span></div>`).join('')}<div style="display:flex;gap:8px;margin-top:10px"><span class="pb">تنزيل حزمة September-2026 (ZIP)</span><span class="sb">طباعة الملخص (PDF)</span></div></div>`)},
     {k:'reports', t:'مركز التقارير', d:'كل التقارير من مكان واحد، ومنها نماذج مبيعات ومشتريات مطابقة لقالب الرفع على المنظومة.',
      html: () => scr('reports', `
       <div class="tb"><h1>التقارير</h1><div class="fl">من تاريخ<span class="num">2026-09-01</span></div><div class="fl">إلى تاريخ<span class="num">2026-09-30</span></div></div>
