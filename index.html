@@ -2,638 +2,537 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>كسلان — تنزيل وتحليل فواتير المنظومة الضريبية المصرية</title>
-<meta name="description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك الإلكترونية من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF، JSON، Excel) وتحلّلها في لوحة «كسلان premium» — بدون خادم وبدون حساب جديد.">
+<meta name="description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF وExcel وJSON) مع تقارير الضرائب، وتحلّلها في لوحة «كسلان premium»: ضريبة القيمة المضافة، المطابقة، التكرارات، العملاء والموردين. تجربة مجانية 7 أيام.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="كسلان — فواتيرك من المنظومة في دقيقة، وتحليلها كله في premium">
+<meta property="og:description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF وExcel وJSON) مع تقارير الضرائب، وتحلّلها في لوحة «كسلان premium»: ضريبة القيمة المضافة، المطابقة، التكرارات، العملاء والموردين. تجربة مجانية 7 أيام.">
+<meta property="og:image" content="icons/icon128.png">
+<meta property="og:locale" content="ar_EG">
+<meta name="theme-color" content="#0e6b66">
 <link rel="icon" href="icons/icon128.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Cairo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
 :root{
-  --paper:#eef1f6;
-  --panel:#ffffff;
-  --panel-2:#f7f8fb;
-  --ink:#142032;
-  --muted:#5b6474;
-  --line:#d7dce4;
-  --accent:#a63d2f;
-  --accent-dark:#7e2c21;
-  --accent-ink:#fff8f2;
-  --accent-soft:#f4e3de;
-  --navy:#0d1830;
-  --navy-2:#16233f;
-  --good:#1a7f37;
-  --warn:#b54708;
-  --err:#b42318;
-  --shadow: 0 1px 2px rgba(20,32,50,.06), 0 10px 30px -12px rgba(20,32,50,.18);
+  color-scheme:light;
+  --ground:#f3efe6; --surface:#fffdf8; --surface-2:#f8f4ec; --ink:#1c2530; --muted:#5a626b;
+  --line:#e2d9ca; --teal:#0e6b66; --teal-strong:#0a4f4b; --teal-soft:#dfece8; --teal-ink:#fffdf8;
+  --gold:#8f6219; --gold-soft:#f2e7d1; --band:#13302e; --band-ink:#eef3ef; --band-muted:#a9c2bd;
+  --shadow:0 1px 2px rgba(28,37,48,.06),0 18px 40px -18px rgba(28,37,48,.28);
+  --display:"El Messiri","IBM Plex Sans Arabic",serif;
+  --body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,monospace;
 }
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --paper:#0f1420;
-    --panel:#171e2c;
-    --panel-2:#1c2436;
-    --ink:#e9ecf3;
-    --muted:#93a0b4;
-    --line:#2a3345;
-    --accent:#e2795f;
-    --accent-dark:#f19a83;
-    --accent-ink:#1a0e0b;
-    --accent-soft:#3a231b;
-    --navy:#0a1120;
-    --navy-2:#0f1a30;
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 20px 40px -16px rgba(0,0,0,.55);
+    color-scheme:dark;
+    --ground:#0f1719; --surface:#162124; --surface-2:#1b282b; --ink:#ebe6dc; --muted:#a4aeb0;
+    --line:#2a3a3d; --teal:#4fb3aa; --teal-strong:#7ccbc3; --teal-soft:#1c3634; --teal-ink:#0c1a1b;
+    --gold:#d7a95c; --gold-soft:#33291a; --band:#0b2422; --band-ink:#e6efec; --band-muted:#94b3ad;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 24px 48px -20px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0f1420;
-  --panel:#171e2c;
-  --panel-2:#1c2436;
-  --ink:#e9ecf3;
-  --muted:#93a0b4;
-  --line:#2a3345;
-  --accent:#e2795f;
-  --accent-dark:#f19a83;
-  --accent-ink:#1a0e0b;
-  --accent-soft:#3a231b;
-  --navy:#0a1120;
-  --navy-2:#0f1a30;
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 20px 40px -16px rgba(0,0,0,.55);
+  color-scheme:dark;
+  --ground:#0f1719; --surface:#162124; --surface-2:#1b282b; --ink:#ebe6dc; --muted:#a4aeb0;
+  --line:#2a3a3d; --teal:#4fb3aa; --teal-strong:#7ccbc3; --teal-soft:#1c3634; --teal-ink:#0c1a1b;
+  --gold:#d7a95c; --gold-soft:#33291a; --band:#0b2422; --band-ink:#e6efec; --band-muted:#94b3ad;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 24px 48px -20px rgba(0,0,0,.6);
 }
 
 *{box-sizing:border-box}
-html{direction:rtl}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:"Cairo","Segoe UI Arabic",Tahoma,Arial,sans-serif;
-  font-size:17px;
-  line-height:1.7;
-  text-align:right;
-  -webkit-font-smoothing:antialiased;
-}
-h1,h2,h3,h4{
-  font-family:"El Messiri","Cairo",sans-serif;
-  font-weight:700;
-  margin:0;
-  text-wrap:balance;
-  color:var(--ink);
-}
+html{direction:rtl;scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--ink);font:16.5px/1.75 var(--body);text-align:right;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;line-height:1.25}
 p{margin:0}
-a{color:inherit}
-.ltr-num{direction:ltr;unicode-bidi:plaintext;font-variant-numeric:tabular-nums}
-.mono{font-family:"JetBrains Mono",Consolas,monospace}
-img,svg{max-width:100%}
-.icon{width:22px;height:22px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+a{color:var(--teal)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+.num{font-family:var(--mono);direction:ltr;unicode-bidi:plaintext;font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-section{padding:clamp(56px,8vw,108px) 0}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
+section{padding-block:clamp(56px,8vw,104px)}
 
-.site-header{
-  position:sticky;top:0;z-index:40;
-  background:color-mix(in srgb, var(--paper) 86%, transparent);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
-}
-.site-header .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
-.brand{display:flex;align-items:center;gap:10px;font-family:"El Messiri";font-weight:700;font-size:22px}
-.brand .mark{width:34px;height:34px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:14px;font-weight:700;transform:rotate(-8deg)}
-.nav-links{display:flex;gap:26px;font-size:15px;color:var(--muted)}
-.nav-links a:hover{color:var(--ink)}
-.btn{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--accent);color:var(--accent-ink);
-  border:1px solid var(--accent);
-  padding:10px 20px;border-radius:8px;
-  font-weight:700;font-size:15px;cursor:pointer;
-  text-decoration:none;white-space:nowrap;
-}
-.btn:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;gap:20px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;font:700 21px/1 var(--display);color:var(--ink);text-decoration:none}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--teal);color:var(--teal-ink);display:inline-flex;align-items:center;justify-content:center;font:700 20px/1 var(--display)}
+.nav{display:flex;gap:24px;margin-inline-start:auto;font-size:15px}
+.nav a{color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:12px;border:1px solid var(--teal);background:var(--teal);color:var(--teal-ink);font-weight:700;font-size:15.5px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--teal-strong);border-color:var(--teal-strong)}
 .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
-.btn.sm{padding:7px 14px;font-size:13px}
-@media (max-width:760px){.nav-links{display:none}}
+.btn.ghost:hover{border-color:var(--teal);color:var(--teal)}
+.btn.sm{min-height:40px;padding:0 16px;font-size:14px}
+@media (max-width:820px){.nav{display:none}.top .btn{margin-inline-start:auto}}
 
-.hero{padding:clamp(48px,8vw,88px) 0 clamp(40px,6vw,64px)}
-.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
-@media (max-width:860px){.hero-grid{grid-template-columns:1fr;gap:36px}}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;font-size:13.5px;letter-spacing:.03em;background:var(--accent-soft);padding:6px 12px;border-radius:999px;margin-bottom:18px}
-.hero h1{font-size:clamp(2.1rem,1.5rem+2.6vw,3.4rem);line-height:1.22}
-.hero h1 span{color:var(--accent)}
-.hero .lede{margin-top:20px;font-size:clamp(1.05rem,1rem+.3vw,1.2rem);color:var(--muted);max-width:52ch}
-.hero .ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
-.hero .trust{margin-top:22px;display:flex;gap:10px;align-items:center;color:var(--muted);font-size:14px}
-.hero .trust .icon{color:var(--good)}
+/* hero */
+.hero{padding-block:clamp(40px,6vw,72px) clamp(32px,5vw,56px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--gold);background:var(--gold-soft);padding:5px 12px;border-radius:999px;letter-spacing:.02em}
+.hero h1{font-size:clamp(2.1rem,1.4rem+2.8vw,3.5rem);margin-top:18px}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.lede{margin-top:18px;font-size:clamp(1.05rem,1rem+.3vw,1.22rem);color:var(--muted);max-width:54ch}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.trial-note{margin-top:16px;font-size:14px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;max-width:52ch}
+.trial-note svg{flex:none;margin-top:4px;color:var(--teal)}
 
-.stamp-wrap{display:flex;justify-content:center}
-.stamp{
-  width:min(300px,80vw);aspect-ratio:1;border-radius:50%;
-  position:relative;transform:rotate(-7deg);
-  color:var(--accent);
-  display:flex;align-items:center;justify-content:center;
-}
-.stamp::before,.stamp::after{
-  content:"";position:absolute;inset:0;border-radius:50%;
-  border:2.5px dashed currentColor;opacity:.55;
-}
-.stamp::after{inset:16px;border-style:solid;border-width:1.5px;opacity:.9}
-.stamp .inner{text-align:center}
-.stamp .inner .word{font-family:"El Messiri";font-weight:700;font-size:44px;display:block}
-.stamp .inner .sub{display:block;font-size:12px;letter-spacing:.18em;margin-top:6px;font-family:"JetBrains Mono";direction:ltr}
-.stamp .inner .rule{width:64px;height:2px;background:currentColor;margin:10px auto;opacity:.8}
+/* scaled screenshots */
+.fit{position:relative;width:100%;max-width:100%;overflow:hidden}
+.fit>.inner{position:absolute;top:0;right:0;transform-origin:top right}
+.frame{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.chrome{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surface-2);border-bottom:1px solid var(--line);direction:ltr}
+.chrome .dots{display:flex;gap:6px}.chrome .dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.chrome .addr{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:3px 10px;font:500 11.5px var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cap{margin-top:10px;font-size:13px;color:var(--muted);text-align:center}
 
-.receipt{
-  border:1px solid var(--line);background:var(--panel);
-  border-radius:4px;box-shadow:var(--shadow);
-  padding:26px 10px;position:relative;
-}
-.receipt::before,.receipt::after{
-  content:"";position:absolute;left:0;right:0;height:14px;
-  background:
-    radial-gradient(circle at 10px 0, transparent 8px, var(--paper) 8.5px) repeat-x;
-  background-size:20px 16px;
-}
-.receipt::before{top:-1px}
-.receipt::after{bottom:-1px;transform:scaleY(-1)}
-.receipt-row{display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
-.receipt-row .cell{padding:6px 10px;border-inline-start:1px dashed var(--line)}
-.receipt-row .cell:first-child{border-inline-start:none}
-.receipt-row .cell .v{font-family:"JetBrains Mono";font-weight:700;font-size:clamp(1.4rem,1.1rem+1vw,2rem);color:var(--accent);direction:ltr}
-.receipt-row .cell .k{font-size:12.5px;color:var(--muted);margin-top:4px}
-@media (max-width:640px){.receipt-row{grid-template-columns:repeat(2,1fr);row-gap:16px}.receipt-row .cell:nth-child(3){border-inline-start:none}}
+/* stats strip */
+.strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.strip div{padding:16px 12px;text-align:center;border-inline-start:1px dashed var(--line);display:flex;flex-direction:column;justify-content:center;gap:4px}
+.strip div:first-child{border-inline-start:0}
+.strip b{display:block;font:600 clamp(2.1rem,1.6rem+1.8vw,3.1rem)/1.1 var(--mono);color:var(--teal)}
+.strip span{font-size:clamp(.98rem,.9rem+.3vw,1.12rem);font-weight:600;color:var(--ink);line-height:1.45}
+@media (max-width:760px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.strip div{border-inline-start:0;border-top:1px dashed var(--line)}.strip div:nth-child(-n+2){border-top:0}.strip div:last-child{grid-column:span 2}}
 
-.section-head{max-width:640px;margin-bottom:44px}
-.section-head .eyebrow{margin-bottom:14px}
-.section-head h2{font-size:clamp(1.6rem,1.3rem+1.2vw,2.3rem)}
-.section-head p{margin-top:14px;color:var(--muted);font-size:1.05rem}
-.section-head.center{margin-inline:auto;text-align:center}
-.section-head.center .eyebrow{margin-inline:auto}
+.head{max-width:680px;margin-bottom:40px}
+.head h2{font-size:clamp(1.65rem,1.3rem+1.3vw,2.45rem);margin-top:14px}
+.head p{margin-top:12px;color:var(--muted);font-size:1.06rem}
 
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:step;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
-.step{padding:28px 24px;position:relative;border-inline-start:1px solid var(--line)}
-.step:first-child{border-inline-start:none}
-.step .n{font-family:"JetBrains Mono";font-weight:700;color:var(--accent);font-size:13px;direction:ltr}
-.step h3{font-size:1.05rem;margin-top:10px}
-.step p{color:var(--muted);font-size:14px;margin-top:8px}
-@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}.step:nth-child(3){border-inline-start:none}}
-@media (max-width:560px){.steps{grid-template-columns:1fr}.step{border-inline-start:none!important;border-top:1px solid var(--line)}.step:first-child{border-top:none}}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.step .n{font:600 13px var(--mono);color:var(--gold)}
+.step h3{font-size:1.1rem;margin-top:8px}
+.step p{color:var(--muted);font-size:14.5px;margin-top:6px}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
 
-.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-@media (max-width:900px){.split{grid-template-columns:1fr;gap:36px}}
-.split.rev .device-col{order:2}
-@media (max-width:900px){.split.rev .device-col{order:0}}
+/* kaslan section */
+.k-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+@media (max-width:960px){.k-grid{grid-template-columns:1fr}}
+.feat-list{display:grid;gap:14px;margin-top:26px}
+.feat-list li{list-style:none;display:flex;gap:12px}
+.feat-list{padding:0}
+.feat-list .ic{width:36px;height:36px;border-radius:10px;background:var(--teal-soft);color:var(--teal);flex:none;display:flex;align-items:center;justify-content:center}
+.feat-list b{display:block}
+.feat-list span{color:var(--muted);font-size:14.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px solid var(--line);background:var(--surface);font-size:13px;padding:4px 12px;border-radius:999px}
+.k-shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+@media (max-width:760px){.k-shots{grid-template-columns:1fr}}
+.shot-card{display:flex;flex-direction:column;gap:10px}
+.shot-card .fit{border-radius:14px;border:1px solid var(--line);background:#e9e3d7;box-shadow:var(--shadow)}
+.shot-card h4{font-size:1rem}
+.shot-card p{font-size:13.5px;color:var(--muted)}
 
-.outputs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
-@media (max-width:640px){.outputs{grid-template-columns:1fr 1fr}}
-.output{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.output .icon{color:var(--accent)}
-.output .t{font-weight:700;font-size:14.5px}
-.output .d{color:var(--muted);font-size:12.5px;line-height:1.5}
+/* video player */
+.player{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.stage{position:relative;background:#e9e3d7}
+.stage .layer{position:absolute;inset:0;opacity:0;transition:opacity .45s ease}
+.stage .layer.on{opacity:1}
+.cursor{position:absolute;z-index:5;width:22px;height:22px;pointer-events:none;transition:top .9s cubic-bezier(.5,0,.2,1),left .9s cubic-bezier(.5,0,.2,1);filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}
+.cursor.click::after{content:"";position:absolute;top:-10px;left:-10px;width:40px;height:40px;border-radius:50%;border:2px solid #0e6b66;animation:ping .5s ease-out}
+@keyframes ping{from{transform:scale(.3);opacity:1}to{transform:scale(1.2);opacity:0}}
+.caption{position:absolute;z-index:6;bottom:14px;right:14px;max-width:min(460px,80%);background:rgba(19,48,46,.93);color:#eef3ef;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.55;transition:opacity .3s}
+.caption b{display:block;font:700 16px/1.3 var(--display);margin-bottom:2px}
+@media (max-width:600px){.caption{bottom:8px;right:8px;max-width:92%;padding:6px 10px;font-size:11.5px}.caption b{font-size:13px}.caption span{display:none}}
+.controls{display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid var(--line)}
+.play{width:42px;height:42px;border-radius:50%;border:0;background:var(--teal);color:var(--teal-ink);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+.play:hover{background:var(--teal-strong)}
+.track{flex:1;display:flex;gap:4px}
+.track button{flex:1;height:30px;border:0;background:transparent;padding:0;cursor:pointer;display:flex;align-items:center}
+.track button i{display:block;width:100%;height:5px;border-radius:3px;background:var(--line);overflow:hidden;position:relative}
+.track button i::after{content:"";position:absolute;inset:0;width:var(--p,0%);background:var(--teal)}
+.time{font:500 12.5px var(--mono);color:var(--muted);direction:ltr;min-width:78px;text-align:left}
+.chapters{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 14px}
+.chapters button{border:1px solid var(--line);background:transparent;border-radius:999px;padding:4px 12px;font-size:13px;cursor:pointer;color:var(--muted)}
+.chapters button[aria-current="true"]{background:var(--teal-soft);color:var(--teal-strong);border-color:transparent;font-weight:700}
 
-.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.chip{border:1px solid var(--line);background:var(--panel-2);color:var(--ink);font-size:13px;padding:6px 12px;border-radius:999px}
+/* premium gallery */
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:44px}
+@media (max-width:760px){.gallery{grid-template-columns:1fr}}
+.g-item{display:flex;flex-direction:column;gap:10px;text-align:right;background:none;border:0;padding:0;cursor:pointer}
+.g-item .fit{border-radius:14px;border:1px solid var(--line);box-shadow:var(--shadow);background:#f6f2ea;transition:transform .2s}
+.g-item:hover .fit{transform:translateY(-3px)}
+.g-item .meta{display:flex;gap:10px;align-items:baseline}
+.g-item .meta .n{font:600 12px var(--mono);color:var(--gold)}
+.g-item h4{font-size:1.08rem}
+.g-item p{font-size:14px;color:var(--muted)}
 
-.device{
-  border-radius:12px;overflow:hidden;background:var(--panel);
-  border:1px solid var(--line);box-shadow:var(--shadow);
-}
-.device-scroll{overflow-x:auto}
-.device-chrome{
-  background:#e4e7ed;padding:10px 14px;display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid #d3d7de;direction:ltr;
-}
-.device-chrome .dots{display:flex;gap:6px}
-.device-chrome .dots span{width:10px;height:10px;border-radius:50%;background:#c7cbd3}
-.device-chrome .addr{
-  flex:1;background:#fff;border:1px solid #d3d7de;border-radius:6px;
-  padding:5px 10px;font-family:"JetBrains Mono";font-size:11.5px;color:#5b6474;
-  display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.device-chrome .addr .icon{width:12px;height:12px;color:var(--good)}
-.device-cap{padding:10px 4px 0;color:var(--muted);font-size:12.5px;text-align:center}
+/* compare */
+.tiers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:760px){.tiers{grid-template-columns:1fr}}
+.tier{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px}
+.tier.pro{border-color:var(--teal);box-shadow:var(--shadow)}
+.tier h3{font-size:1.4rem}
+.tier .tag{align-self:flex-start;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--teal-soft);color:var(--teal-strong)}
+.tier.pro .tag{background:var(--gold-soft);color:var(--gold)}
+.tier ul{margin:0;padding:0;display:grid;gap:8px}
+.tier li{list-style:none;display:flex;gap:10px;font-size:15px}
+.tier li svg{flex:none;margin-top:5px;color:var(--teal)}
 
-.eta-panel{
-  --p-accent:#0b6e4f;
-  min-width:560px;background:#fbfbf8;color:#20291f;padding:18px 20px;direction:rtl;
-  font-family:"Cairo",sans-serif;font-size:13px;
-}
-.eta-panel .ph{font-weight:800;font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.eta-panel .ph .icon{width:18px;height:18px;color:var(--p-accent)}
-.eta-panel fieldset{border:1px solid #dfe3da;border-radius:8px;margin:0 0 10px;padding:10px 12px}
-.eta-panel legend{font-size:11.5px;font-weight:700;color:#4b5346;padding:0 6px}
-.eta-panel label{display:block;padding:3px 0;color:#33392e;font-size:12.5px}
-.eta-panel label.inline{display:inline-block;width:48%}
-.eta-panel input[type=radio],.eta-panel input[type=checkbox]{margin-inline-end:6px}
-.eta-panel .go{margin-top:6px;background:var(--p-accent);color:#fff;border:none;border-radius:7px;padding:9px 16px;font-weight:700;font-size:13px}
-
-.premium-app{
-  min-width:760px;display:grid;grid-template-columns:200px 1fr;
-  font-family:"Cairo",sans-serif;font-size:13px;
-}
-.premium-side{background:var(--navy);color:#cdd8e6;padding:16px 10px;display:flex;flex-direction:column;gap:2px}
-.premium-side .b{color:#fff;font-weight:700;padding:6px 10px 14px;font-size:14px}
-.premium-side a{color:#cdd8e6;padding:7px 10px;border-radius:6px;font-size:12.5px;display:block}
-.premium-side a.on{background:#1d3a63;color:#fff}
-.premium-main{padding:18px 22px;background:#f4f6f8;color:#1b2430}
-.premium-main .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.premium-main .top h4{font-size:15px;font-family:"Cairo";font-weight:700}
-.pcards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.pcard{background:#fff;border:1px solid #e2e6ea;border-radius:8px;padding:12px}
-.pcard .k{color:#667085;font-size:11px}
-.pcard .v{font-size:18px;font-weight:700;margin-top:5px;direction:ltr;font-family:"JetBrains Mono"}
-.pcard .s{color:#667085;font-size:11px;margin-top:2px}
-.ptable{margin-top:14px;background:#fff;border:1px solid #e2e6ea;border-radius:8px;padding:12px}
-.ptable table{width:100%;border-collapse:collapse;font-size:11.5px}
-.ptable th,.ptable td{border-bottom:1px solid #eef0f2;padding:6px 8px;text-align:right}
-.ptable th{color:#667085;font-weight:600}
-.ptable td.num{direction:ltr;text-align:left;font-family:"JetBrains Mono"}
-.pbadge{padding:2px 8px;border-radius:999px;font-size:10.5px;border:1px solid #e2e6ea}
-.pbadge.sales{color:#1a7f37;border-color:#b7e0c2;background:#eafaef}
-.pbadge.purchase{color:#2c5aa0;border-color:#c3d4ee;background:#eef3fb}
-.pbadge.warn{color:#b54708;border-color:#f3d4b8;background:#fff5ea}
-
-.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
-@media (max-width:900px){.feature-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.feature-grid{grid-template-columns:1fr}}
-.feature{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.feature .icon-badge{width:40px;height:40px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
-.feature h3{font-size:16px}
-.feature p{color:var(--muted);font-size:13.5px;line-height:1.6}
-.feature.highlight{border-color:var(--accent);position:relative}
-.feature .tag{position:absolute;top:14px;left:14px;background:var(--accent);color:var(--accent-ink);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:999px}
-
-.privacy-band{background:var(--navy);color:#dfe6f2;border-radius:16px;padding:clamp(28px,5vw,52px)}
-.privacy-band .section-head h2,.privacy-band .section-head p{color:#dfe6f2}
-.privacy-band .section-head p{color:#9fb0c8}
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px}
+/* privacy band */
+.band{background:var(--band);color:var(--band-ink);border-radius:20px;padding:clamp(28px,5vw,52px)}
+.band h2{color:var(--band-ink);font-size:clamp(1.6rem,1.3rem+1.2vw,2.3rem)}
+.band .sub{color:var(--band-muted);margin-top:10px}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:30px}
 @media (max-width:820px){.pgrid{grid-template-columns:1fr}}
-.pitem{display:flex;gap:14px}
-.pitem .icon{color:#8fb3ff;flex:none;margin-top:2px}
-.pitem h4{color:#fff;font-size:15px}
-.pitem p{color:#9fb0c8;font-size:13.5px;margin-top:6px;line-height:1.6}
+.pgrid h4{color:var(--band-ink);font-size:1.05rem}
+.pgrid p{color:var(--band-muted);font-size:14.5px;margin-top:6px}
 
-.faq{max-width:760px}
-.faq details{border-bottom:1px solid var(--line);padding:18px 0}
-.faq summary{cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+/* faq */
+.faq{max-width:780px}
+.faq details{border-bottom:1px solid var(--line);padding-block:16px}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-weight:700;font-size:16.5px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary .plus{color:var(--accent);font-size:22px;font-weight:400;flex:none;transition:transform .15s}
-.faq details[open] summary .plus{transform:rotate(45deg)}
-.faq .a{color:var(--muted);margin-top:12px;font-size:14.5px;line-height:1.7;max-width:64ch}
+.faq summary::after{content:"+";color:var(--teal);font-size:22px;line-height:1;transition:transform .15s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{margin-top:10px;color:var(--muted);font-size:15px;max-width:66ch}
 
-.cta-band{background:var(--accent);color:var(--accent-ink);border-radius:16px;padding:clamp(32px,6vw,56px);text-align:center}
-.cta-band h2{color:var(--accent-ink);font-size:clamp(1.5rem,1.2rem+1.2vw,2.1rem)}
-.cta-band p{color:var(--accent-ink);opacity:.92;margin-top:12px;max-width:52ch;margin-inline:auto}
-.cta-band .ctas{display:flex;gap:14px;justify-content:center;margin-top:26px;flex-wrap:wrap}
-.cta-band .btn{background:var(--accent-ink);color:var(--accent);border-color:var(--accent-ink)}
-.cta-band .btn:hover{opacity:.9;background:var(--accent-ink)}
-.cta-band .btn.ghost{background:transparent;color:var(--accent-ink);border-color:color-mix(in srgb, var(--accent-ink) 40%, transparent)}
+/* cta */
+.cta{background:var(--teal);color:var(--teal-ink);border-radius:20px;padding:clamp(30px,6vw,56px);display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+@media (max-width:820px){.cta{grid-template-columns:1fr}}
+.cta h2{color:var(--teal-ink);font-size:clamp(1.55rem,1.2rem+1.3vw,2.2rem)}
+.cta p{margin-top:10px;opacity:.9}
+.contact{background:color-mix(in srgb,var(--teal-ink) 12%,transparent);border:1px solid color-mix(in srgb,var(--teal-ink) 30%,transparent);border-radius:14px;padding:16px;display:grid;gap:10px}
+.contact .label{font-size:13px;opacity:.85}
+.contact .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.contact .email{font:600 15px var(--mono);direction:ltr;user-select:all;word-break:break-all;flex:1;min-width:0}
+.contact button,.contact a{min-height:40px;padding:0 14px;border-radius:10px;border:1px solid color-mix(in srgb,var(--teal-ink) 40%,transparent);background:var(--teal-ink);color:var(--teal);font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.contact a{background:transparent;color:var(--teal-ink)}
+footer{border-top:1px solid var(--line);padding-block:32px;color:var(--muted);font-size:13.5px}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
 
-footer{border-top:1px solid var(--line);padding:36px 0;color:var(--muted);font-size:13px}
-footer .fgrid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer a{text-decoration:underline;text-underline-offset:3px}
-footer .fine{margin-top:18px;color:var(--muted);opacity:.8;font-size:12px;max-width:70ch;line-height:1.6}
+/* =================== product screens (fixed product palette) =================== */
+.scr{--bg:#f6f2ea;--pn:#fffdf8;--sd:#fbf8f1;--sf:#f1ece1;--ik:#1c2530;--mt:#5e6670;--ln:#e4dccf;--ls:#efe8db;--tl:#0e6b66;--ts:#0a4f4b;--tf:#e3efec;--gd:#9a6b1f;--gf:#f4ebd8;
+  width:1100px;height:660px;display:grid;grid-template-columns:200px 1fr;background:var(--bg);color:var(--ik);font:12.5px/1.55 var(--body);direction:rtl;text-align:right;position:relative;overflow:hidden}
+.scr .sd{background:var(--sd);border-inline-end:1px solid var(--ln);padding:18px 12px;display:flex;flex-direction:column;gap:12px}
+.scr .sd .br{display:flex;align-items:center;gap:8px;padding:0 6px}
+.scr .sd .lg{width:30px;height:30px;border-radius:9px;background:var(--tl);color:#fffdf8;display:flex;align-items:center;justify-content:center;font:700 17px/1 var(--display)}
+.scr .sd .bn{font:700 16px/1.1 var(--display)}
+.scr .sd .bt{font-size:9.5px;color:var(--gd);font-weight:700;letter-spacing:.08em}
+.scr .sd .co{background:var(--sf);border-radius:8px;padding:6px 10px;font-weight:600;font-size:12px}
+.scr .sd .co small{display:block;font-weight:400;color:var(--mt);font-size:10px}
+.scr .sd .gt{font-size:10px;color:var(--mt);font-weight:600;padding:0 8px 2px}
+.scr .sd .it{padding:5px 10px;border-radius:7px;font-weight:500}
+.scr .sd .it.on{background:var(--tf);color:var(--ts);font-weight:700}
+.scr .mn{padding:20px 24px;display:flex;flex-direction:column;gap:14px;min-width:0;overflow:hidden}
+.scr .tb{display:flex;align-items:flex-end;gap:10px}
+.scr .tb h1{font:700 23px/1.2 var(--display);flex:1}
+.scr .tb .ey{font-size:11px;color:var(--mt)}
+.scr .pb{background:var(--tl);color:#fffdf8;border-radius:8px;padding:6px 12px;font-weight:600;font-size:12px;white-space:nowrap}
+.scr .sb{background:var(--pn);color:var(--tl);border:1px solid var(--ln);border-radius:8px;padding:5px 11px;font-weight:600;font-size:12px;white-space:nowrap}
+.scr .gb{border:1px solid var(--ln);border-radius:7px;padding:3px 9px;font-size:11px;white-space:nowrap}
+.scr .fl{display:flex;flex-direction:column;gap:3px;font-size:10px;color:var(--mt);font-weight:600}
+.scr .fl span{background:var(--pn);border:1px solid var(--ln);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--ik);font-weight:500;min-width:92px}
+.scr .pnl{background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:14px}
+.scr .pnl h3{font:700 15px/1.3 var(--display);margin-bottom:8px}
+.scr .cds{display:grid;gap:12px}
+.scr .cd{background:var(--pn);border:1px solid var(--ln);border-radius:12px;padding:12px 14px}
+.scr .cd .k{color:var(--mt);font-weight:600;font-size:11.5px}
+.scr .cd .v{font:600 20px/1.3 var(--mono);direction:ltr;text-align:right;margin-top:3px}
+.scr .cd .s{color:var(--mt);font-size:10.5px}
+.scr .cd.big .v{font-size:25px}
+.scr .cd.ac{background:var(--tl);border-color:var(--tl);color:#fffdf8}
+.scr .cd.ac .k,.scr .cd.ac .s{color:#fffdf8;opacity:.9}
+.scr table{width:100%;border-collapse:collapse;font-size:11.5px}
+.scr th,.scr td{padding:6px 8px;border-bottom:1px solid var(--ls);text-align:right;white-space:nowrap}
+.scr th{color:var(--mt);font-weight:600;background:var(--sd)}
+.scr td.n,.scr th.n{text-align:left;direction:ltr;font-family:var(--mono);font-size:11px}
+.scr .bd{display:inline-block;padding:1px 8px;border-radius:999px;font-size:10px;font-weight:600;border:1px solid var(--ln)}
+.scr .bd.s{color:#1f7a45;border-color:#bfdcc8;background:#ebf5ee}
+.scr .bd.p{color:var(--gd);border-color:#e6d3ad;background:var(--gf)}
+.scr .bd.w{color:#b54708;border-color:#f3d4b8;background:#fff5ea}
+.scr .bd.e{color:#b42318;border-color:#f0b8b0;background:#fdecea}
+.scr .bars{display:flex;align-items:flex-end;gap:10px;height:170px;border-bottom:1px solid var(--ln);padding-bottom:4px}
+.scr .bars>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.scr .bars .pair{display:flex;align-items:flex-end;gap:3px;height:150px}
+.scr .bars .pair i{width:11px;border-radius:4px 4px 0 0;display:block}
+.scr .bars small{font-size:9.5px;color:var(--mt)}
+.scr .meter{height:5px;border-radius:3px;background:var(--sf)}
+.scr .meter i{display:block;height:100%;border-radius:3px;background:var(--tl)}
+.scr .shade{position:absolute;inset:0;background:rgba(28,37,48,.32);z-index:2}
+.scr .drw{position:absolute;top:0;bottom:0;left:0;width:470px;background:var(--pn);z-index:3;padding:18px 20px;box-shadow:0 10px 40px rgba(28,37,48,.25);display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.scr .drw h2{font:700 18px/1.3 var(--display)}
+.scr .kv{display:grid;grid-template-columns:110px 1fr;gap:3px 10px;font-size:11.5px}
+.scr .kv dt{color:var(--mt)}.scr .kv dd{margin:0}
+.scr .sub{background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:10px 12px}
+.scr .hl{box-shadow:0 0 0 3px rgba(14,107,102,.35)}
+
+/* ETA backdrop + kaslan panel */
+.kpage{width:720px;height:760px;position:relative;background:#eef0f2;font:12px/1.5 var(--body);direction:rtl;overflow:hidden}
+.kpage .ph{height:48px;background:#dfe3e7}
+.kpage .rows{padding:24px 28px;display:grid;gap:10px}
+.kpage .rows i{display:block;height:30px;border-radius:6px;background:#e3e6ea}
+.kpage .rows i:nth-child(odd){background:#e7eaed}
+.kp{--bg:#fffdf8;--sf:#f1ece1;--ln:#e4dccf;--ls:#efe8db;--ik:#1c2530;--mt:#5e6670;--tl:#0e6b66;--tf:#e3efec;--ts:#0a4f4b;--gd:#9a6b1f;--gf:#f4ebd8;
+  position:absolute;bottom:64px;left:18px;width:400px;background:var(--bg);color:var(--ik);border:1px solid var(--ln);border-radius:18px;box-shadow:0 18px 50px rgba(28,37,48,.28);display:flex;flex-direction:column;overflow:hidden;font:12.5px/1.55 var(--body)}
+.kp .hd{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;border-bottom:1px solid var(--ls)}
+.kp .lg{width:36px;height:36px;border-radius:11px;background:var(--tl);color:#fffdf8;display:flex;align-items:center;justify-content:center;font:700 20px/1 var(--display)}
+.kp .tt{flex:1}.kp .tt b{display:block;font:700 18px/1.1 var(--display)}.kp .tt small{color:var(--mt);font-size:11px}
+.kp .x{width:30px;height:30px;border-radius:9px;border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;color:var(--mt)}
+.kp .st{margin:10px 16px 0;background:var(--sf);border-radius:9px;padding:6px 10px;font-size:11px;color:var(--mt);display:flex;gap:7px;align-items:center}
+.kp .st::before{content:"";width:7px;height:7px;border-radius:50%;background:#1f8a4c}
+.kp .bd{padding:12px 16px;display:flex;flex-direction:column;gap:12px}
+.kp .sh{display:flex;gap:7px;align-items:baseline}.kp .sh .n{font:500 11px var(--mono);color:var(--gd)}.kp .sh b{font-size:13px}.kp .sh small{font-size:10.5px;color:var(--mt)}
+.kp .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;background:var(--sf);border-radius:10px}
+.kp .seg span{text-align:center;padding:6px 0;border-radius:8px;font-size:11.5px;color:var(--mt);transition:background .25s,color .25s}
+.kp .seg span.on{background:var(--bg);color:var(--ik);font-weight:700;box-shadow:0 1px 2px rgba(28,37,48,.14)}
+.kp .g2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.kp .fd{display:flex;flex-direction:column;gap:2px;font-size:10.5px;color:var(--mt)}
+.kp .fd span{border:1px solid var(--ln);border-radius:9px;padding:6px 9px;color:var(--ik);font-size:12px;font-weight:500;background:var(--bg)}
+.kp .sw{width:34px;height:20px;border-radius:10px;background:#d9d1c2;position:relative;flex:none;transition:background .25s}
+.kp .sw::before{content:"";position:absolute;top:3px;right:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:right .25s}
+.kp .sw.on{background:var(--tl)}.kp .sw.on::before{right:17px}
+.kp .sw.gold.on{background:var(--gd)}
+.kp .swr{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--ln);border-radius:9px;padding:7px 10px}
+.kp .swr b{display:block;font-size:12px}.kp .swr small{color:var(--mt);font-size:10.5px}
+.kp .cps{display:flex;flex-wrap:wrap;gap:5px}
+.kp .cp{border:1px solid var(--ln);border-radius:14px;padding:3px 10px;font-size:11px;color:var(--mt);transition:all .25s}
+.kp .cp.on{background:var(--tf);border-color:#bcd8d2;color:var(--ts);font-weight:600}
+.kp .cp.on::before{content:"✓ "}
+.kp .pc{display:flex;gap:10px;align-items:center;background:var(--gf);border-radius:11px;padding:9px 10px}
+.kp .pc .pi{width:30px;height:30px;border-radius:9px;background:var(--gd);color:#fffdf8;display:flex;align-items:center;justify-content:center;flex:none}
+.kp .pc b{display:block;font-size:12px}.kp .pc small{font-size:10px;color:#5e4a26}
+.kp .more{border:1px solid var(--ln);border-radius:11px}
+.kp .more>div{padding:8px 10px;display:flex;justify-content:space-between;font-weight:600;font-size:12px}
+.kp .more>div+div,.kp .more .open{border-top:1px solid var(--ls)}
+.kp .more small{font-weight:400;color:var(--mt);font-size:10.5px}
+.kp .open{padding:4px 10px 10px!important;display:flex!important;flex-direction:column;gap:7px;font-weight:400!important}
+.kp .ft{padding:10px 16px 14px;border-top:1px solid var(--ls);background:#fbf8f1;display:flex;flex-direction:column;gap:7px}
+.kp .pr{display:flex;justify-content:space-between;font-size:11px;color:var(--mt)}
+.kp .pr .num{font-size:11px}
+.kp .bar{height:5px;border-radius:3px;background:#eae3d5;overflow:hidden}.kp .bar i{display:block;height:100%;background:var(--tl);transition:width .5s linear}
+.kp .ac{display:flex;gap:7px}
+.kp .go{flex:1;background:var(--tl);color:#fffdf8;border-radius:11px;text-align:center;padding:10px 0;font-weight:700;font-size:14px;transition:background .25s}
+.kp .go.dis{background:#8fb8b4}
+.kp .stp{width:80px;border:1px solid var(--ln);border-radius:11px;text-align:center;padding:10px 0;color:var(--mt);font-weight:600}
+.kp .stp.act{color:#b42318;border-color:#f0c4bd}
+.kp .log{background:#1c2530;color:#dfe6ec;font:10.5px/1.6 var(--mono);direction:ltr;text-align:left;border-radius:9px;padding:7px 9px;white-space:pre-wrap;min-height:0}
+.kp .log:empty{display:none}
+.kp .log b{color:#6fd3a0;font-weight:500}
+.launch{position:absolute;bottom:16px;left:18px;display:flex;align-items:center;gap:7px;background:#0e6b66;color:#fffdf8;border-radius:999px;padding:6px 14px 6px 6px;font:700 13px/1 var(--display);box-shadow:0 6px 20px rgba(14,107,102,.35)}
+.launch i{width:24px;height:24px;border-radius:50%;background:#fffdf8;color:#0e6b66;display:flex;align-items:center;justify-content:center;font-style:normal}
 </style>
 </head>
 <body>
-
-<svg style="display:none" aria-hidden="true">
-<defs>
-<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
-<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
-<symbol id="i-server-off" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/><path d="M3 3l18 18"/></symbol>
-<symbol id="i-file-pdf" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 17v-4h1a1.5 1.5 0 010 3h-1M13 17v-4h1.5M18 13v4M18 15h1"/></symbol>
-<symbol id="i-file-json" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9 12c-1 0-1 1-1 2s0 2-1 2c1 0 1 1 1 2s0 2 1 2"/><path d="M15 12c1 0 1 1 1 2s0 2 1 2c-1 0-1 1-1 2s0 2-1 2" transform="translate(0 -2)"/></symbol>
-<symbol id="i-file-xls" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M9.5 13l4 6M13.5 13l-4 6"/></symbol>
-<symbol id="i-file-csv" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M8.5 17c0-3 3-3 3 0M13 14v6M15.5 14l1 3 1-3M15.5 20l1-3 1 3" stroke-width="1.3"/></symbol>
-<symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V4h12v5"/><rect x="4" y="9" width="16" height="8" rx="1.5"/><rect x="7" y="14" width="10" height="6"/></symbol>
-<symbol id="i-archive" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 001 1h12a1 1 0 001-1V8"/><path d="M10 12h4"/></symbol>
-<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></symbol>
-<symbol id="i-trend-up" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-9"/><path d="M15 6h6v6"/></symbol>
-<symbol id="i-trend-down" viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 9"/><path d="M15 18h6v-6"/></symbol>
-<symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10"/><path d="M4 8h6M14 8h6"/><path d="M7 8l-3 6a3 3 0 006 0zM17 8l-3 6a3 3 0 006 0z"/></symbol>
-<symbol id="i-percent" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M18 6 6 18"/></symbol>
-<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></symbol>
-<symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="10" height="18"/><path d="M14 8h6v13h-6M7 7h.01M11 7h.01M7 11h.01M11 11h.01M7 15h.01M11 15h.01"/></symbol>
-<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><circle cx="17.5" cy="9" r="2.6"/><path d="M15.5 14.2c2.6.4 4.5 2.5 4.5 5.8"/></symbol>
-<symbol id="i-cal-check" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8.5 15l2 2 4-4"/></symbol>
-<symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 17v-5M12.5 17v-8M16 17v-3"/></symbol>
-<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></symbol>
-<symbol id="i-plug-off" viewBox="0 0 24 24"><path d="M9 3v4M15 3v4M6 7h12l-1 5a5 5 0 01-5 4h0a5 5 0 01-5-4z"/><path d="M12 16v5M3 3l18 18"/></symbol>
-</defs>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></g></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5"/></g></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/></g></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></g></symbol>
 </svg>
 
-<header class="site-header">
+<header class="top">
   <div class="wrap bar">
-    <div class="brand"><span class="mark">ك</span> كسلان</div>
-    <nav class="nav-links">
-      <a href="#free">التنزيل بالجملة</a>
+    <a class="brand" href="#top"><span class="logo">ك</span>كسلان</a>
+    <nav class="nav" aria-label="أقسام الصفحة">
+      <a href="#kaslan">أداة التنزيل</a>
       <a href="#premium">كسلان premium</a>
+      <a href="#tiers">الاشتراك</a>
       <a href="#privacy">الخصوصية</a>
-      <a href="#faq">الأسئلة الشائعة</a>
+      <a href="#faq">الأسئلة</a>
     </nav>
-    <a class="btn sm" href="mailto:khaled.m.adel1992@gmail.com?subject=الاشتراك%20في%20كسلان">تواصل للاشتراك</a>
+    <a class="btn sm" href="#contact">اطلب تجربتك</a>
   </div>
 </header>
 
-<main>
+<main id="top">
 
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow"><svg class="icon" style="width:16px;height:16px"><use href="#i-shield"/></svg> إضافة كروم واحدة، بلا خادم وبلا حساب</span>
-      <h1>سيب <span>كسلان</span> يجيب فواتيرك من المنظومة… وانت كسلان</h1>
-      <p class="lede">إضافة كروم تنزّل فواتيرك وإيصالاتك الإلكترونية من منظومة الفاتورة الإلكترونية المصرية بالجملة — PDF وJSON وExcel — ثم تحلّلها في لوحة داخلية كاملة، من غير ما تسيب المتصفح ولا تركّب حاجة على جهازك.</p>
+      <span class="eyebrow">إضافة كروم لمنظومة الفاتورة الإلكترونية</span>
+      <h1>فواتيرك من المنظومة في دقيقة، <em>وتحليلها كله في premium</em></h1>
+      <p class="lede">كسلان بينزّل كل فواتيرك وإيصالاتك بالجملة (PDF وExcel وJSON) وتقارير الضرائب الجاهزة، ثم يحوّلها للوحة تحليل كاملة: ضريبة القيمة المضافة، المطابقة مع دفاترك، التكرارات، العملاء والموردين، والإقفال الشهري. كله جوّه متصفحك.</p>
       <div class="ctas">
-        <a class="btn" href="mailto:khaled.m.adel1992@gmail.com?subject=الاشتراك%20في%20كسلان">اطلب اشتراكك الآن</a>
-        <a class="btn ghost" href="#premium">شوف كسلان premium</a>
+        <a class="btn" href="#contact">اطلب تجربة مجانية 7 أيام</a>
+        <a class="btn ghost" href="#premium"><svg width="16" height="16"><use href="#i-play"/></svg>شاهد جولة premium</a>
       </div>
-      <div class="trust"><svg class="icon" style="width:18px;height:18px"><use href="#i-lock"/></svg> فواتيرك تتخزّن جوّه متصفحك فقط — مفيش خادم بيشوفها</div>
+      <p class="trial-note"><svg width="16" height="16"><use href="#i-clock"/></svg>التجربة المجانية تشمل أداة التنزيل والتقارير لمدة 7 أيام. لوحة «كسلان premium» متاحة بالاشتراك فقط، وتقدر تشوفها كاملة في الجولة تحت.</p>
     </div>
-    <div class="stamp-wrap">
-      <div class="stamp">
-        <div class="inner">
-          <span class="word">كسلان</span>
-          <span class="rule"></span>
-          <span class="sub">ETA · e-INVOICE</span>
-        </div>
+    <div>
+      <div class="frame">
+        <div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="addr">invoicing.eta.gov.eg/documents</div></div>
+        <div class="fit" data-w="720" data-h="760"><div class="inner" data-k="hero"></div></div>
       </div>
+      <p class="cap">لوحة كسلان كما تظهر فوق صفحة الوثائق في المنظومة (بيانات توضيحية)</p>
     </div>
   </div>
 </section>
 
 <section style="padding-top:0">
   <div class="wrap">
-    <div class="receipt">
-      <div class="receipt-row">
-        <div class="cell"><span class="v ltr-num">6</span><div class="k">صيغ تنزيل فورية</div></div>
-        <div class="cell"><span class="v ltr-num">6</span><div class="k">تقارير Excel رسمية</div></div>
-        <div class="cell"><span class="v ltr-num">11</span><div class="k">أداة تحليل في premium</div></div>
-        <div class="cell"><span class="v ltr-num">0</span><div class="k">خوادم خارجية لبياناتك</div></div>
-      </div>
+    <div class="strip">
+      <div><b>6</b><span>صيغ تنزيل</span></div>
+      <div><b>6</b><span>تقارير Excel ضريبية</span></div>
+      <div><b>11</b><span>صفحة تحليل في premium</span></div>
+      <div><b>7</b><span>أيام تجربة مجانية</span></div>
+      <div><b>0</b><span>خوادم تشوف بياناتك</span></div>
     </div>
   </div>
 </section>
 
-<section id="how">
+<section id="how" style="padding-top:0">
   <div class="wrap">
-    <div class="section-head center">
+    <div class="head">
       <span class="eyebrow">إزاي بيشتغل</span>
-      <h2>أربع خطوات، ومفيش تسجيل جديد</h2>
-      <p>كسلان بيستخدم جلستك اللي أنت داخل بيها فعلاً على المنظومة — من غير حساب منفصل ولا كلمة سر تانية.</p>
+      <h2>أربع خطوات، بنفس تسجيل دخولك على المنظومة</h2>
+      <p>مفيش حساب جديد ولا كلمة سر تانية. كسلان بيشتغل بجلستك الحالية على منظومة الفاتورة الإلكترونية.</p>
     </div>
     <div class="steps">
-      <div class="step">
-        <div class="n ltr-num">01</div>
-        <h3>سجّل دخولك للمنظومة</h3>
-        <p>افتح invoicing.eta.gov.eg وسجّل دخولك زي العادة.</p>
-      </div>
-      <div class="step">
-        <div class="n ltr-num">02</div>
-        <h3>افتح زر «كسلان»</h3>
-        <p>هيظهر تلقائياً فوق صفحة الفواتير أو الإيصالات.</p>
-      </div>
-      <div class="step">
-        <div class="n ltr-num">03</div>
-        <h3>اختار المصدر والمخرجات</h3>
-        <p>المعروض حالياً، نطاق تاريخ، أو قائمة أرقام UUID — واختار الصيغ اللي محتاجها.</p>
-      </div>
-      <div class="step">
-        <div class="n ltr-num">04</div>
-        <h3>اضغط «ابدأ»</h3>
-        <p>تنزيل فوري لجهازك، مع فتح لوحة «كسلان premium» تلقائياً لو حابب.</p>
-      </div>
+      <div class="step"><div class="n">01</div><h3>سجّل دخولك للمنظومة</h3><p>زي ما بتعمل كل يوم على invoicing.eta.gov.eg.</p></div>
+      <div class="step"><div class="n">02</div><h3>افتح زر «كسلان»</h3><p>بيظهر في ركن الصفحة فوق الوثائق والإيصالات.</p></div>
+      <div class="step"><div class="n">03</div><h3>اختار المصدر والمخرجات</h3><p>المعروض حالياً أو نطاق تاريخ أو قائمة UUID، والصيغ اللي محتاجها.</p></div>
+      <div class="step"><div class="n">04</div><h3>اضغط «ابدأ التنزيل»</h3><p>الملفات تنزل على جهازك، والبيانات تتحفظ في premium لو مفعّلة.</p></div>
     </div>
   </div>
 </section>
 
-<section id="free">
+<section id="kaslan" style="padding-top:0">
   <div class="wrap">
-    <div class="split">
+    <div class="k-grid">
       <div>
-        <span class="eyebrow">التنزيل بالجملة — مجاني ضمن الاشتراك</span>
-        <h2>كل فواتيرك، بكل صيغة محتاجها، من ضغطة واحدة</h2>
-        <p style="margin-top:16px;color:var(--muted);font-size:1.02rem">مفيش نسخ ولصق ولا فتح كل فاتورة لوحدها. كسلان بيسحب المستندات المطابقة كلها ويطلعهالك جاهزة.</p>
-        <div class="outputs">
-          <div class="output"><svg class="icon"><use href="#i-file-pdf"/></svg><div class="t">PDF الرسمي</div><div class="d">نفس ملف المنظومة، مضغوط في ZIP واحد</div></div>
-          <div class="output"><svg class="icon"><use href="#i-file-json"/></svg><div class="t">JSON الخام</div><div class="d">المستند كما قُدّم فعلياً للمنظومة</div></div>
-          <div class="output"><svg class="icon"><use href="#i-file-xls"/></svg><div class="t">ملخص Excel</div><div class="d">كل الحقول الأساسية في جدول واحد</div></div>
-          <div class="output"><svg class="icon"><use href="#i-file-csv"/></svg><div class="t">ملخص CSV</div><div class="d">لاستيراده في أي برنامج حسابات</div></div>
-          <div class="output"><svg class="icon"><use href="#i-printer"/></svg><div class="t">PDF منسّق للطباعة</div><div class="d">تصميم مرتب مع رمز QR للتحقق</div></div>
-          <div class="output"><svg class="icon"><use href="#i-archive"/></svg><div class="t">حزمة HTML</div><div class="d">للحفظ والفتح دون اتصال بالإنترنت</div></div>
-        </div>
-        <p style="margin-top:24px;font-weight:700;font-size:14.5px">+ 6 تقارير Excel رسمية جاهزة:</p>
-        <div class="chiprow">
-          <span class="chip">تقرير شامل</span>
-          <span class="chip">بيان تعاملات</span>
-          <span class="chip">مبيعات قيمة مضافة</span>
-          <span class="chip">مشتريات قيمة مضافة</span>
-          <span class="chip">نموذج 41</span>
-          <span class="chip">كشف حساب / شهادة تعاملات</span>
-        </div>
+        <span class="eyebrow">أداة التنزيل</span>
+        <h2 style="font-size:clamp(1.65rem,1.3rem+1.3vw,2.45rem);margin-top:14px">كل فواتيرك، بكل صيغة، من ضغطة واحدة</h2>
+        <p style="margin-top:12px;color:var(--muted)">بدل ما تفتح كل فاتورة لوحدها، كسلان بيجيب كل الصفحات المطابقة ويطلّعها جاهزة في ملف واحد.</p>
+        <ul class="feat-list">
+          <li><span class="ic"><svg width="18" height="18"><use href="#i-down"/></svg></span><div><b>تنزيل بالجملة</b><span>PDF الرسمي، JSON الأصلي، ملخص Excel وCSV، PDF منسّق بالـQR، وحزمة HTML للحفظ دون اتصال.</span></div></li>
+          <li><span class="ic"><svg width="18" height="18"><use href="#i-layers"/></svg></span><div><b>3 مصادر</b><span>المعروض حالياً بكل صفحاته، بحث بنطاق تاريخ ونوع المستند، أو لصق قائمة أرقام UUID.</span></div></li>
+          <li><span class="ic"><svg width="18" height="18"><use href="#i-sheet"/></svg></span><div><b>تقارير ضريبية جاهزة</b><span>ست تقارير Excel بتجلب تفاصيل كل مستند:</span>
+            <div class="chips"><span class="chip">تقرير شامل</span><span class="chip">بيان تعاملات</span><span class="chip">مبيعات قيمة مضافة</span><span class="chip">مشتريات قيمة مضافة</span><span class="chip">نموذج 41</span><span class="chip">كشف حساب / شهادة تعاملات</span></div></div></li>
+        </ul>
       </div>
-      <div class="device-col">
-        <div class="device device-scroll">
-          <div class="device-chrome">
-            <div class="dots"><span></span><span></span><span></span></div>
-            <div class="addr"><svg class="icon"><use href="#i-lock"/></svg>invoicing.eta.gov.eg/documents</div>
-          </div>
-          <div class="eta-panel">
-            <div class="ph"><svg class="icon"><use href="#i-file-pdf"/></svg> لوحة كسلان</div>
-            <fieldset>
-              <legend>المصدر</legend>
-              <label><input type="radio" checked> المعروض حالياً (كما تعرضه المنظومة)</label>
-              <label><input type="radio"> بحث بنطاق تاريخ</label>
-              <label><input type="radio"> لصق قائمة أرقام UUID</label>
-              <label><input type="checkbox" checked> تحميل كل الصفحات المطابقة</label>
-            </fieldset>
-            <fieldset>
-              <legend>المخرجات</legend>
-              <label class="inline"><input type="checkbox" checked> PDF الرسمي (ZIP)</label>
-              <label class="inline"><input type="checkbox" checked> ملخص Excel</label>
-              <label class="inline"><input type="checkbox"> JSON الأصلي (ZIP)</label>
-              <label class="inline"><input type="checkbox"> PDF منسّق (طباعة)</label>
-            </fieldset>
-            <fieldset>
-              <legend>كسلان premium</legend>
-              <label><input type="checkbox" checked> افتح «كسلان premium» واحفظ الفواتير فيها</label>
-            </fieldset>
-            <button class="go">ابدأ</button>
+      <div>
+        <div class="player" id="kplayer">
+          <div class="stage fit" data-w="720" data-h="760"><div class="inner" data-k="video"></div></div>
+          <div class="controls">
+            <button class="play" type="button" aria-label="إيقاف مؤقت" data-toggle><svg width="18" height="18"><use href="#i-pause"/></svg></button>
+            <div class="track"><button type="button" aria-label="تشغيل من البداية"><i style="--p:0%"></i></button></div>
+            <span class="time" data-time>0:00 / 0:14</span>
           </div>
         </div>
-        <div class="device-cap">معاينة توضيحية للوحة كسلان كما تظهر داخل منظومة الفاتورة الإلكترونية</div>
+        <p class="cap">فيديو قصير: من اختيار المخرجات لحد ما التنزيل يخلص</p>
       </div>
+    </div>
+
+    <div class="k-shots">
+      <div class="shot-card"><div class="fit" data-w="720" data-h="760"><div class="inner" data-k="s1"></div></div><h4>اختار وابدأ</h4><p>المصدر، المخرجات والتقارير في شاشة واحدة، بالترتيب اللي بتفكر بيه.</p></div>
+      <div class="shot-card"><div class="fit" data-w="720" data-h="760"><div class="inner" data-k="s2"></div></div><h4>تابع التقدّم</h4><p>شريط تقدّم وسجل مباشر، وتقدر توقف في أي وقت.</p></div>
+      <div class="shot-card"><div class="fit" data-w="720" data-h="760"><div class="inner" data-k="s3"></div></div><h4>تحكّم في التفاصيل</h4><p>أسماء الملفات داخل الـZIP، مجلد لكل بائع أو مشترٍ، وتصفية بممول معيّن.</p></div>
     </div>
   </div>
 </section>
 
-<section id="premium">
+<section id="premium" style="padding-top:0">
   <div class="wrap">
-    <div class="section-head">
+    <div class="head">
       <span class="eyebrow">كسلان premium</span>
-      <h2>لوحة تحليل كاملة، جوّه الإضافة نفسها</h2>
-      <p>كل فاتورة بتنزّلها تتخزّن في قاعدة بيانات محلية جوّه متصفحك، تشغّل لوحة تحكم فيها كل حاجة محاسبك محتاجها — بدون أي اتصال بأي خادم.</p>
+      <h2>لوحة المحاسب الكاملة، جوّه الإضافة نفسها</h2>
+      <p>كل وثيقة بتتزامن من المنظومة بتتحفظ في قاعدة بيانات محلية في متصفحك، وتشغّل 11 صفحة تحليل. premium مش ضمن التجربة المجانية، فدي جولة كاملة في كل شاشة قبل ما تشترك.</p>
     </div>
 
-    <div class="device device-scroll">
-      <div class="device-chrome">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <div class="addr"><svg class="icon"><use href="#i-lock"/></svg>chrome-extension://kaslan/premium/dashboard</div>
+    <div class="player" id="pplayer">
+      <div class="stage fit" data-w="1100" data-h="660" id="pstage"></div>
+      <div class="controls">
+        <button class="play" type="button" aria-label="إيقاف مؤقت" data-toggle><svg width="18" height="18"><use href="#i-pause"/></svg></button>
+        <div class="track" id="ptrack"></div>
+        <span class="time" data-time>0:00</span>
       </div>
-      <div class="premium-app">
-        <div class="premium-side">
-          <div class="b">كسلان premium</div>
-          <a class="on">لوحة التحكم</a>
-          <a>الفواتير</a>
-          <a>المبيعات</a>
-          <a>المشتريات</a>
-          <a>المطابقة</a>
-          <a>ضريبة القيمة المضافة</a>
-          <a>التكرارات</a>
-          <a>الموردون</a>
-          <a>العملاء</a>
-          <a>الإقفال الشهري</a>
-          <a>التقارير</a>
-        </div>
-        <div class="premium-main">
-          <div class="top"><h4>لوحة التحكم — سبتمبر 2026</h4><span class="pbadge sales">متصل بالمنظومة</span></div>
-          <div class="pcards">
-            <div class="pcard"><div class="k">إجمالي الفواتير</div><div class="v ltr-num">4,812</div><div class="s">منذ بداية المزامنة</div></div>
-            <div class="pcard"><div class="k">صافي المبيعات</div><div class="v ltr-num">2,340,600</div><div class="s">جنيه هذا الشهر</div></div>
-            <div class="pcard"><div class="k">صافي المشتريات</div><div class="v ltr-num">915,220</div><div class="s">جنيه هذا الشهر</div></div>
-            <div class="pcard"><div class="k">صافي ض.ق.م</div><div class="v ltr-num">205,404</div><div class="s">مبيعات − مشتريات</div></div>
-          </div>
-          <div class="ptable">
-            <table>
-              <thead><tr><th>التاريخ</th><th>الطرف</th><th>الاتجاه</th><th>القيمة</th><th>الحالة</th></tr></thead>
-              <tbody>
-                <tr><td class="mono">2026-09-08</td><td>شركة النور للتجارة</td><td><span class="pbadge sales">مبيعات</span></td><td class="num">48,200</td><td><span class="pbadge sales">مطابقة</span></td></tr>
-                <tr><td class="mono">2026-09-07</td><td>مصنع الدلتا للبلاستيك</td><td><span class="pbadge purchase">مشتريات</span></td><td class="num">112,050</td><td><span class="pbadge warn">فرق بسيط</span></td></tr>
-                <tr><td class="mono">2026-09-05</td><td>مؤسسة الفجر</td><td><span class="pbadge sales">مبيعات</span></td><td class="num">9,940</td><td><span class="pbadge sales">مطابقة</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <div class="chapters" id="pchapters" aria-label="فصول الجولة"></div>
     </div>
-    <div class="device-cap">معاينة توضيحية للوحة «كسلان premium» ببيانات افتراضية</div>
+    <p class="cap">جولة premium: 10 شاشات، حوالي دقيقة. كل الأرقام والأسماء توضيحية.</p>
 
-    <div class="feature-grid">
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-search"/></svg></div>
-        <h3>الفواتير</h3>
-        <p>كل فواتيرك المُزامَنة في جدول واحد قابل للبحث والفلترة والتصدير، مع تفاصيل كل فاتورة وبنودها.</p>
+    <div class="gallery" id="pgallery"></div>
+  </div>
+</section>
+
+<section id="tiers" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">الاشتراك</span>
+      <h2>ابدأ بالأداة، وكبّر لـpremium لما تحتاج التحليل</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <span class="tag">تجربة مجانية 7 أيام</span>
+        <h3>كسلان</h3>
+        <ul>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>تنزيل بالجملة بست صيغ</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>ست تقارير Excel ضريبية</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>أسماء ملفات ومجلدات بالشكل اللي يريحك</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>الوثائق والإيصالات، مرسلة ومستلمة</li>
+        </ul>
       </div>
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-trend-up"/></svg></div>
-        <h3>المبيعات والمشتريات</h3>
-        <p>صفحتان مستقلتان لكل اتجاه، بنفس أدوات الفلترة والتصدير — من غير لخبطة الطرفين مع بعض.</p>
-      </div>
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-scale"/></svg></div>
-        <h3>المطابقة</h3>
-        <p>ارفع ملف حساباتك (Excel/CSV) وكسلان يطابقه مع فواتير المنظومة، ويوريك المطابق والمختلف والناقص.</p>
-      </div>
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-percent"/></svg></div>
-        <h3>ضريبة القيمة المضافة</h3>
-        <p>ملخص شهري لضريبة المخرجات والمدخلات من واقع المنظومة، بالمقارنة مع دفاترك.</p>
-      </div>
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-copy"/></svg></div>
-        <h3>التكرارات</h3>
-        <p>كشف تلقائي للفواتير المكررة أو المحتمل تكرارها، مع سبب واضح لكل حالة قبل ما تراجعها.</p>
-      </div>
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-building"/></svg></div>
-        <h3>الموردون</h3>
-        <p>ترتيب كل مورد بإجمالي التعاملات والضريبة والاتجاه الشهري، بدون أي تجميع يدوي.</p>
-      </div>
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-users"/></svg></div>
-        <h3>العملاء</h3>
-        <p>نفس تحليل الموردين لكن على جانب البيع — مين بيشتري أكتر، وإمتى.</p>
-      </div>
-      <div class="feature">
-        <div class="icon-badge"><svg class="icon"><use href="#i-cal-check"/></svg></div>
-        <h3>الإقفال الشهري</h3>
-        <p>حزمة واحدة (Excel لكل تقرير + ملخص قابل للطباعة) تجمّع شهرك كله في مكان واحد.</p>
-      </div>
-      <div class="feature highlight">
-        <span class="tag">مميز</span>
-        <div class="icon-badge"><svg class="icon"><use href="#i-report"/></svg></div>
-        <h3>مركز التقارير</h3>
-        <p>تصدير سريع لكل تقرير من مكان واحد، بالإضافة لتقارير مبيعات/مشتريات مطابقة تماماً لقالب رفع المنظومة الرسمي — جاهزة للرفع مباشرة.</p>
+      <div class="tier pro">
+        <span class="tag">بالاشتراك فقط</span>
+        <h3>كسلان + premium</h3>
+        <ul>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>كل مزايا كسلان</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>لوحة تحكم، وثائق، مبيعات ومشتريات بفلاتر كاملة</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>ضريبة القيمة المضافة شهرياً، ومطابقة مع دفاترك</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>كشف التكرارات، العملاء والموردين بفلتر السنة</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>الإقفال الشهري، ونماذج مبيعات ومشتريات جاهزة للرفع على المنظومة</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="privacy">
+<section id="privacy" style="padding-top:0">
   <div class="wrap">
-    <div class="privacy-band">
-      <div class="section-head">
-        <span class="eyebrow" style="background:rgba(143,179,255,.15);color:#8fb3ff">الخصوصية والأمان</span>
-        <h2>بياناتك متسيبهاش المتصفح خالص</h2>
-        <p>مفيش خادم لكسلان أصلاً — يبقى مفيش حد يقدر يشوف فواتيرك غيرك.</p>
-      </div>
+    <div class="band">
+      <h2>بياناتك مبتخرجش من متصفحك</h2>
+      <p class="sub">كسلان ملوش خادم أصلاً، فمفيش حد يقدر يشوف فواتيرك غيرك.</p>
       <div class="pgrid">
-        <div class="pitem">
-          <svg class="icon" style="width:26px;height:26px"><use href="#i-server-off"/></svg>
-          <div><h4>بدون خادم</h4><p>كل حاجة بتتخزّن وتتحلّل جوّه قاعدة بيانات محلية في متصفحك — مفيش نسخة على أي خادم خارجي.</p></div>
-        </div>
-        <div class="pitem">
-          <svg class="icon" style="width:26px;height:26px"><use href="#i-plug-off"/></svg>
-          <div><h4>بدون حساب جديد</h4><p>بيستخدم جلستك الموثّقة على المنظومة زي ما هي — من غير تسجيل ولا كلمة سر إضافية.</p></div>
-        </div>
-        <div class="pitem">
-          <svg class="icon" style="width:26px;height:26px"><use href="#i-shield"/></svg>
-          <div><h4>اتصالات محدودة وواضحة</h4><p>الوحيد اللي كسلان بيتواصل معاه هو منظومة الفاتورة الإلكترونية نفسها (بجلستك أنت)، وقراءة قائمة اشتراكات للتحقق فقط — بدون إرسال أي بيانات منك.</p></div>
-        </div>
+        <div><h4>بدون خادم</h4><p>التخزين والتحليل في قاعدة بيانات محلية جوّه متصفحك. مفيش نسخة على أي خادم خارجي.</p></div>
+        <div><h4>بدون حساب جديد</h4><p>بيستخدم جلستك على المنظومة زي ما هي، من غير تسجيل ولا كلمة سر إضافية.</p></div>
+        <div><h4>اتصالات محدودة</h4><p>كسلان بيتواصل مع منظومة الفاتورة الإلكترونية بجلستك، وبيقرا قائمة الاشتراكات للتحقق من ترخيصك فقط.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="faq">
+<section id="faq" style="padding-top:0">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">الأسئلة الشائعة</span>
-      <h2>محتاج تعرف كام حاجة قبل ما تبدأ</h2>
-    </div>
+    <div class="head"><span class="eyebrow">الأسئلة الشائعة</span><h2>قبل ما تبدأ</h2></div>
     <div class="faq">
-      <details open>
-        <summary>محتاج أركّب برنامج على جهازي؟ <span class="plus">+</span></summary>
-        <p class="a">لأ. كسلان إضافة كروم بس، بتتفعّل مباشرة من متصفحك — مفيش تطبيق منفصل ولا خادم بتتواصل معاه.</p>
-      </details>
-      <details>
-        <summary>فواتيري وبياناتي الضريبية آمنة؟ <span class="plus">+</span></summary>
-        <p class="a">آمنة داخل متصفحك بس — بتتخزّن في قاعدة بيانات محلية (IndexedDB) ومفيش نسخة منها بترسل لأي مكان تاني.</p>
-      </details>
-      <details>
-        <summary>محتاج حساب أو كلمة سر جديدة؟ <span class="plus">+</span></summary>
-        <p class="a">لأ، بيستخدم نفس تسجيل دخولك الحالي على منظومة الفاتورة الإلكترونية.</p>
-      </details>
-      <details>
-        <summary>إزاي أحصل على النسخة وأشترك؟ <span class="plus">+</span></summary>
-        <p class="a">تواصل معانا من الزرار فوق. بعد الاشتراك، بنضيف رقمك الضريبي لقائمة المشتركين وتتفعّل الإضافة تلقائياً في أول تحديث للصفحة.</p>
-      </details>
-      <details>
-        <summary>كسلان premium منفصلة عن التنزيل الأساسي؟ <span class="plus">+</span></summary>
-        <p class="a">التنزيل بالجملة والتقارير الستة متاحين لكل مشترك. لوحة «كسلان premium» بالتحليل والمطابقة والإقفال الشهري خاصية إضافية ضمن الاشتراك.</p>
-      </details>
+      <details open><summary>إزاي أجرّب كسلان؟</summary><p class="a">ابعتلنا البريد الإلكتروني المسجّل على المنظومة، وبنفعّلك تجربة مجانية 7 أيام من يوم الطلب. التفعيل بيشتغل تلقائياً في أول تحديث لصفحة المنظومة.</p></details>
+      <details><summary>ليه premium مش ضمن التجربة؟</summary><p class="a">premium بتزامن كل بيانات حسابك وتبني عليها التحليلات، فهي متاحة للمشتركين فقط. الجولة والصور فوق بتوريك كل شاشة فيها قبل ما تقرر.</p></details>
+      <details><summary>إيه اللي بيحصل بعد ما التجربة تخلص؟</summary><p class="a">الأداة بتظهر رسالة إن الترخيص انتهى، وتقدر تتواصل معانا للاشتراك. ملفاتك اللي نزّلتها بتفضل على جهازك.</p></details>
+      <details><summary>محتاج أركّب برنامج؟</summary><p class="a">لأ. كسلان إضافة كروم بس، ولوحة premium بتفتح جوّه الإضافة نفسها.</p></details>
+      <details><summary>بيدعم الإيصالات والإشعارات الدائنة؟</summary><p class="a">أيوه. بينزّل الوثائق والإيصالات، وpremium بتحسب الإشعارات الدائنة والمرتجعات بالسالب في كل الإجماليات، وبتعتمد الوثائق الصحيحة (Valid) فقط.</p></details>
+      <details><summary>فواتيري آمنة؟</summary><p class="a">بتتخزن في متصفحك بس (IndexedDB)، ومفيش نسخة منها بتتبعت لأي مكان.</p></details>
     </div>
   </div>
 </section>
 
-<section>
+<section id="contact" style="padding-top:0">
   <div class="wrap">
-    <div class="cta-band">
-      <h2>خلّي كسلان يجيب الشغل، وانت ركّز في شغلك</h2>
-      <p>اشتراك واحد، فوايد كتير — من غير أي تعقيد تقني أو تركيب برامج.</p>
-      <div class="ctas">
-        <a class="btn" href="mailto:khaled.m.adel1992@gmail.com?subject=الاشتراك%20في%20كسلان">تواصل للاشتراك الآن</a>
+    <div class="cta">
+      <div>
+        <h2>ابدأ تجربتك المجانية النهارده</h2>
+        <p>ابعت البريد الإلكتروني المسجّل على منظومة الفاتورة الإلكترونية، ولو عايز premium قولّنا في نفس الرسالة.</p>
+      </div>
+      <div class="contact">
+        <span class="label">راسلنا على</span>
+        <div class="row">
+          <span class="email" id="email">khaled.m.adel1992@gmail.com</span>
+          <button type="button" id="copy">نسخ</button>
+        </div>
+        <div class="row"><a href="mailto:khaled.m.adel1992@gmail.com?subject=%D8%B7%D9%84%D8%A8%20%D8%AA%D8%AC%D8%B1%D8%A8%D8%A9%20%D9%83%D8%B3%D9%84%D8%A7%D9%86">افتح تطبيق البريد</a></div>
       </div>
     </div>
   </div>
@@ -643,16 +542,319 @@ footer .fine{margin-top:18px;color:var(--muted);opacity:.8;font-size:12px;max-wi
 
 <footer>
   <div class="wrap">
-    <div class="fgrid">
-      <div class="brand" style="font-size:17px"><span class="mark" style="width:26px;height:26px;font-size:11px">ك</span> كسلان</div>
-      <div style="display:flex;gap:22px;flex-wrap:wrap">
-        <a href="privacy.html">سياسة الخصوصية</a>
-        <a href="mailto:khaled.m.adel1992@gmail.com">تواصل معنا</a>
-      </div>
+    <div class="row">
+      <a class="brand" href="#top" style="font-size:17px"><span class="logo" style="width:28px;height:28px;font-size:16px">ك</span>كسلان</a>
+      <a href="privacy.html">سياسة الخصوصية</a>
     </div>
-    <p class="fine">كسلان أداة مستقلة لتسهيل تنزيل وتحليل فواتيرك الخاصة من منظومة الفاتورة الإلكترونية المصرية باستخدام جلستك الموثّقة، وغير تابعة رسمياً لمصلحة الضرائب المصرية. جميع الشاشات المعروضة أعلاه معاينات توضيحية ببيانات افتراضية وليست بيانات فعلية.</p>
+    <p class="fine">كسلان أداة مستقلة لتنزيل وتحليل فواتيرك الخاصة من منظومة الفاتورة الإلكترونية المصرية باستخدام جلستك، وغير تابعة لمصلحة الضرائب المصرية. كل الشاشات في الصفحة معاينات توضيحية بأسماء وأرقام افتراضية.</p>
   </div>
 </footer>
 
+<script>
+(function(){
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const f = (n) => n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  const i0 = (n) => n.toLocaleString('en-US');
+
+  /* ---------- Kaslan panel ---------- */
+  function kpanel(o){
+    o = Object.assign({mode:0, outs:['pdf','xls'], rpts:['vs','vp'], prog:0, count:'في وضع الخمول', log:'', running:false, more:false, sync:true}, o);
+    const cp = (k,l,set) => `<span class="cp${set.includes(k)?' on':''}" data-c="${k}">${l}</span>`;
+    const seg = ['المعروض حالياً','نطاق تاريخ','قائمة UUID'].map((l,i)=>`<span class="${i===o.mode?'on':''}" data-m="${i}">${l}</span>`).join('');
+    const more = o.more ? `
+      <div><span>أسماء الملفات <small>داخل ملف ZIP</small></span><span style="color:#5e6670">⌄</span></div>
+      <div class="open">
+        <div class="cps">${cp('d','التاريخ',['i','u','sn'])}${cp('i','الرقم الداخلي',['i','u','sn'])}${cp('t','نوع المستند',[])}${cp('u','الرقم الإلكتروني',['i','u','sn'])}${cp('sn','اسم البائع',['i','u','sn'])}${cp('bn','اسم المشتري',[])}${cp('po','مرجع طلب الشراء',[])}</div>
+        <div class="swr"><b>مجلد لكل بائع</b><span class="sw on"></span></div>
+        <div class="swr"><b>مجلد لكل مشترٍ</b><span class="sw"></span></div>
+      </div>
+      <div><span>تصفية بممول <small>اختياري</small></span><span style="color:#5e6670">‹</span></div>`
+      : `<div><span>أسماء الملفات <small>داخل ملف ZIP</small></span><small>الرقم الداخلي + الإلكتروني ‹</small></div><div><span>تصفية بممول</span><small>غير مفعّل ‹</small></div>`;
+    return `<div class="kpage"><div class="ph"></div><div class="rows">${'<i></i>'.repeat(18)}</div>
+      <div class="kp">
+        <div class="hd"><div class="lg">ك</div><div class="tt"><b>كسلان</b><small>أداة فواتير الضرائب</small></div><div class="x">✕</div></div>
+        <div class="st">مسجّل الدخول · الصفحة: الوثائق · المعروض: 100 محمّلة (من 1,248)</div>
+        <div class="bd">
+          <div class="sh"><span class="n">01</span><b>المصدر</b></div>
+          <div class="seg">${seg}</div>
+          <div class="g2"><div class="fd">نوع السجلات<span>الوثائق</span></div><div class="fd">اتجاه الفواتير<span>الكل</span></div></div>
+          <div class="swr"><div><b>كل الصفحات المطابقة</b><small>الصحيحة (Valid) فقط</small></div><span class="sw on"></span></div>
+          ${o.more ? '' : `
+          <div class="sh"><span class="n">02</span><b>المخرجات</b></div>
+          <div class="cps">${cp('pdf','PDF الرسمي',o.outs)}${cp('xls','ملخص Excel',o.outs)}${cp('json','JSON الأصلي',o.outs)}${cp('csv','ملخص CSV',o.outs)}${cp('sty','PDF منسّق',o.outs)}${cp('html','حزمة HTML',o.outs)}</div>
+          <div class="sh"><span class="n">03</span><b>تقارير Excel</b><small>أبطأ، تجلب التفاصيل</small></div>
+          <div class="cps">${cp('all','تقرير شامل',o.rpts)}${cp('st','بيان تعاملات',o.rpts)}${cp('vs','مبيعات قيمة مضافة',o.rpts)}${cp('vp','مشتريات قيمة مضافة',o.rpts)}${cp('f41','نموذج 41',o.rpts)}</div>`}
+          <div class="pc"><span class="pi"><svg width="15" height="15"><use href="#i-chart"/></svg></span><div style="flex:1"><b>مزامنة مع كسلان premium</b><small>محفوظ: 1,248 فاتورة · آخر حفظ: اليوم</small></div><span class="sw gold${o.sync?' on':''}"></span></div>
+          <div class="more">${more}</div>
+        </div>
+        <div class="ft">
+          <div class="pr"><span>التقدّم</span><span class="num" data-count>${o.count}</span></div>
+          <div class="bar"><i data-bar style="width:${o.prog}%"></i></div>
+          <div class="ac"><span class="go${o.running?' dis':''}" data-go>ابدأ التنزيل</span><span class="stp${o.running?' act':''}" data-stop>إيقاف</span></div>
+          <div class="log" data-log>${o.log}</div>
+        </div>
+      </div>
+      <div class="launch"><i>ك</i>كسلان</div></div>`;
+  }
+
+  /* ---------- Premium screens ---------- */
+  const NAV = [['نظرة عامة',[['dash','لوحة التحكم'],['docs','الوثائق'],['sales','المبيعات'],['purch','المشتريات']]],
+               ['الضرائب',[['vat','ضريبة القيمة المضافة'],['recon','المطابقة'],['closing','الإقفال الشهري']]],
+               ['الأطراف',[['sup','الموردون'],['cust','العملاء']]],
+               ['أدوات',[['dups','التكرارات'],['reports','التقارير']]]];
+  const side = (on) => `<nav class="sd"><div class="br"><div class="lg">ك</div><div><div class="bn">كسلان</div><div class="bt">PREMIUM</div></div></div>
+    <div class="co"><small>الشركة</small>شركة المثال للتجارة</div>
+    ${NAV.map(([t,items])=>`<div><div class="gt">${t}</div>${items.map(([k,l])=>`<div class="it${k===on?' on':''}" data-nav="${k}">${l}</div>`).join('')}</div>`).join('')}</nav>`;
+  const scr = (on, main, over='') => `<div class="scr">${side(on)}<main class="mn">${main}</main>${over}</div>`;
+  const MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر'];
+  const S = [612,705,580,812,760,905,724,951,840], P = [441,520,493,556,612,580,502,664,603];
+  const CUST = [['شركة النور للتجارة',96,812400],['مؤسسة الفجر للمقاولات',71,640150],['الدلتا للصناعات الغذائية',58,455000],['مكتب الأمل الهندسي',64,301720],['شركة النيل للتوريدات',22,188300],['مجموعة السلام الطبية',40,152900],['القاهرة للأدوات المكتبية',18,120450]];
+  const SUP = [['مصنع الدلتا للبلاستيك',84,691200],['الشرق للخامات',52,512800],['شركة الوادي للنقل',61,402650],['النصر للكرتون والطباعة',33,281900],['مؤسسة البحر للتغليف',27,190400],['العاصمة لقطع الغيار',19,98700]];
+
+  const barsHTML = (sc=0.155) => `<div class="bars">${MONTHS.map((m,i)=>`<div><div class="pair"><i style="height:${S[i]*sc}px;background:#0e6b66"></i><i style="height:${P[i]*sc}px;background:#d8b77a"></i></div><small>${m}</small></div>`).join('')}</div>`;
+
+  const DOCS = [['2026-09-24','INV-2026-0918','شركة النور للتجارة','s','فاتورة',48200],['2026-09-23','PO-7741','مصنع الدلتا للبلاستيك','p','فاتورة',112050],['2026-09-22','CN-0114','مؤسسة الفجر للمقاولات','s','إشعار دائن',-9940],['2026-09-21','INV-2026-0917','الدلتا للصناعات الغذائية','s','فاتورة',36480],['2026-09-20','R-55210','الشرق للخامات','p','إيصال',4275],['2026-09-19','INV-2026-0916','مكتب الأمل الهندسي','s','فاتورة',21660],['2026-09-18','PO-7730','شركة الوادي للنقل','p','فاتورة',18900],['2026-09-17','INV-2026-0915','شركة النيل للتوريدات','s','فاتورة',15390],['2026-09-16','DN-0021','النصر للكرتون والطباعة','p','إشعار مدين',2310],['2026-09-15','INV-2026-0914','مجموعة السلام الطبية','s','فاتورة',30780]];
+  const docRows = (rows) => rows.map(([d,id,n,dir,t,v])=>`<tr><td class="n">${d}</td><td class="n">${id}</td><td>${n}</td><td><span class="bd ${dir}">${dir==='s'?'مبيعات':'مشتريات'}</span></td><td><span class="bd${v<0?' e':''}">${t}</span></td><td class="n">${f(v)}</td><td class="n">${f(Math.abs(v)*0.14*(v<0?-1:1))}</td><td style="color:#0e6b66;font-weight:600">عرض</td></tr>`).join('');
+  const docTable = (rows) => `<div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>التاريخ</th><th>رقم المستند</th><th>الطرف</th><th>الاتجاه</th><th>النوع</th><th class="n">الإجمالي</th><th class="n">الضريبة</th><th></th></tr></thead><tbody>${docRows(rows)}</tbody></table></div>`;
+
+  const SCREENS = [
+    {k:'dash', t:'لوحة التحكم', d:'المبيعات والمشتريات وصافي الضريبة في لمحة، مع الاتجاه الشهري وأكبر العملاء.',
+     html: () => scr('dash', `
+      <div class="tb"><div style="flex:1"><div class="ey">آخر مزامنة: اليوم 10:42 ص</div><h1>لوحة التحكم</h1></div><span class="sb">السنة: 2026</span><span class="pb">مزامنة الآن</span></div>
+      <div class="cds" style="grid-template-columns:repeat(3,1fr)">
+        <div class="cd big"><div class="k">المبيعات</div><div class="v">6,889,000.00</div><div class="s">714 فاتورة · 12 إشعار دائن</div></div>
+        <div class="cd big"><div class="k">المشتريات</div><div class="v">4,971,000.00</div><div class="s">498 فاتورة · 24 إيصال</div></div>
+        <div class="cd big ac"><div class="k">صافي الضريبة</div><div class="v">268,520.00</div><div class="s">مستحقة السداد</div></div>
+      </div>
+      <div class="cds" style="grid-template-columns:repeat(3,1fr)">
+        <div class="cd"><div class="k">عدد الوثائق</div><div class="v">1,248</div></div>
+        <div class="cd"><div class="k">ضريبة المخرجات</div><div class="v">964,460.00</div></div>
+        <div class="cd"><div class="k">ضريبة المدخلات</div><div class="v">695,940.00</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:12px">
+        <div class="pnl"><h3>المبيعات والمشتريات شهرياً <span class="gb" style="float:left;font-family:var(--body)">ألف جنيه</span></h3>${barsHTML(0.13)}</div>
+        <div class="pnl"><h3>أكبر العملاء</h3>${CUST.slice(0,4).map(([n,,v],i)=>`<div style="padding:4px 0"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">${n}</span><span class="num" style="font-size:11px">${i0(v)}</span></div><div class="meter"><i style="width:${v/8124}%"></i></div></div>`).join('')}</div>
+      </div>`)},
+    {k:'docs', t:'الوثائق', d:'كل الوثائق الصحيحة في جدول واحد، ببحث وفلاتر للاتجاه والنوع والتاريخ، وتصدير Excel وCSV.',
+     html: () => scr('docs', `
+      <div class="tb"><h1>الوثائق (1,248)</h1><span class="sb">تصدير Excel</span><span class="sb">CSV</span></div>
+      <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap"><div class="fl">بحث<span style="min-width:180px">رقم داخلي أو اسم طرف…</span></div><div class="fl">الاتجاه<span>الكل</span></div><div class="fl">النوع<span>كل الأنواع</span></div><div class="fl">من<span class="num">2026-09-01</span></div><div class="fl">إلى<span class="num">2026-09-30</span></div></div>
+      ${docTable(DOCS)}
+      <div style="display:flex;gap:10px;color:#5e6670;align-items:center"><span class="gb">السابق</span><span>صفحة 1 من 125</span><span class="gb">التالي</span></div>`)},
+    {k:'detail', t:'تفاصيل الوثيقة', d:'افتح أي وثيقة لتشوف الأطراف والبنود والضرائب من غير ما ترجع للمنظومة.',
+     html: () => scr('docs', `
+      <div class="tb"><h1>الوثائق (1,248)</h1><span class="sb">تصدير Excel</span></div>${docTable(DOCS.slice(0,9))}`,
+      `<div class="shade"></div><div class="drw"><div style="display:flex;justify-content:space-between;align-items:center"><h2>فاتورة INV-2026-0918</h2><span class="gb">إغلاق</span></div>
+        <dl class="kv"><dt>التاريخ</dt><dd class="num" style="text-align:right">2026-09-24</dd><dt>البائع</dt><dd>شركة المثال للتجارة</dd><dt>المشتري</dt><dd>شركة النور للتجارة</dd><dt>الحالة</dt><dd><span class="bd s">صحيحة</span></dd><dt>الرقم الإلكتروني</dt><dd class="num" style="text-align:right;font-size:10px">7K2QX…M4PD</dd></dl>
+        <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>الصنف</th><th class="n">الكمية</th><th class="n">السعر</th><th class="n">الضريبة</th><th class="n">الإجمالي</th></tr></thead><tbody>
+        <tr><td>كرتون مضلّع 5 طبقات</td><td class="n">1,200</td><td class="n">18.50</td><td class="n">3,108.00</td><td class="n">25,308.00</td></tr>
+        <tr><td>شريط لاصق شفاف</td><td class="n">400</td><td class="n">22.00</td><td class="n">1,232.00</td><td class="n">10,032.00</td></tr>
+        <tr><td>خدمة نقل وتوصيل</td><td class="n">1</td><td class="n">11,300.00</td><td class="n">1,560.00</td><td class="n">12,860.00</td></tr></tbody></table></div>
+        <div class="sub" style="display:grid;grid-template-columns:1fr auto;gap:2px 10px"><span>الصافي</span><span class="num">42,300.00</span><span>ضريبة القيمة المضافة 14%</span><span class="num">5,900.00</span><b>الإجمالي</b><b class="num">48,200.00</b></div></div>`)},
+    {k:'sales', t:'المبيعات والمشتريات', d:'صفحة مستقلة لكل اتجاه، بإجماليات صافية بعد الإشعارات الدائنة والمرتجعات.',
+     html: () => scr('sales', `
+      <div class="tb"><h1>المبيعات</h1><span class="sb">تصدير Excel</span></div>
+      <div class="cds" style="grid-template-columns:repeat(4,1fr)"><div class="cd"><div class="k">عدد المستندات</div><div class="v">726</div></div><div class="cd"><div class="k">الصافي</div><div class="v">6,042,980.00</div></div><div class="cd"><div class="k">الضريبة</div><div class="v">846,020.00</div></div><div class="cd"><div class="k">الإجمالي</div><div class="v">6,889,000.00</div></div></div>
+      <div style="display:flex;gap:8px;align-items:flex-end"><div class="fl">النوع<span>فاتورة + إشعار دائن</span></div><div class="fl">الشهر<span>سبتمبر 2026</span></div></div>
+      ${docTable(DOCS.filter(r=>r[3]==='s').concat(DOCS.filter(r=>r[3]==='s').slice(0,3)))}`)},
+    {k:'vat', t:'ضريبة القيمة المضافة', d:'ملخص شهري لضريبة المخرجات والمدخلات من واقع المنظومة، جاهز للتصدير.',
+     html: () => scr('vat', `
+      <div class="tb"><h1>ضريبة القيمة المضافة</h1><span class="sb">Excel</span><span class="sb">CSV</span><div class="fl">الشهر<span>سبتمبر</span></div><div class="fl">السنة<span>2026</span></div></div>
+      <div class="cds" style="grid-template-columns:repeat(3,1fr)"><div class="cd big"><div class="k">ضريبة المخرجات (ETA)</div><div class="v">117,600.00</div><div class="s">84 فاتورة مبيعات</div></div><div class="cd big"><div class="k">ضريبة المدخلات (ETA)</div><div class="v">84,420.00</div><div class="s">67 فاتورة مشتريات</div></div><div class="cd big ac"><div class="k">صافي الضريبة (ETA)</div><div class="v">33,180.00</div><div class="s">مستحقة السداد</div></div></div>
+      <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>البند</th><th class="n">العدد</th><th class="n">الصافي</th><th class="n">الضريبة</th><th class="n">الإجمالي</th></tr></thead><tbody>
+        <tr><td>مبيعات: فواتير</td><td class="n">81</td><td class="n">852,140.00</td><td class="n">119,300.00</td><td class="n">971,440.00</td></tr>
+        <tr><td>مبيعات: إشعارات دائنة</td><td class="n">3</td><td class="n">-12,140.00</td><td class="n">-1,700.00</td><td class="n">-13,840.00</td></tr>
+        <tr><td>مشتريات: فواتير</td><td class="n">58</td><td class="n">596,300.00</td><td class="n">83,480.00</td><td class="n">679,780.00</td></tr>
+        <tr><td>مشتريات: إيصالات</td><td class="n">9</td><td class="n">6,710.00</td><td class="n">940.00</td><td class="n">7,650.00</td></tr>
+        <tr><th>الصافي المستحق</th><th></th><th></th><th class="n">33,180.00</th><th></th></tr></tbody></table></div>
+      <div class="sub" style="color:#5e6670">القيم من واقع المنظومة للمراجعة الداخلية. طابقها مع دفاترك من صفحة «المطابقة».</div>`)},
+    {k:'recon', t:'المطابقة مع دفاترك', d:'ارفع ملف حساباتك وكسلان يطابقه مع المنظومة: المطابق، المختلف، والناقص من كل طرف.',
+     html: () => scr('recon', `
+      <div class="tb"><h1>المطابقة</h1><span class="sb">رفع ملف جديد</span><span class="pb">تصدير غير المطابق</span></div>
+      <div class="sub" style="display:flex;justify-content:space-between;align-items:center"><span><b>دفتر_المبيعات_سبتمبر.xlsx</b> · 432 سطر · ربط الأعمدة: رقم الفاتورة، التاريخ، الإجمالي</span><span class="bd s">تمت المطابقة</span></div>
+      <div class="cds" style="grid-template-columns:repeat(4,1fr)"><div class="cd"><div class="k">مطابق</div><div class="v" style="color:#1f7a45">412</div></div><div class="cd"><div class="k">فرق في القيمة</div><div class="v" style="color:#b54708">7</div></div><div class="cd"><div class="k">ناقص من الدفاتر</div><div class="v" style="color:#b42318">9</div></div><div class="cd"><div class="k">ناقص من المنظومة</div><div class="v" style="color:#b42318">4</div></div></div>
+      <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>رقم المستند</th><th>الطرف</th><th class="n">المنظومة</th><th class="n">الدفاتر</th><th class="n">الفرق</th><th>الحالة</th></tr></thead><tbody>
+        <tr><td class="n">INV-2026-0918</td><td>شركة النور للتجارة</td><td class="n">48,200.00</td><td class="n">48,200.00</td><td class="n">0.00</td><td><span class="bd s">مطابق</span></td></tr>
+        <tr><td class="n">INV-2026-0911</td><td>مؤسسة الفجر للمقاولات</td><td class="n">64,120.00</td><td class="n">64,012.00</td><td class="n">108.00</td><td><span class="bd w">فرق في القيمة</span></td></tr>
+        <tr><td class="n">INV-2026-0903</td><td>الدلتا للصناعات الغذائية</td><td class="n">22,800.00</td><td class="n">—</td><td class="n">—</td><td><span class="bd e">ناقص من الدفاتر</span></td></tr>
+        <tr><td class="n">INV-2026-0899</td><td>مكتب الأمل الهندسي</td><td class="n">—</td><td class="n">11,400.00</td><td class="n">—</td><td><span class="bd e">ناقص من المنظومة</span></td></tr>
+        <tr><td class="n">INV-2026-0897</td><td>شركة النيل للتوريدات</td><td class="n">15,390.00</td><td class="n">15,390.00</td><td class="n">0.00</td><td><span class="bd s">مطابق</span></td></tr>
+        <tr><td class="n">INV-2026-0890</td><td>مجموعة السلام الطبية</td><td class="n">30,780.00</td><td class="n">30,870.00</td><td class="n">-90.00</td><td><span class="bd w">فرق في القيمة</span></td></tr></tbody></table></div>`)},
+    {k:'dups', t:'كشف التكرارات', d:'فواتير مكررة أو محتمل تكرارها، مع سبب واضح لكل حالة وقرار مراجعة يتحفظ.',
+     html: () => scr('dups', `
+      <div class="tb"><h1>التكرارات</h1><span class="gb">3 مجموعات للمراجعة</span><span class="sb">تصدير Excel</span></div>
+      ${[['تكرار مؤكد','e','نفس الرقم الداخلي ونفس الطرف ونفس الإجمالي',[['PO-7702','2026-09-04','112,050.00'],['PO-7702','2026-09-04','112,050.00']]],['تكرار محتمل','w','نفس الطرف ونفس الإجمالي خلال 3 أيام',[['R-55180','2026-09-10','4,275.00'],['R-55187','2026-09-12','4,275.00']]],['تكرار محتمل','w','نفس الرقم الداخلي بتاريخين مختلفين',[['INV-2026-0870','2026-08-28','9,120.00'],['INV-2026-0870','2026-09-01','9,120.00']]]].map(([t,c,why,rows])=>`
+        <div class="pnl" style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:8px;align-items:center"><span class="bd ${c}">${t}</span><span style="color:#5e6670;flex:1">${why}</span><span class="sb">ليست تكراراً</span><span class="pb">تأكيد التكرار</span></div>
+        <table><tbody>${rows.map(([id,d,v])=>`<tr><td class="n">${id}</td><td class="n">${d}</td><td>مصنع الدلتا للبلاستيك</td><td class="n">${v}</td></tr>`).join('')}</tbody></table></div>`).join('')}`)},
+    {k:'cust', t:'العملاء بفلتر السنة', d:'ترتيب العملاء بالمبيعات والضريبة ومتوسط الفاتورة، لأي سنة تختارها.',
+     html: () => scr('cust', `
+      <div class="tb"><h1>العملاء (142)</h1><div class="fl">السنة<span class="hl">2026</span></div><span class="sb">تصدير Excel</span><span class="sb">CSV</span></div>
+      <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>العميل</th><th class="n">عدد الفواتير</th><th class="n">المبيعات ▼</th><th class="n">الضريبة</th><th class="n">متوسط الفاتورة</th><th>أول فاتورة</th><th>آخر فاتورة</th><th></th></tr></thead><tbody>
+      ${CUST.concat([['مخازن الربيع',15,88400],['الفيروز للمنسوجات',11,64300]]).map(([n,c,v])=>`<tr><td>${n}</td><td class="n">${c}</td><td class="n">${f(v)}</td><td class="n">${f(v*0.14/1.14)}</td><td class="n">${f(v/c)}</td><td class="num" style="font-size:11px">2026-01-0${(c%8)+1}</td><td class="num" style="font-size:11px">2026-09-2${c%5}</td><td style="color:#0e6b66;font-weight:600">عرض</td></tr>`).join('')}</tbody></table></div>`)},
+    {k:'sup', t:'ملف المورد', d:'افتح أي مورد لتشوف الاتجاه الشهري وسجل كل فواتيره.',
+     html: () => scr('sup', `
+      <div class="tb"><h1>الموردون (86)</h1><div class="fl">السنة<span>2026</span></div><span class="sb">تصدير Excel</span></div>
+      <div class="pnl" style="padding:0;overflow:hidden"><table><thead><tr><th>المورد</th><th class="n">الفواتير</th><th class="n">المشتريات</th><th class="n">الضريبة</th></tr></thead><tbody>
+      ${SUP.map(([n,c,v])=>`<tr><td>${n}</td><td class="n">${c}</td><td class="n">${f(v)}</td><td class="n">${f(v*0.14/1.14)}</td></tr>`).join('')}</tbody></table></div>`,
+      `<div class="shade"></div><div class="drw"><div style="display:flex;justify-content:space-between;align-items:center"><h2>مصنع الدلتا للبلاستيك</h2><span class="gb">إغلاق</span></div>
+       <dl class="kv"><dt>عدد الفواتير</dt><dd>84</dd><dt>المشتريات</dt><dd class="num" style="text-align:right">691,200.00</dd><dt>متوسط الفاتورة</dt><dd class="num" style="text-align:right">8,228.57</dd></dl>
+       <h3 style="font:700 14px var(--display)">الاتجاه الشهري</h3>
+       ${MONTHS.slice(0,9).map((m,i)=>`<div style="display:flex;align-items:center;gap:8px;font-size:10.5px"><span style="width:44px">${m}</span><div class="meter" style="flex:1;height:8px"><i style="width:${[55,62,48,70,66,81,58,92,74][i]}%"></i></div><span class="num" style="width:70px;font-size:10.5px">${i0([55,62,48,70,66,81,58,92,74][i]*830)}</span></div>`).join('')}
+       <h3 style="font:700 14px var(--display)">سجل الفواتير (84)</h3>
+       <table><tbody><tr><td class="n">2026-09-23</td><td class="n">PO-7741</td><td class="n">112,050.00</td></tr><tr><td class="n">2026-09-11</td><td class="n">PO-7716</td><td class="n">64,300.00</td></tr><tr><td class="n">2026-09-04</td><td class="n">PO-7702</td><td class="n">112,050.00</td></tr></tbody></table></div>`)},
+    {k:'closing', t:'الإقفال الشهري', d:'حزمة شهرك كاملة في ضغطة: Excel لكل تقرير وملخص جاهز للطباعة.',
+     html: () => scr('closing', `
+      <div class="tb"><h1>الإقفال الشهري</h1><div class="fl">الشهر<span>سبتمبر</span></div><div class="fl">السنة<span>2026</span></div><span class="pb">تنزيل حزمة September-2026</span></div>
+      <div class="pnl"><h3>محتويات الحزمة</h3>
+      ${[['المبيعات','84 مستند','s'],['المشتريات','67 مستند','s'],['ملخص ضريبة القيمة المضافة','صافي 33,180.00','s'],['الموردون والعملاء','23 مورد · 41 عميل','s'],['التكرارات','مجموعة واحدة بدون قرار','w'],['المطابقة','7 فروق · 13 ناقص','w'],['ملخص قابل للطباعة','صفحة واحدة','s']].map(([n,d,c])=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #efe8db"><span style="width:20px;height:20px;border-radius:6px;background:${c==='s'?'#0e6b66':'#b54708'};color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px">${c==='s'?'✓':'!'}</span><b style="flex:1">${n}</b><span style="color:#5e6670">${d}</span><span class="bd ${c}">${c==='s'?'جاهز':'راجِع'}</span></div>`).join('')}</div>`)},
+    {k:'reports', t:'مركز التقارير', d:'كل التقارير من مكان واحد، ومنها نماذج مبيعات ومشتريات مطابقة لقالب الرفع على المنظومة.',
+     html: () => scr('reports', `
+      <div class="tb"><h1>التقارير</h1><div class="fl">من تاريخ<span class="num">2026-09-01</span></div><div class="fl">إلى تاريخ<span class="num">2026-09-30</span></div></div>
+      <div class="pnl"><h3>تقارير ETA الجاهزة للرفع</h3><p style="color:#5e6670;font-size:11.5px">ملف Excel مطابق لقالب مصلحة الضرائب، مُعبّأ من فواتيرك وجاهز للرفع مباشرة.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+          ${['نموذج مبيعات ETA','نموذج مشتريات ETA'].map((t,i)=>`<div class="sub"><b style="font:700 13px var(--display)">${t}</b><div style="display:flex;gap:6px;margin:8px 0"><div class="fl">نوع البيان<span style="min-width:0">${i?'1 — محلي':'3 — سلعة'}</span></div><div class="fl">نوع السلعة<span style="min-width:0">${i?'3 — سلع':'1 — محلي'}</span></div><div class="fl">الضريبة %<span style="min-width:0">14</span></div></div><span class="pb">تنزيل نموذج ETA (Excel)</span><div style="font-size:10.5px;color:#5e6670;margin-top:6px">تم إنشاء ${i?'212':'318'} سطراً من ${i?'67':'84'} فاتورة</div></div>`).join('')}
+        </div></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">${['المبيعات','المشتريات','ضريبة القيمة المضافة','الموردون','العملاء','الفواتير المكررة'].map(t=>`<div class="pnl" style="padding:10px 12px"><b>${t}</b><div style="display:flex;gap:6px;margin-top:6px"><span class="sb">Excel</span><span class="sb">CSV</span></div></div>`).join('')}</div>`)}
+  ];
+
+  /* ---------- scaling ---------- */
+  function setupFit(el){
+    const w = +el.dataset.w, h = +el.dataset.h;
+    el.style.aspectRatio = w + ' / ' + h;
+    const apply = () => { const s = el.clientWidth / w; $$(':scope > .inner, :scope > .layer', el).forEach(n => { n.style.width = w+'px'; n.style.height = h+'px'; n.style.transform = `scale(${s})`; n.style.transformOrigin = 'top right'; }); el.style.setProperty('--s', s); };
+    apply();
+    if ('ResizeObserver' in window) new ResizeObserver(apply).observe(el); else addEventListener('resize', apply);
+    el._apply = apply;
+  }
+
+  /* ---------- fill static shots ---------- */
+  const K = {
+    hero: kpanel({}),
+    s1: kpanel({outs:['pdf','xls','json'], rpts:['vs','vp','f41']}),
+    s2: kpanel({running:true, prog:64, count:'640 / 1,000 (64%)', log:'[10:41:02] جلب قائمة المستندات: 1,000\n[10:41:40] <b>✓</b> PDF: 640 / 1,000\n[10:41:41] ملخص Excel قيد الإعداد…'}),
+    s3: kpanel({more:true})
+  };
+  $$('[data-k]').forEach(n => { if (K[n.dataset.k]) n.innerHTML = K[n.dataset.k]; });
+
+  // gallery
+  const gal = $('#pgallery');
+  gal.innerHTML = SCREENS.map((s,i)=>`<button type="button" class="g-item" data-i="${i}"><div class="fit" data-w="1100" data-h="660"><div class="inner">${s.html()}</div></div><div class="meta"><span class="n">${String(i+1).padStart(2,'0')}</span><h4>${s.t}</h4></div><p>${s.d}</p></button>`).join('');
+
+  $$('.fit').forEach(setupFit);
+
+  /* ---------- premium tour player ---------- */
+  const stage = $('#pstage'), track = $('#ptrack'), chaps = $('#pchapters'), pl = $('#pplayer');
+  const DUR = 6000;
+  stage.innerHTML = SCREENS.map((s,i)=>`<div class="layer${i===0?' on':''}">${s.html()}</div>`).join('') +
+    `<svg class="cursor" viewBox="0 0 24 24" style="top:40%;left:40%"><path d="M4 2l16 9-7 1.5L9.5 20z" fill="#1c2530" stroke="#fff" stroke-width="1.5"/></svg>
+     <div class="caption"><b></b><span></span></div>`;
+  setupFit(stage);
+  track.innerHTML = SCREENS.map((s,i)=>`<button type="button" aria-label="${s.t}"><i style="--p:0%"></i></button>`).join('');
+  chaps.innerHTML = SCREENS.map((s,i)=>`<button type="button">${s.t}</button>`).join('');
+  const layers = $$('.layer', stage), segs = $$('i', track), cursor = $('.cursor', stage), cap = $('.caption', stage);
+  let cur = 0, t0 = performance.now(), elapsed = 0, playing = !reduce, raf;
+
+  function moveCursorTo(i){
+    const s = SCREENS[i]; const layer = layers[i];
+    const target = layer.querySelector(`[data-nav="${s.k==='detail'?'docs':s.k}"]`);
+    if (!target) return;
+    const sc = stage.clientWidth / 1100;
+    const r = target.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+    cursor.style.left = (r.left - sr.left + r.width*0.35) + 'px';
+    cursor.style.top = (r.top - sr.top + r.height*0.4) + 'px';
+  }
+  function show(i){
+    cur = (i + SCREENS.length) % SCREENS.length;
+    layers.forEach((l,j)=>l.classList.toggle('on', j===cur));
+    $('b', cap).textContent = SCREENS[cur].t; $('span', cap).textContent = SCREENS[cur].d;
+    $$('button', chaps).forEach((b,j)=>b.setAttribute('aria-current', j===cur ? 'true':'false'));
+    segs.forEach((s,j)=>s.style.setProperty('--p', j<cur ? '100%' : '0%'));
+    elapsed = 0; t0 = performance.now();
+    requestAnimationFrame(()=>moveCursorTo(cur));
+  }
+  function setPlaying(p){
+    playing = p; t0 = performance.now() - elapsed;
+    const b = $('[data-toggle]', pl);
+    b.setAttribute('aria-label', p ? 'إيقاف مؤقت' : 'تشغيل');
+    $('use', b).setAttribute('href', p ? '#i-pause' : '#i-play');
+  }
+  function tick(now){
+    if (playing && pl._visible === false){ t0 = now - elapsed; }
+    else if (playing){
+      elapsed = now - t0;
+      const p = Math.min(100, elapsed / DUR * 100);
+      segs[cur].style.setProperty('--p', p + '%');
+      if (elapsed > DUR - 1300 && !cursor._moved){ cursor._moved = true; moveCursorTo((cur+1)%SCREENS.length); cursor.classList.remove('click'); setTimeout(()=>{cursor.classList.add('click');}, 900); }
+      if (elapsed >= DUR){ cursor._moved = false; show(cur+1); }
+      const total = Math.round((cur*DUR + elapsed)/1000);
+      $('[data-time]', pl).textContent = `${Math.floor(total/60)}:${String(total%60).padStart(2,'0')} / 1:00`;
+    }
+    raf = requestAnimationFrame(tick);
+  }
+  $('[data-toggle]', pl).addEventListener('click', ()=>setPlaying(!playing));
+  $$('button', track).forEach((b,i)=>b.addEventListener('click', ()=>{ cursor._moved=false; show(i); }));
+  $$('button', chaps).forEach((b,i)=>b.addEventListener('click', ()=>{ cursor._moved=false; show(i); }));
+  $$('.g-item', gal).forEach(b=>b.addEventListener('click', ()=>{ cursor._moved=false; show(+b.dataset.i); setPlaying(false); pl.scrollIntoView({behavior: reduce?'auto':'smooth', block:'center'}); }));
+  show(0); setPlaying(playing); raf = requestAnimationFrame(tick);
+  addEventListener('resize', ()=>moveCursorTo(cur));
+
+  /* ---------- kaslan video ---------- */
+  const kp = $('#kplayer'), kin = $('[data-k="video"]', kp);
+  const KSTEPS = 14000;
+  let kPlaying = !reduce, kStart = performance.now(), kEl = 0, kLastStep = -1;
+  const script = [
+    [0, () => { kin.innerHTML = kpanel({outs:[], rpts:[], sync:false}); }],
+    [1500, () => $('[data-m="0"]', kin).classList.add('on')],
+    [2400, () => $('[data-c="pdf"]', kin).classList.add('on')],
+    [3100, () => $('[data-c="xls"]', kin).classList.add('on')],
+    [3800, () => $('[data-c="vs"]', kin).classList.add('on')],
+    [4400, () => $('[data-c="vp"]', kin).classList.add('on')],
+    [5200, () => $('.sw.gold', kin).classList.add('on')],
+    [6200, () => { $('[data-go]', kin).classList.add('dis'); $('[data-stop]', kin).classList.add('act'); $('[data-log]', kin).innerHTML = '[10:41:02] جلب قائمة المستندات: 1,248'; }],
+    [7000, () => setProg(22)], [8000, () => setProg(48)], [9000, () => setProg(71)], [10000, () => setProg(93)],
+    [11000, () => { setProg(100); $('[data-log]', kin).innerHTML += '\n[10:42:15] <b>✓</b> تم: PDF (ZIP) + ملخص Excel + تقريرين\n[10:42:16] <b>✓</b> حُفظت 1,248 وثيقة في premium'; $('[data-go]', kin).classList.remove('dis'); $('[data-stop]', kin).classList.remove('act'); }]
+  ];
+  function setProg(p){ $('[data-bar]', kin).style.width = p+'%'; $('[data-count]', kin).textContent = `${Math.round(1248*p/100).toLocaleString('en-US')} / 1,248 (${p}%)`; if (p<100) $('[data-log]', kin).innerHTML = `[10:41:02] جلب قائمة المستندات: 1,248\n[10:41:${String(10+Math.round(p/2)).padStart(2,'0')}] PDF: ${Math.round(1248*p/100)} / 1,248`; }
+  function kRender(ms){
+    // replay all steps up to ms (so seeking/looping is consistent)
+    let idx = -1; script.forEach((s,i)=>{ if (s[0] <= ms) idx = i; });
+    if (idx < kLastStep) kLastStep = -1;
+    for (let i = kLastStep + 1; i <= idx; i++) script[i][1]();
+    kLastStep = idx;
+  }
+  function ktick(now){
+    if (kPlaying && kp._visible === false){ kStart = now - kEl; }
+    else if (kPlaying){
+      kEl = now - kStart;
+      if (kEl >= KSTEPS){ kStart = now; kEl = 0; kLastStep = -1; }
+      kRender(kEl);
+      $('.track i', kp).style.setProperty('--p', (kEl/KSTEPS*100)+'%');
+      const s = Math.floor(kEl/1000); $('[data-time]', kp).textContent = `0:${String(s).padStart(2,'0')} / 0:14`;
+    }
+    requestAnimationFrame(ktick);
+  }
+  function kSet(p){ kPlaying = p; kStart = performance.now() - kEl; const b = $('[data-toggle]', kp); b.setAttribute('aria-label', p?'إيقاف مؤقت':'تشغيل'); $('use', b).setAttribute('href', p?'#i-pause':'#i-play'); }
+  $('[data-toggle]', kp).addEventListener('click', ()=>kSet(!kPlaying));
+  $('.track button', kp).addEventListener('click', ()=>{ kEl = 0; kLastStep = -1; kStart = performance.now(); kSet(true); });
+  if (reduce) { kRender(KSTEPS); kEl = KSTEPS - 1; } else kRender(0);
+  kSet(kPlaying); requestAnimationFrame(ktick);
+
+  // pause off-screen players to save CPU
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver(es => es.forEach(e => { e.target._visible = e.isIntersecting; }), {threshold:.2});
+    io.observe(pl); io.observe(kp);
+  }
+
+  /* ---------- copy email ---------- */
+  $('#copy').addEventListener('click', async (e) => {
+    const b = e.currentTarget;
+    try { await navigator.clipboard.writeText($('#email').textContent.trim()); b.textContent = 'تم النسخ'; }
+    catch { const r = document.createRange(); r.selectNodeContents($('#email')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'انسخ المحدد'; }
+    setTimeout(()=>{ b.textContent = 'نسخ'; }, 2000);
+  });
+})();
+</script>
 </body>
 </html>
