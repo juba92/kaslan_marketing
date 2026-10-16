@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>كسلان — تنزيل وتحليل فواتير المنظومة الضريبية المصرية</title>
-<meta name="description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF وExcel وJSON) مع تقارير الضرائب، وتحلّلها في لوحة «كسلان premium»: ضريبة القيمة المضافة، المطابقة، التكرارات، العملاء والموردين. تجربة مجانية 7 أيام.">
+<meta name="description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF وExcel وJSON) مع تقارير الضرائب، وتحلّلها في لوحة «كسلان premium»: ضريبة القيمة المضافة، المطابقة، التكرارات، العملاء والموردين. عرض الإطلاق: كسلان + premium مجاناً بالكامل لحد 31/12/2026، تواصل معنا الآن.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="كسلان — فواتيرك من المنظومة في دقيقة، وتحليلها كله في premium">
-<meta property="og:description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF وExcel وJSON) مع تقارير الضرائب، وتحلّلها في لوحة «كسلان premium»: ضريبة القيمة المضافة، المطابقة، التكرارات، العملاء والموردين. تجربة مجانية 7 أيام.">
+<meta property="og:description" content="إضافة كروم تنزّل فواتيرك وإيصالاتك من منظومة الفاتورة الإلكترونية المصرية بالجملة (PDF وExcel وJSON) مع تقارير الضرائب، وتحلّلها في لوحة «كسلان premium»: ضريبة القيمة المضافة، المطابقة، التكرارات، العملاء والموردين. عرض الإطلاق: كسلان + premium مجاناً بالكامل لحد 31/12/2026، تواصل معنا الآن.">
 <meta property="og:image" content="icons/icon128.png">
 <meta property="og:locale" content="ar_EG">
 <meta name="theme-color" content="#0e6b66">
@@ -56,6 +56,25 @@ button{font:inherit;color:inherit}
 
 .wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
 section{padding-block:clamp(56px,8vw,104px)}
+
+/* launch offer */
+.launch{background:linear-gradient(90deg,#0a4f4b,#13302e 55%,#0a4f4b);color:#eef3ef;border-bottom:1px solid color-mix(in srgb,var(--gold) 55%,transparent)}
+.launch .in{display:flex;align-items:center;justify-content:center;gap:10px 16px;flex-wrap:wrap;padding-block:9px;font-size:14.5px;text-align:center}
+.launch b{color:#ecd29b}
+.launch .pill{font:700 12px/1 var(--body);padding:5px 10px;border-radius:999px;background:#d7a95c;color:#13302e;display:inline-flex;gap:6px;align-items:center}
+.launch .pill i{width:7px;height:7px;border-radius:50%;background:#13302e;animation:blink 1.4s ease-in-out infinite}
+.launch a.go{color:#13302e;background:#ecd29b;font-weight:700;font-size:13.5px;padding:6px 14px;border-radius:999px;text-decoration:none;white-space:nowrap}
+.launch a.go:hover{background:#fff}
+@keyframes blink{50%{opacity:.25}}
+.offer{position:relative;overflow:hidden;border:1.5px solid var(--gold);border-radius:20px;padding:clamp(18px,3vw,28px);background:linear-gradient(135deg,var(--gold-soft),var(--surface));display:grid;grid-template-columns:auto 1fr auto;gap:18px 24px;align-items:center;margin-bottom:22px}
+.offer .big{font:700 clamp(2rem,1.5rem+2vw,3.2rem)/1 var(--mono);color:var(--gold);direction:ltr;text-align:center}
+.offer .big small{display:block;font:600 12.5px var(--body);color:var(--muted);direction:rtl;margin-top:6px}
+.offer h3{font-size:clamp(1.2rem,1.05rem+.6vw,1.6rem)}
+.offer p{margin:6px 0 0;color:var(--muted);font-size:15px}
+@media (max-width:760px){.offer{grid-template-columns:1fr;text-align:center}.offer .btn{justify-self:center}}
+.hero-offer{margin-top:20px;border:1.5px solid var(--gold);background:linear-gradient(135deg,var(--gold-soft),transparent);border-radius:14px;padding:14px 16px;max-width:54ch;font-size:15px}
+.hero-offer b{color:var(--gold)}
+.cta .offer-line{display:inline-flex;gap:8px;align-items:center;margin-top:16px;padding:8px 14px;border-radius:12px;border:1px solid color-mix(in srgb,var(--gold) 60%,transparent);background:color-mix(in srgb,var(--gold) 16%,transparent);color:#ecd29b;font-weight:700;font-size:14.5px}
 
 /* header */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -318,6 +337,8 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
+<div class="launch" role="note"><div class="wrap in"><span class="pill"><i></i>عرض الإطلاق</span><span><b>كسلان + premium مجاناً بالكامل</b> لحد 31/12/2026 لكل من يتواصل معانا الآن</span><a class="go" href="#contact">فعّل عرضك</a></div></div>
+
 <header class="top">
   <div class="wrap bar">
     <a class="brand" href="#top"><span class="logo">ك</span>كسلان</a>
@@ -342,10 +363,10 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
       <p class="lede">كسلان بينزّل كل فواتيرك وإيصالاتك بالجملة (PDF وExcel وJSON) وتقارير الضرائب الجاهزة، ثم يحوّلها للوحة تحليل كاملة: ضريبة القيمة المضافة، المطابقة مع دفاترك، التكرارات، العملاء والموردين، والإقفال الشهري. كله جوّه متصفحك.</p>
       <div class="ctas">
         <a class="btn" href="https://chromewebstore.google.com/detail/hiigmlbiohnkaldfmflmdpmeflhjmofb" target="_blank" rel="noopener"><svg width="16" height="16"><use href="#i-down"/></svg>أضف كسلان إلى Chrome</a>
-        <a class="btn ghost" href="#contact">اطلب تجربة مجانية 7 أيام</a>
+        <a class="btn" style="background:var(--gold);border-color:var(--gold);color:#fff" href="#contact"><svg width="16" height="16"><use href="#i-clock"/></svg>فعّل عرض الإطلاق مجاناً</a>
         <a class="btn ghost" href="#premium"><svg width="16" height="16"><use href="#i-play"/></svg>شاهد جولة premium</a>
       </div>
-      <p class="trial-note"><svg width="16" height="16"><use href="#i-clock"/></svg>التجربة المجانية تشمل أداة التنزيل والتقارير لمدة 7 أيام. لوحة «كسلان premium» متاحة بالاشتراك فقط، وتقدر تشوفها كاملة في الجولة تحت.</p>
+      <p class="hero-offer"><b>🎁 عرض الإطلاق:</b> تواصل معانا الآن وبتاخد وصول كامل لـ<b>كسلان + premium مجاناً</b> لحد <b>31/12/2026</b>، من غير بطاقة ولا التزام. العرض لفترة محدودة، فالأحسن تبعتلنا رقمك الضريبي دلوقتي.</p>
     </div>
     <div>
       <div class="frame">
@@ -363,7 +384,7 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
       <div><b>6</b><span>صيغ تنزيل</span></div>
       <div><b>6</b><span>تقارير Excel ضريبية</span></div>
       <div><b>12</b><span>صفحة تحليل في premium</span></div>
-      <div><b>7</b><span>أيام تجربة مجانية</span></div>
+      <div><b>31.12</b><span>وصول كامل مجاني لحد 2026</span></div>
       <div><b>0</b><span>خوادم تشوف بياناتك</span></div>
     </div>
   </div>
@@ -388,7 +409,7 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
 <section id="kaslan" style="padding-top:0">
   <div class="wrap">
     <div class="head">
-      <span class="eyebrow">أداة التنزيل · ضمن التجربة المجانية</span>
+      <span class="eyebrow">أداة التنزيل · مجانية في عرض الإطلاق</span>
       <h2>كل فواتيرك وتقاريرك من المنظومة، بالشكل اللي محتاجه بالظبط</h2>
       <p>لوحة «كسلان» بتظهر جوّه منظومة الفاتورة الإلكترونية نفسها. في ست خطوات بتختار إيه اللي ينزل، وبأي صيغة، وبأي أسماء ملفات، وكسلان يعمل الباقي.</p>
     </div>
@@ -444,9 +465,9 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
         <ul class="feat-list">
           <li><span class="ic"><svg width="18" height="18"><use href="#i-layers"/></svg></span><div><b>الوثائق والإيصالات</b><span>مبيعات ومشتريات، بكل أنواعها: فواتير، إشعارات دائنة ومدينة، وإيصالات.</span></div></li>
           <li><span class="ic"><svg width="18" height="18"><use href="#i-down"/></svg></span><div><b>آلاف الوثائق مرة واحدة</b><span>بدل ما تفتح كل فاتورة وتنزّلها لوحدها.</span></div></li>
-          <li><span class="ic"><svg width="18" height="18"><use href="#i-clock"/></svg></span><div><b>جرّبها مجاناً 7 أيام</b><span>كل خطوات الأداة متاحة في التجربة.</span></div></li>
+          <li><span class="ic"><svg width="18" height="18"><use href="#i-clock"/></svg></span><div><b>مجاناً لحد 31/12/2026</b><span>كل خطوات الأداة متاحة في عرض الإطلاق، ومعاها premium.</span></div></li>
         </ul>
-        <div class="ctas"><a class="btn" href="#contact">اطلب تجربتك المجانية</a></div>
+        <div class="ctas"><a class="btn" href="#contact">فعّل عرض الإطلاق</a></div>
       </div>
       <div>
         <div class="player" id="kplayer">
@@ -468,7 +489,7 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
     <div class="head">
       <span class="eyebrow">كسلان premium</span>
       <h2>لوحة المحاسب الكاملة، جوّه الإضافة نفسها</h2>
-      <p>كل وثيقة بتتزامن من المنظومة بتتحفظ في قاعدة بيانات محلية في متصفحك، وتشغّل 12 صفحة تحليل. premium مش ضمن التجربة المجانية، فدي جولة كاملة في كل شاشة قبل ما تشترك.</p>
+      <p>كل وثيقة بتتزامن من المنظومة بتتحفظ في قاعدة بيانات محلية في متصفحك، وتشغّل 12 صفحة تحليل. premium مضمّنة مجاناً في عرض الإطلاق: اطلب التفعيل وجرّبها على بياناتك الحقيقية، أو شوف الجولة الكاملة في كل شاشة الأول.</p>
     </div>
 
     <div class="player" id="pplayer">
@@ -490,11 +511,16 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">الاشتراك</span>
-      <h2>ابدأ بالأداة، وكبّر لـpremium لما تحتاج التحليل</h2>
+      <h2>عرض الإطلاق: الاتنين مجاناً، جرّب كل حاجة</h2>
+    </div>
+    <div class="offer">
+      <div class="big">31.12<small>وصول كامل لحد 2026</small></div>
+      <div><h3>🎁 عرض الإطلاق: كسلان + premium مجاناً</h3><p>كل من يتواصل معانا دلوقتي بياخد ترخيص كامل لأداة التنزيل ولوحة premium بكل صفحاتها الـ12، بدل تجربة أسبوع. من غير بطاقة ولا التزام. العرض لفترة محدودة.</p></div>
+      <a class="btn" style="background:var(--gold);border-color:var(--gold);color:#fff" href="#contact">اطلب التفعيل الآن</a>
     </div>
     <div class="tiers">
       <div class="tier">
-        <span class="tag">تجربة مجانية 7 أيام</span>
+        <span class="tag">مجاناً في عرض الإطلاق</span>
         <h3>كسلان</h3>
         <ul>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>تنزيل بالجملة بست صيغ</li>
@@ -504,7 +530,7 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
         </ul>
       </div>
       <div class="tier pro">
-        <span class="tag">بالاشتراك فقط</span>
+        <span class="tag">premium مجاناً في عرض الإطلاق</span>
         <h3>كسلان + premium</h3>
         <ul>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>كل مزايا كسلان</li>
@@ -538,9 +564,10 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
   <div class="wrap">
     <div class="head"><span class="eyebrow">الأسئلة الشائعة</span><h2>قبل ما تبدأ</h2></div>
     <div class="faq">
-      <details open><summary>إزاي أجرّب كسلان؟</summary><p class="a">ابعتلنا الرقم الضريبي (رقم التسجيل) بتاعك على المنظومة، وبنفعّلك تجربة مجانية 7 أيام من يوم الطلب. التفعيل بيشتغل تلقائياً في أول تحديث لصفحة المنظومة.</p></details>
-      <details><summary>ليه premium مش ضمن التجربة؟</summary><p class="a">premium بتزامن كل بيانات حسابك وتبني عليها التحليلات، فهي متاحة للمشتركين فقط. الجولة والصور فوق بتوريك كل شاشة فيها قبل ما تقرر.</p></details>
-      <details><summary>إيه اللي بيحصل بعد ما التجربة تخلص؟</summary><p class="a">الأداة بتظهر رسالة إن الترخيص انتهى، وتقدر تتواصل معانا للاشتراك. ملفاتك اللي نزّلتها بتفضل على جهازك.</p></details>
+      <details open><summary>إزاي أجرّب كسلان؟</summary><p class="a">ابعتلنا الرقم الضريبي (رقم التسجيل) بتاعك على المنظومة، وبنفعّلك عرض الإطلاق: وصول كامل لكسلان وpremium مجاناً لحد 31/12/2026. التفعيل بيشتغل تلقائياً في أول تحديث لصفحة المنظومة.</p></details>
+      <details><summary>هل premium داخلة في العرض؟</summary><p class="a">أيوه. في عرض الإطلاق بتاخد كسلان وpremium بكل صفحاتها الـ12 مجاناً، من غير أي رسوم إضافية. بتزامن بياناتك وتشوف التحليل على فواتيرك أنت.</p></details>
+      <details><summary>العرض لحد إمتى؟</summary><p class="a">عرض الإطلاق لفترة محدودة، وأي ترخيص بنفعّله بيشتغل لحد 31/12/2026. الأحسن تتواصل معانا دلوقتي عشان تبدأ تستفيد من أول يوم.</p></details>
+      <details><summary>إيه اللي بيحصل بعد ما الترخيص ينتهي؟</summary><p class="a">الأداة بتظهر رسالة إن الترخيص انتهى، وتقدر تتواصل معانا للاشتراك. ملفاتك اللي نزّلتها بتفضل على جهازك.</p></details>
       <details><summary>إزاي أثبّت كسلان؟</summary><p class="a">افتح <a href="https://chromewebstore.google.com/detail/hiigmlbiohnkaldfmflmdpmeflhjmofb" target="_blank" rel="noopener">صفحة كسلان على متجر كروم</a> بمتصفح Google Chrome، واضغط «إضافة إلى Chrome». التحديثات بتوصلك تلقائياً.</p></details>
       <details><summary>محتاج أركّب برنامج؟</summary><p class="a">لأ. مفيش برنامج يتركّب على الجهاز. كسلان إضافة كروم بس، ولوحة premium بتفتح جوّه الإضافة نفسها. بتضغط «إضافة إلى Chrome» من متجر كروم وتشتغل على طول.</p></details>
       <details><summary>بتشتغل على أي متصفح؟</summary><p class="a">كسلان إضافة كروم، ومتجرّبة على Google Chrome.</p></details>
@@ -556,17 +583,18 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
     <div class="cta">
       <div>
         <span class="eyebrow">تواصل معانا</span>
-        <h2>ابدأ تجربتك المجانية النهارده</h2>
-        <p class="lead">ابعتلنا الرقم الضريبي (رقم التسجيل) بتاعك على منظومة الفاتورة الإلكترونية، ولو عايز premium قولّنا في نفس الرسالة.</p>
+        <h2>فعّل عرض الإطلاق النهارده</h2>
+        <p class="lead">ابعتلنا الرقم الضريبي (رقم التسجيل) بتاعك على منظومة الفاتورة الإلكترونية، وبتاخد كسلان + premium مجاناً لحد 31/12/2026.</p>
+        <span class="offer-line">🎁 عرض الإطلاق لفترة محدودة، ماتستناش</span>
         <ol class="cta-steps">
           <li><a href="https://chromewebstore.google.com/detail/hiigmlbiohnkaldfmflmdpmeflhjmofb" target="_blank" rel="noopener" style="color:inherit;font-weight:700">ثبّت كسلان من متجر كروم</a> (إضافة إلى Chrome)</li>
           <li>ابعت رقمك الضريبي (رقم التسجيل) على واتساب</li>
           <li>بنفعّل حسابك في أقرب وقت</li>
-          <li>حدّث صفحة المنظومة وجرّب 7 أيام مجاناً</li>
+          <li>حدّث صفحة المنظومة وجرّب كسلان + premium مجاناً</li>
         </ol>
       </div>
       <div class="contact">
-        <a class="cc wa" href="https://wa.me/4915785089795?text=%D8%B7%D9%84%D8%A8%20%D8%AA%D8%AC%D8%B1%D8%A8%D8%A9%20%D9%83%D8%B3%D9%84%D8%A7%D9%86%0A%D8%A7%D9%84%D8%B1%D9%82%D9%85%20%D8%A7%D9%84%D8%B6%D8%B1%D9%8A%D8%A8%D9%8A%20%28%D8%B1%D9%82%D9%85%20%D8%A7%D9%84%D8%AA%D8%B3%D8%AC%D9%8A%D9%84%29%3A%20" target="_blank" rel="noopener">
+        <a class="cc wa" href="https://wa.me/4915785089795?text=%D8%B7%D9%84%D8%A8%20%D8%B9%D8%B1%D8%B6%20%D8%A7%D9%84%D8%A5%D8%B7%D9%84%D8%A7%D9%82%3A%20%D9%83%D8%B3%D9%84%D8%A7%D9%86%20%2B%20premium%20%D9%85%D8%AC%D8%A7%D9%86%D8%A7%D9%8B%0A%D8%A7%D9%84%D8%B1%D9%82%D9%85%20%D8%A7%D9%84%D8%B6%D8%B1%D9%8A%D8%A8%D9%8A%20(%D8%B1%D9%82%D9%85%20%D8%A7%D9%84%D8%AA%D8%B3%D8%AC%D9%8A%D9%84)%3A%20" target="_blank" rel="noopener">
           <span class="ico"><svg width="28" height="28"><use href="#i-wa"/></svg></span>
           <span class="t">واتساب <span class="badge">الأسرع في الرد</span></span>
           <span class="go"><svg width="18" height="18"><use href="#i-arrow"/></svg></span>
