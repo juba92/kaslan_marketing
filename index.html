@@ -512,8 +512,8 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
           <li><svg width="14" height="14"><use href="#i-check"/></svg>الوثائق والمبيعات والمشتريات بفلاتر كاملة</li>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>ضريبة القيمة المضافة شهرياً، ومطابقة مع دفاترك</li>
           <li><svg width="14" height="14"><use href="#i-check"/></svg>كشف التكرارات، العملاء والموردين بفلتر السنة</li>
-          <li><svg width="14" height="14"><use href="#i-check"/></svg>الإقفال الشهري، ونماذج مبيعات ومشتريات جاهزة للرفع على المنظومة</li>
-          <li><svg width="14" height="14"><use href="#i-check"/></svg>«رفع مستندات»: جهّز فواتير كثيرة من ملف Excel وراجعها قبل الرفع (الإرسال المباشر قريباً)</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>الإقفال الشهري، ونموذج المبيعات جاهز بصيغة المنظومة</li>
+          <li><svg width="14" height="14"><use href="#i-check"/></svg>«رفع مستندات» (قريباً): رفع نموذج المبيعات إلى المنظومة كمسودة، تراجعها أنت وترسلها بنفسك</li>
         </ul>
       </div>
     </div>
@@ -544,7 +544,7 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
       <details><summary>إزاي أثبّت كسلان؟</summary><p class="a">افتح <a href="https://chromewebstore.google.com/detail/hiigmlbiohnkaldfmflmdpmeflhjmofb" target="_blank" rel="noopener">صفحة كسلان على متجر كروم</a> بمتصفح Google Chrome، واضغط «إضافة إلى Chrome». التحديثات بتوصلك تلقائياً.</p></details>
       <details><summary>محتاج أركّب برنامج؟</summary><p class="a">لأ. مفيش برنامج يتركّب على الجهاز. كسلان إضافة كروم بس، ولوحة premium بتفتح جوّه الإضافة نفسها. بتضغط «إضافة إلى Chrome» من متجر كروم وتشتغل على طول.</p></details>
       <details><summary>بتشتغل على أي متصفح؟</summary><p class="a">كسلان إضافة كروم، ومتجرّبة على Google Chrome.</p></details>
-      <details><summary>بترفع الفواتير على المنظومة؟</summary><p class="a">حالياً بتنزّل وتحلل. صفحة «رفع مستندات» في premium بتجهّز المستندات من Excel وتفحصها وتصدّرها بصيغة المنظومة. الإرسال المباشر (اللي بيحتاج التوقيع بالتوكن) لسه مش متاح، وهو قريب.</p></details>
+      <details><summary>بترفع الفواتير على المنظومة؟</summary><p class="a">حالياً بتنزّل وتحلل. وقريباً هتتوفر صفحة «رفع مستندات» في premium: بتفحص نموذج المبيعات وبترفعه للمنظومة كمسودة، وإنت اللي بتراجعها وبتبعتها بنفسك من المنظومة.</p></details>
       <details><summary>بيدعم الإيصالات والإشعارات الدائنة؟</summary><p class="a">أيوه. بينزّل الوثائق والإيصالات، وpremium بتحسب الإشعارات الدائنة والمرتجعات بالسالب في كل الإجماليات، وبتعتمد الوثائق الصحيحة (Valid) فقط.</p></details>
       <details><summary>فواتيري آمنة؟</summary><p class="a">بتتخزن في متصفحك بس (IndexedDB)، ومفيش نسخة منها بتتبعت لأي مكان.</p></details>
     </div>
@@ -874,9 +874,9 @@ footer .fine{margin-top:14px;font-size:12.5px;max-width:78ch;line-height:1.7}
      html: () => shot('sup', 'sup', '#/suppliers')},
     {k:'closing', t:'الإقفال الشهري', d:'حزمة شهرك كاملة في ضغطة: Excel لكل تقرير، وملخص جاهز للطباعة، ونقاط المراجعة.',
      html: () => shot('closing', 'closing', '#/closing')},
-    {k:'reports', t:'مركز التقارير', d:'كل التقارير من مكان واحد، ومنها نماذج مبيعات ومشتريات مطابقة لقالب الرفع على المنظومة.',
+    {k:'reports', t:'مركز التقارير', d:'كل التقارير من مكان واحد، ومنها نموذج المبيعات المطابق لنموذج المنظومة.',
      html: () => shot('reports', 'reports', '#/reports')},
-    {k:'bulk', t:'رفع مستندات', d:'جهّز فواتير وإشعارات كثيرة من ملف Excel، وكسلان يفحص كل صف ويحسب الإجماليات والضرائب بقواعد المنظومة. الإرسال المباشر قريباً.',
+    {k:'bulk', t:'رفع مستندات (قريباً)', d:'قريباً: رفع نموذج المبيعات إلى المنظومة كمسودة. كسلان يفحص كل صف ويحسب الإجماليات والضرائب بقواعد المنظومة، وإنت تراجع المسودة وترسلها بنفسك.',
      html: () => shot('bulk', 'bulk', '#/bulk-upload')},
   ];
 
